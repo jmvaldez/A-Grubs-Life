@@ -1,0 +1,18 @@
+{
+    "Genesis": {
+        "north": "",
+        "south": "",
+        "east": "",
+        "west": "",
+        "enemy": "none",
+        "items": [
+            {
+                "Leaf": {
+                    "health": 10,
+                    "count": 3
+                }
+            }
+        ],
+        "Description": ""
+    }
+}
