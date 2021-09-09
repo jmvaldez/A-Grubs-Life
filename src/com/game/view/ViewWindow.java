@@ -10,11 +10,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 
-public class ViewWindow {
+public class ViewWindow  {
 
     private JFrame window;
     private JPanel statPanel;
@@ -42,6 +43,7 @@ public class ViewWindow {
 
         setUpComponents();
     }
+
     public void welcomeMessage(){
         this.instructions = new JPanel();
         this.instDesc = new JLabel();
@@ -60,13 +62,42 @@ public class ViewWindow {
                 "<br>" +
                 "  <li>Level three is to fight the boss (squirrel) and save your mate. </li>\n" +
                 "<br>" +
+                "  <li>You are a Butterfly in Level three. You can use acid attacks. </li>\n" +
+                "<br>" +
                 "  <li>For easy game play enter (go godmode) </li>\n" +
+
+                "<br>" +
+                "  <li>Available Action commands are 'GO, EAT, HIDE, HELP, LEAVE, ATTACK, RUN, COMBAT, START, GODMODE'.  </li>\n" +
+                "<br>" +
+                "  <li>Available Direction commands are 'East,West,South and West'.  </li>\n" +
+                "<br>" +
+                "  <li>Available Animal Name commands are 'ANT, SPIDER, BIRD, RAT, SQUIRREL, BEE, CATERPILLAR, FLIES'.  </li>\n" +
+                "<br>" +
+                "  <li>Available Direction commands are 'East,West,South and West'.  </li>\n" +
+                "<br>" +
+                "  <li>If health goes below zero, you will die </li>\n" +
+                "<br>" +
+                "  <li>During Attacks if your Strength is higher than Aggressive Enemy's strength, You can run away from fight. </li>\n" +
+                "<br>" +
+                "  <li>During Attacks if your Strength is higher than  Not Aggressive Enemy's strength, You can run away from fight. </li>\n" +
+                "<br>" +
+                "  <li>During Attacks if your Strength is lower than Not Aggressive Enemy's strength, Enemy will give up its pursuit. </li>\n" +
+                "<br>" +
+                "  <li>During Attacks if your Strength is lower than Not Aggressive Enemy's strength, Enemy will give up its pursuit. </li>\n" +
+
+
                 "</ol>  \n" +
                 "\n" +
                 "</body>\n" +
                 "</html>");
         instructions.add(instDesc);
     }
+
+
+
+
+
+
     public  String getInput(){
         return this.input;
     }
