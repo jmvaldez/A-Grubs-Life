@@ -112,13 +112,14 @@ public class ViewWindow {
         this.caterpillarStatLabel = new JLabel();
         this.enemyStatLabel = new JLabel();
         statPanel.setLayout(new BorderLayout());
-        statPanel.setPreferredSize(new Dimension(300, 800));
 //        statPanel.setLayout(new GridLayout(0, 1));
         statPanel.setBackground(new Color(0, 0, 0));
+        statPanel.setPreferredSize(new Dimension(300,800));
         setCaterpillarStatLabel();
         setEnemyStatLabel();
         statPanel.add(caterpillarStatLabel,BorderLayout.NORTH);
         statPanel.add(enemyStatLabel, BorderLayout.SOUTH);
+
         this.window.add(statPanel, BorderLayout.EAST);
 
 
@@ -208,7 +209,6 @@ public class ViewWindow {
     private void setUpDescriptionPanel() {
         JPanel descriptionPanel = new JPanel();
         this.descriptionLabel = new JLabel();
-        descriptionPanel.setPreferredSize(new Dimension(700, 600));
         descriptionPanel.setBackground(new Color(255, 255, 255));
         descriptionPanel.setBorder(BorderFactory.createLineBorder(new Color(110, 16, 5)));
         setDiscriptionLabel();
@@ -241,6 +241,7 @@ public class ViewWindow {
 
         locationPanel.setLayout(new BorderLayout());
         locationPanel.setBackground(new Color(0, 0, 0));
+        locationPanel.setPreferredSize(new Dimension(300,800));
 
 
         setMapPanel(locationPanel);
