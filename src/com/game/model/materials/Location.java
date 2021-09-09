@@ -51,19 +51,19 @@ public class Location {
     }
 
     public String getNorth() {
-        return north;
+        return this.north;
     }
 
     public String getSouth() {
-        return south;
+        return this.south;
     }
 
     public String getEast() {
-        return east;
+        return this.east;
     }
 
     public String getWest() {
-        return west;
+        return this.west;
     }
 
     public Enemy getEnemy() {

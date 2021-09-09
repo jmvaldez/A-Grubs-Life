@@ -1,4 +1,4 @@
             North
               %s
               ||
-East        Current
+East     Current

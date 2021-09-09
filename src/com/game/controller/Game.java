@@ -41,7 +41,7 @@ public class Game {
     public void start(){
         setUpComponents();
 //      Hongyi: correct autometic health increase and move the refresh window function to input panel
-//      run();
+//        run();
     }
 
     //This method is designed to instantiate the necessary fields of a Game object.
@@ -58,8 +58,9 @@ public class Game {
     private void run(){
         int counter = 0;
         while (true){
-                viewWindow.updateCaterpillarStatus();
-                caterpillar.healthRegenerator(counter++);
+            viewWindow.updateCaterpillarStatus();
+            caterpillar.healthRegenerator(counter++);
+            System.out.println("1");
         }
 
     }
