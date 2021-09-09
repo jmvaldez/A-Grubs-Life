@@ -1,0 +1,115 @@
+{
+  "Locations": {
+    "Genesis": {
+      "north": "Woods",
+      "south": "Lake",
+      "east": "Web",
+      "west": "Hole",
+      "enemy": "Fly",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "You are in your birthplace... There are some leaves on the ground.. you also see a bird's nest close by"
+    },
+    "Woods": {
+      "south": "Genesis",
+      "enemy": "Rat",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "THE WOODS ARE DARK [bird's nest close by]"
+    },
+    "Hole": {
+      "east": "Genesis",
+      "enemy": "none",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "A DECREPIT HOLE TO HIDE IN"
+    },
+    "Lake": {
+      "north": "Genesis",
+      "enemy": "Bird",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "IT APPEARS THE LAKE IS RISING YOU HAVE 10 SECONDS TO EVACUATE [bird's nest close by]"
+    },
+    "Web": {
+      "north": "Hill",
+      "east": "Flowers",
+      "west": "Genesis",
+      "enemy": "Spider",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "YOU ARE IN THE SPIDER'S DEN -AVOID TOUCHING THE WEBS!"
+    },
+    "Hill": {
+      "south": "Web",
+      "enemy": "Ant",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "I DON'T THINK THIS IS AN ORDINARY HILL -WATCH OUT FOR THE ANTS"
+    },
+    "Flowers": {
+      "north": "Boss Area",
+      "east": "Tree",
+      "west": "Web",
+      "enemy": "Bee",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "SMELLS LIKE FLOWERS BZZZZZZ"
+    },
+    "Tree": {
+      "west": "Flowers",
+      "enemy": "Squirrel",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "A big tree... seems suitable for settling down."
+    }
+  }
+}
