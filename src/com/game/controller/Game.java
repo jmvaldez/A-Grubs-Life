@@ -19,18 +19,29 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Game {
+
     private HashMap<String, Location> locations;
     private HashMap<String, Enemy> enemies;
-    private Caterpillar caterpillar;
-    private LogicEngine processor;
+    public static Caterpillar caterpillar;
+    private static LogicEngine processor;
     private ViewWindow viewWindow;
+
+    public static LogicEngine getProcessor() {
+        return processor;
+    }
+
+    public void setProcessor(LogicEngine processor) {
+        this.processor = processor;
+    }
+
     public Game() {
 
     }
     //This should be called by the client to start a new game.
     public void start(){
         setUpComponents();
-        run();
+//      Hongyi: correct autometic health increase and move the refresh window function to input panel
+//      run();
     }
 
     //This method is designed to instantiate the necessary fields of a Game object.
@@ -40,13 +51,12 @@ public class Game {
         this.caterpillar = new Caterpillar(100,0,0);
         this.processor = new LogicEngine(caterpillar,locations, enemies);
         this.caterpillar.setCurrentLocation(locations.get("GENESIS"));
-        this.viewWindow = new ViewWindow(caterpillar, processor);
+        this.viewWindow = new ViewWindow();
     }
     //This class controls the game loop. As the user inputs information the view will be updated.
     //I want an instructions panel to be read and you cant start the game until you hit
     private void run(){
         int counter = 0;
-        viewWindow.welcomeMessage();
         while (true){
                 viewWindow.updateCaterpillarStatus();
                 caterpillar.healthRegenerator(counter++);
