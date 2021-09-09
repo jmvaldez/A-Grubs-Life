@@ -28,13 +28,13 @@ public class Game {
 
     }
     //This should be called by the client to start a new game.
-    public void start(){
+    public void start() throws IOException {
         setUpComponents();
         run();
     }
 
     //This method is designed to instantiate the necessary fields of a Game object.
-    private void setUpComponents(){
+    private void setUpComponents() throws IOException {
         this.enemies = populateEnemies();
         this.locations = populateLocations();
         this.caterpillar = new Caterpillar(100,0,0);
@@ -44,7 +44,7 @@ public class Game {
     }
     //This class controls the game loop. As the user inputs information the view will be updated.
     //I want an instructions panel to be read and you cant start the game until you hit
-    private void run(){
+    private void run() throws IOException {
         int counter = 0;
         viewWindow.welcomeMessage();
         while (true){

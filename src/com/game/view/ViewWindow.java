@@ -9,8 +9,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -37,13 +36,15 @@ public class ViewWindow  {
     private JPanel instructions;
     private JLabel instDesc;
 
-    public ViewWindow(Caterpillar caterpillar, LogicEngine processor) {
+    public ViewWindow(Caterpillar caterpillar, LogicEngine processor) throws IOException {
         this.caterpillar = caterpillar;
         this.processor = processor;
 
         setUpComponents();
     }
 
+
+    /*
     public void welcomeMessage(){
         this.instructions = new JPanel();
         this.instDesc = new JLabel();
@@ -93,10 +94,26 @@ public class ViewWindow  {
         instructions.add(instDesc);
     }
 
+*/
+    public void welcomeMessage() throws  IOException{
+
+            this.instructions = new JPanel();
+            this.instDesc = new JLabel();
+            try {
+            File file = new File("Asset/Graphics/GameInstructions.txt");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String str;
+            while ((str = br.readLine()) != null) {
+              System.out.println (str);
+                instructions.add(instDesc);
+
+            }
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
 
 
-
-
+    }
 
     public  String getInput(){
         return this.input;
@@ -121,7 +138,7 @@ public class ViewWindow  {
                 "  </html>\n" );
     }
     //==================SETUP METHODS============================
-    private void setUpComponents(){
+    private void setUpComponents() throws IOException {
         welcomeMessage();
         setUpInputPanel();
         setUpStatPanel();
