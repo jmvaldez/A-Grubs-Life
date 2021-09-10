@@ -26,6 +26,7 @@ public class Game {
     private static LogicEngine processor;
     private ViewWindow viewWindow;
 
+
     public static LogicEngine getProcessor() {
         return processor;
     }
@@ -55,15 +56,15 @@ public class Game {
     }
     //This class controls the game loop. As the user inputs information the view will be updated.
     //I want an instructions panel to be read and you cant start the game until you hit
-    private void run(){
-        int counter = 0;
-        while (true){
-            viewWindow.updateCaterpillarStatus();
-            caterpillar.healthRegenerator(counter++);
-            System.out.println("1");
-        }
-
-    }
+//    private void run(){
+//        int counter = 0;
+//        while (true){
+//            viewWindow.updateCaterpillarStatus();
+//            caterpillar.healthRegenerator(counter++);
+//            System.out.println("1");
+//        }
+//
+//    }
 
     //This is a private helper method to read in all of the locations in a text file and parse them to ingame Location objects.
     private HashMap<String,Location> populateLocations(){

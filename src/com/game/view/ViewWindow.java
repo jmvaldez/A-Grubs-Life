@@ -50,7 +50,6 @@ public class ViewWindow {
 
     }
 
-
     private void setUpInputPanel() {
         JPanel inputPanel = new JPanel();
         this.lastMoveLabel = new JLabel();
@@ -463,6 +462,5 @@ public class ViewWindow {
         setMapLabel();
         this.window.repaint();
     }
-
 
 }

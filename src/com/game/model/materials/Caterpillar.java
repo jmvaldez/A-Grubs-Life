@@ -13,6 +13,18 @@ public class Caterpillar {
     private boolean hidden;
     private String lastAction;
 
+    private boolean isDead;
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
+
+
+
     public  Caterpillar(int health, int experience, int strength){
         this.health = health;
         this.experience = experience;
@@ -20,6 +32,7 @@ public class Caterpillar {
         this.hidden = false;
         this.lastAction = "";
         this.winner = false;
+        this.isDead = true;
     }
     public void setCurrentLocation(Location location){ //we should move this to the bottom
         this.currentLocation = location;
