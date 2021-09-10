@@ -1,0 +1,124 @@
+{
+  "Locations": {
+    "Genesis": {
+      "north": "Woods",
+      "south": "Lake",
+      "east": "Web",
+      "west": "Hole",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "Hongyi is kewwlll You are in your birthplace... You don't see your mate. There are some leaves on the ground below a birds nest"
+    },
+    "Woods": {
+      "north": "DEAD_END",
+      "south": "Genesis",
+      "east": "DEAD_END",
+      "west": "DEAD_END",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "THE WOODS ARE DARK [bird's nest close by]"
+    },
+    "Hole": {
+      "north": "DEAD_END",
+      "south": "DEAD_END",
+      "east": "Genesis",
+      "west": "DEAD_END",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "A DECREPIT HOLE TO HIDE IN"
+    },
+    "Lake": {
+      "north": "Genesis",
+      "south": "DEAD_END",
+      "east": "DEAD_END",
+      "west": "DEAD_END",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "IT APPEARS THE LAKE IS RISING YOU HAVE 10 SECONDS TO EVACUATE [bird's nest close by]"
+    },
+    "Web": {
+      "north": "Hill",
+      "south": "DEAD_END",
+      "east": "Flowers",
+      "west": "Genesis",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "YOU ARE IN THE SPIDER'S DEN -AVOID TOUCHING THE WEBS!"
+    },
+    "Hill": {
+      "north": "DEAD_END",
+      "south": "Web",
+      "east": "DEAD_END",
+      "west": "DEAD_END",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "I DON'T THINK THIS IS AN ORDINARY HILL -WATCH OUT FOR THE ANTS"
+    },
+    "Flowers": {
+      "north": "DEAD_END",
+      "south": "DEAD_END",
+      "east": "Tree",
+      "west": "Web",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "SMELLS LIKE FLOWERS BZZZZZZ"
+    },
+    "Tree": {
+      "north": "DEAD_END",
+      "south": "DEAD_END",
+      "east": "DEAD_END",
+      "west": "Flowers",
+      "items": [
+        {
+          "Leaf": {
+            "health": 10,
+            "count": 3
+          }
+        }
+      ],
+      "description": "A big tree... seems suitable for settling down."
+    }
+  }
+}

@@ -1,4 +1,4 @@
-package com.game.model.newengine;
+package main.java.com.game.model.newengine;
 
 import com.game.controller.Game;
 
