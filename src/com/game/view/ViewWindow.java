@@ -7,6 +7,10 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class ViewWindow  {
 
@@ -32,81 +36,6 @@ public class ViewWindow  {
     private JLabel currentRoomLabel;
     private JLabel emptyLabel;
 
-        instDesc.setText("<html>\n" +
-                "<body>\n" +
-                "\n" +
-                "<h2>Instructions</h2>\n" +
-                "\n" +
-                "<ol>\n" +
-                "  <li>You must enter a verb and a noun to direct the caterpillar. Ex. eat leaf</li>\n" +
-                "<br>" +
-                "  <li>Level one goal is to eat leaf and avoid enemies</li>\n" +
-                "<br>" +
-                "  <li>Level two is to fight enemies and befriend ants to gain experience (help ant). </li>\n" +
-                "<br>" +
-                "  <li>Level three is to fight the boss (squirrel) and save your mate. </li>\n" +
-                "<br>" +
-                "  <li>You are a Butterfly in Level three. You can use acid attacks. </li>\n" +
-                "<br>" +
-                "  <li>For easy game play enter (go godmode) </li>\n" +
-
-                "<br>" +
-                "  <li>Available Action commands are 'GO, EAT, HIDE, HELP, LEAVE, ATTACK, RUN, COMBAT, START, GODMODE'.  </li>\n" +
-                "<br>" +
-                "  <li>Available Direction commands are 'East,West,South and West'.  </li>\n" +
-                "<br>" +
-                "  <li>Available Animal Name commands are 'ANT, SPIDER, BIRD, RAT, SQUIRREL, BEE, CATERPILLAR, FLIES'.  </li>\n" +
-                "<br>" +
-                "  <li>Available Direction commands are 'East,West,South and West'.  </li>\n" +
-                "<br>" +
-                "  <li>If health goes below zero, you will die </li>\n" +
-                "<br>" +
-                "  <li>During Attacks if your Strength is higher than Aggressive Enemy's strength, You can run away from fight. </li>\n" +
-                "<br>" +
-                "  <li>During Attacks if your Strength is higher than  Not Aggressive Enemy's strength, You can run away from fight. </li>\n" +
-                "<br>" +
-                "  <li>During Attacks if your Strength is lower than Not Aggressive Enemy's strength, Enemy will give up its pursuit. </li>\n" +
-                "<br>" +
-                "  <li>During Attacks if your Strength is lower than Not Aggressive Enemy's strength, Enemy will give up its pursuit. </li>\n" +
-
-
-                "</ol>  \n" +
-                "\n" +
-                "</body>\n" +
-                "</html>");
-        instructions.add(instDesc);
-    }
-
-*/
-    public void welcomeMessage() throws  IOException{
-
-            this.instructions = new JPanel();
-            this.instDesc = new JLabel();
-            try {
-            File file = new File("Asset/Graphics/GameInstructions.txt");
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String str;
-            while ((str = br.readLine()) != null) {
-              System.out.println (str);
-                instructions.add(instDesc);
-
-            }
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-    public  String getInput(){
-        return this.input;
-    }
-    public void updateCaterpillarStatus(){
-            updateLastMove();
-            updateDescriptionPanel();
-            updateStatPanel();
-            this.window.repaint();
-    }
 
     public ViewWindow() {
         this.window = new JFrame("A Grub's Life.");
@@ -298,7 +227,7 @@ public class ViewWindow  {
         String location = Game.caterpillar.getCurrentLocation().getName().toLowerCase();
         String desc = Game.caterpillar.getCurrentLocation().getDescription().toLowerCase();
 
-//        descriptionLabel.setLocation(100,100);
+       descriptionLabel.setLocation(100,100);
         descriptionLabel.setText("<html> " +
                 "<style>" +
                 "p {padding-bottom: 280px }" +
@@ -307,6 +236,12 @@ public class ViewWindow  {
                 "<h1> " + location + "</h1> <br>" +
                 "<p> " + desc + "</p><br><br><br><br>" +
                 "  </html>\n");
+
+
+
+
+
+
 
     }
 
