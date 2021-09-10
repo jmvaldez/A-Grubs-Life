@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7ff032e-4422-426c-86ce-2155aeb171da" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/game/model/newengine/HandelUserInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/controller/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/engine/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/model/engine/CommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/engine/LogicEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/model/engine/LogicEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Caterpillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/model/materials/Caterpillar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/view/ViewWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/view/ViewWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/game/model/newengine/HandelUserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/model/newengine/HandelUserInput.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
