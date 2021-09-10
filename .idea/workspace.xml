@@ -5,24 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7cca432-aac2-4026-a46e-9424012b981d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/GrubsLife_Locations.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/controller/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/controller/GrubsLife_Locations.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/controller/enemies.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/enemies.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/controller/locations.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/locations.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/engine/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/CommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/engine/KeyWordIdentifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/KeyWordIdentifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/engine/LogicEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/LogicEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/engine/TextParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/TextParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Ant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Ant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Caterpillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Caterpillar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Combat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Combat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Leaf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Leaf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Location.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/view/ViewWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/view/ViewWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/controller/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/GrubsLife_Locations.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GrubsLife_Locations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/com/game/view/PanelTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

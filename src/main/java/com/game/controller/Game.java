@@ -35,12 +35,8 @@ public class Game {
         this.processor = processor;
     }
 
-    public Game() {
-
-    }
-
     //This should be called by the client to start a new game.
-    public void start(){
+    public void start() {
         setUpComponents();
 //      Hongyi: correct autometic health increase and move the refresh window function to input panel
 //        run();
@@ -52,7 +48,7 @@ public class Game {
         this.locations = populateLocations();
         this.caterpillar = new Caterpillar(100, 0, 0);
         this.processor = new LogicEngine(caterpillar, locations, enemies);
-        this.caterpillar.setCurrentLocation(locations.get("GENESIS"));
+        this.caterpillar.setCurrentLocation(locations.get("Genesis"));
         this.viewWindow = new ViewWindow();
     }
 
@@ -60,87 +56,53 @@ public class Game {
     //I want an instructions panel to be read and you cant start the game until you hit
     private void run() {
         int counter = 0;
-        while (true){
+        while (true) {
             viewWindow.updateCaterpillarStatus();
             caterpillar.healthRegenerator(counter++);
-            System.out.println("1");
         }
 
     }
 
-    //This is a private helper method to read in all of the locations in a text file and parse them to ingame Location objects.
+    // Returns a map of locations based on external Json file
     private HashMap<String, Location> populateLocations() {
         HashMap<String, Location> locations = new HashMap<>();
-        String[] locationFields;
-        ArrayList<String> rooms = new ArrayList<>();
-        ArrayList<String> descriptions = new ArrayList<>();
-        //                locationFields = myReader.nextLine().split(",");
-//
-//                Location loc = new Location(locationFields[0].trim(),locationFields[ 1].trim(), locationFields[ 2].trim(), locationFields[ 3].trim(), locationFields[4].trim(),locationFields[ 5].trim() );
-//                loc.setEnemy(enemies.get(locationFields[0].trim().toLowerCase(Locale.ROOT)));
-//                locations.put(locationFields[0].trim(), loc);
-//        File file = new File(getClass().getResource("src/com/game/locations.txt").toURI());
-//            Scanner myReader = new Scanner(file);
-//            while(myReader.hasNextLine()){
+
         try {
-            String file = "src/main/resources/GrubsLife_Locations.json";
-            JsonNode node = JsonReader.parse(JsonReader.readFileAsString(file));
+            String jsonLocationFile = "src/main/resources/GrubsLife_Locations.json";
+
+            // passing in the jsonLocationFile as a string to be parsed into a JsonNode
+            JsonNode node = JsonReader.parse(JsonReader.stringifyFile(jsonLocationFile));
+
 
             Iterator<Map.Entry<String, JsonNode>> nodes = node.get("Locations").fields();
-//            node.at("/Locations").fields().forEachRemaining(entry -> {
-//                System.out.println("Key --> " + entry.getKey() + "\nvalue --> " + entry.getValue());
-//            });
 
             while (nodes.hasNext()) {
                 Map.Entry<String, JsonNode> entry = (Map.Entry<String, JsonNode>) nodes.next();
-//                System.out.println("entry " + entry);
+
                 String roomNames = entry.getKey();
                 String roomDescriptions = entry.getValue().get("description").asText();
                 String north = entry.getValue().get("north").asText();
                 String south = entry.getValue().get("south").asText();
                 String east = entry.getValue().get("east").asText();
                 String west = entry.getValue().get("west").asText();
-                rooms.add(roomNames);
-                descriptions.add(roomDescriptions);
-                System.out.println("Key --> " + entry.getKey() + "\nvalue --> " + entry.getValue());
+
+                Location location = new Location(roomNames, roomDescriptions, north, south, east, west);
+                location.setEnemy(enemies.get(roomNames.toLowerCase()));
+                locations.put(roomNames, location);
 
             }
-            System.out.println(rooms);
-            System.out.println(descriptions);
-//-- old stuff start
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("locations.txt");
-            InputStreamReader myReader = new InputStreamReader(inputStream);
-            BufferedReader br = new BufferedReader(myReader);
-            String line = null;
-            while ((line = br.readLine()) != null) {
-                locationFields = line.split(",");
-
-                Location loc = new Location(locationFields[0].trim(), locationFields[1].trim(), locationFields[2].trim(), locationFields[3].trim(), locationFields[4].trim(), locationFields[5].trim());
-                // 2 = North, 3 = South, 4 = east, 5 = west
-                loc.setEnemy(enemies.get(locationFields[0].trim().toLowerCase(Locale.ROOT)));
-                locations.put(locationFields[0].trim(), loc);
-                //System.out.println("LOC " + locationFields[2].trim());
-            }
-            System.out.println(locations.toString());
-            br.close();
-            myReader.close();
-            inputStream.close();
-//--old stuff end
-
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
         return locations;
     }
 
-    //This is a private helper method to populate Enemy objects from an external text file.
+//    This is a private helper method to populate Enemy objects from an external text file.
     private HashMap<String, Enemy> populateEnemies() {
         HashMap<String, Enemy> enemies = new HashMap<>();
 
         String[] enemyFields;
         try {
-
-
             InputStream inputStream = getClass().getResourceAsStream("/enemies.txt");
             InputStreamReader myReader = new InputStreamReader(inputStream);
             BufferedReader br = new BufferedReader(myReader);
