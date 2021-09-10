@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a74aee4b-42cc-4dc3-8e33-38c4a01f9888" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/game/view/TextColor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/view/ViewWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/view/ViewWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/game/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/game/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/controller/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/game/view/TextColor.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

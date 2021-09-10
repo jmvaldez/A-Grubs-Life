@@ -38,14 +38,14 @@ public class Game {
 
     }
     //This should be called by the client to start a new game.
-    public void start() throws IOException {
+    public void start(){
         setUpComponents();
 //      Hongyi: correct autometic health increase and move the refresh window function to input panel
 //        run();
     }
 
     //This method is designed to instantiate the necessary fields of a Game object.
-    private void setUpComponents() throws IOException {
+    private void setUpComponents() {
         this.enemies = populateEnemies();
         this.locations = populateLocations();
         this.caterpillar = new Caterpillar(100,0,0);
