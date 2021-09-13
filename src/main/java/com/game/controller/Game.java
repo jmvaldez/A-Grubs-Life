@@ -103,8 +103,11 @@ public class Game {
 
         String[] enemyFields;
         try {
+            System.out.println("1");
             InputStream inputStream = getClass().getResourceAsStream("/enemies.txt");
+
             InputStreamReader myReader = new InputStreamReader(inputStream);
+            System.out.println("2");
             BufferedReader br = new BufferedReader(myReader);
             String line = null;
             while ((line = br.readLine()) != null) {

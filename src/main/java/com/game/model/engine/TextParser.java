@@ -7,10 +7,11 @@ import java.util.Locale;
 public class TextParser {
     private HashSet<String> verbs;
     private HashSet<String> nouns;
-    public TextParser(){
-         super();
-         populateVerbs();
-         populateNouns();
+
+    public TextParser() {
+        super();
+        populateVerbs();
+        populateNouns();
 
     }
 
@@ -31,6 +32,9 @@ public class TextParser {
         nouns.add("BIRD");
         nouns.add("RAT");
         nouns.add("CATERPILLAR");
+        nouns.add("GODMODE");
+        nouns.add("RESTART");
+        nouns.add("QUIT");
 
     }
 
@@ -44,26 +48,21 @@ public class TextParser {
         verbs.add("HELP");
         verbs.add("START");
         verbs.add("RUN");
-        verbs.add("GODMODE");
     }
 
 
     //If we dont get a viable verb and noun then we will pass null.
-    public ArrayList<String> parseInput(String unParsedCommand) {
-        String[] result;
-        if(unParsedCommand != null) {
-            result = unParsedCommand.toUpperCase(Locale.ROOT).split(" ");
-            ArrayList<String> list = new ArrayList<>();
-
-            for (String str : result) {
-                if (verbs.contains(str.toUpperCase(Locale.ROOT)) || nouns.contains(str.toUpperCase(Locale.ROOT))) {
-                    list.add(str);
-                    if (list.size() == 2) {
-                        return list;
-                    }
-                }
+    public ArrayList<String> parseInput(String input) throws Exception {
+        String[] ParsedCommand = input.toUpperCase(Locale.ROOT).split(" ");
+        ArrayList<String> result = new ArrayList<>();
+        for (String str : ParsedCommand) {
+            if (verbs.contains(str.toUpperCase(Locale.ROOT))) {
+                result.add(0, str);
+            } else if (nouns.contains(str.toUpperCase(Locale.ROOT))) {
+                result.add(1, str);
             }
         }
-        return null;
+        return result;
+
     }
 }

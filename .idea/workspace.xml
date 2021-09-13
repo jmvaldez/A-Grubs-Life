@@ -1,60 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7ff032e-4422-426c-86ce-2155aeb171da" name="Default Changelist" comment="Merge branch 'dev' of https://github.com/jmvaldez/A-Grubs-Life into playerDeath&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/com/game/controller/Game.java">
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/game/controller/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/JsonReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/GrubsLife_Enemies.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/GrubsLife_Locations.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/GrubsLife_Enemies.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/GrubsLife_Locations.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/client/Client.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/controller/Game.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/model/engine/CommandProcessor.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/model/engine/JsonReader.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/model/engine/KeyWordIdentifier.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/model/engine/LogicEngine.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/model/engine/TextParser.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/model/materials/Ant.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/model/materials/Caterpillar.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/model/materials/Combat.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/model/materials/Enemy.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/model/materials/Leaf.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/model/materials/Location.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/game/view/ViewWindow.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/enemies.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/locations.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.game.model.engine.JsonReaderTest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/surefire-reports/com.game.model.engine.JsonReaderTest.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/com/game/model/engine/JsonReaderTest.class" afterDir="false" />
+    <list default="true" id="e7ff032e-4422-426c-86ce-2155aeb171da" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/controller/Game.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/controller/enemies.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/enemies.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/controller/locations.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/locations.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/engine/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/CommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/engine/KeyWordIdentifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/KeyWordIdentifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/engine/LogicEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/LogicEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/engine/TextParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/TextParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Ant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Ant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Caterpillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Caterpillar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Combat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Combat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Leaf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Leaf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/materials/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Location.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/model/newengine/HandelUserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/newengine/HandelUserInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/view/ViewWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/view/ViewWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/com/game/view/PanelTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/controller/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/engine/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/CommandProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/engine/KeyWordIdentifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/KeyWordIdentifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/engine/LogicEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/LogicEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/engine/TextParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/TextParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Caterpillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Caterpillar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/view/ViewWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/view/ViewWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GrubsLife_Locations.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GrubsLife_Locations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/game/controller/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/controller/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/engine/CommandProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/model/engine/CommandProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/engine/LogicEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/model/engine/LogicEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/materials/Caterpillar.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/model/materials/Caterpillar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/game/view/ViewWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/view/ViewWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.game.model.engine.JsonReaderTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.game.model.engine.JsonReaderTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/game/model/engine/JsonReaderTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +69,12 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+      <command value="mvn package" />
+    </option>
+  </component>
   <component name="RunManager">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.game.client.Client" />
@@ -124,6 +104,14 @@
       <option name="presentableId" value="Default" />
       <updated>1631130875692</updated>
     </task>
+    <task id="LOCAL-00001" summary="Merge branch 'dev' of https://github.com/jmvaldez/A-Grubs-Life into playerDeath&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/com/game/controller/Game.java">
+      <created>1631303398858</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1631303398858</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -137,6 +125,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge branch 'dev' of https://github.com/jmvaldez/A-Grubs-Life into playerDeath&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/com/game/controller/Game.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'dev' of https://github.com/jmvaldez/A-Grubs-Life into playerDeath&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/com/game/controller/Game.java" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

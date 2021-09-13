@@ -460,6 +460,7 @@ public class ViewWindow {
         setDiscriptionLabel();
         setRoomLabel();
         setMapLabel();
+        Game.caterpillar.checkDeath();
         this.window.repaint();
     }
 

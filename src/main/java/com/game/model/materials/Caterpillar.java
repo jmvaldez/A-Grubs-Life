@@ -19,8 +19,11 @@ public class Caterpillar {
         return isDead;
     }
 
-    public void setDead(boolean dead) {
-        isDead = dead;
+
+    public void checkDeath(){
+        if(this.health <= 0){
+            this.isDead = true;
+        }
     }
 
 
@@ -32,7 +35,7 @@ public class Caterpillar {
         this.hidden = false;
         this.lastAction = "";
         this.winner = false;
-        this.isDead = true;
+        this.isDead = false;
     }
     public void setCurrentLocation(Location location){ //we should move this to the bottom
         this.currentLocation = location;
