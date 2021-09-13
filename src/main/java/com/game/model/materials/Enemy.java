@@ -28,7 +28,7 @@ public class Enemy {
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        this.health = Math.max(health, 0);
     }
 
 
