@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7cca432-aac2-4026-a46e-9424012b981d" name="Changes" comment="Rebuilding to include tests">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/view/ViewWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/view/ViewWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/game/view/ViewWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/view/ViewWindow.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,13 +17,18 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
         <option value="JUnit4 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1xb3uPdpL5Jp2XhFXAjq7cXkrA3" />
@@ -44,6 +50,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/test/java/com/game/model/engine" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/File" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -51,10 +58,14 @@
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\cmmagage\Documents\Projects\A-Grubs-Life\File" />
+    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\cmmagage\Documents\Projects\A-Grubs-Life\src\main\resources" />
       <recent name="D:\dev\JavaProjects\A-Grubs-Life\src\main\resources" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
@@ -72,7 +83,7 @@
       <command value="mvn package" />
     </option>
   </component>
-  <component name="RunManager" selected="JAR Application.A-Grubs-Life-1.0-SNAPSHOT-jar-with-dependencies.jar">
+  <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="11" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -128,8 +139,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JAR Application.A-Grubs-Life-1.0-SNAPSHOT-jar-with-dependencies.jar" />
         <item itemvalue="Application.Client" />
+        <item itemvalue="JAR Application.A-Grubs-Life-1.0-SNAPSHOT-jar-with-dependencies.jar" />
         <item itemvalue="JUnit.JsonReaderTest" />
         <item itemvalue="JUnit.test in A-Grubs-Life" />
         <item itemvalue="JAR Application.A-Grubs-Life-1.0-SNAPSHOT.jar" />

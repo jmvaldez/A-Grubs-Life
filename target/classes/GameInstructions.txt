@@ -1,0 +1,31 @@
+Instructions on How To Play The Game
+
+1. You must enter a verb and a noun to direct the caterpillar. Ex. eat leaf.
+              
+2. Level one goal is to eat leaf and avoid enemies.
+              
+3. Level two is to fight enemies and befriend ants to gain experience (help ant).
+              
+4. Level three is to fight the boss (squirrel) and save your mate.
+             
+5. You are a Butterfly in Level three. You can use acid attacks.
+              
+6. For easy game play enter (go godmode).
+
+7. Available Action commands are 'GO, EAT, HIDE, HELP, LEAVE, ATTACK, RUN, COMBAT, START, GODMODE'.
+               
+8. Available Direction commands are 'East,West,South and West'. 
+               
+9. Available Animal Name commands are 'ANT, SPIDER, BIRD, RAT, SQUIRREL, BEE, CATERPILLAR, FLIES'. 
+                
+10. Available Direction commands are 'East,West,South and West'. 
+               
+11. If health goes below zero, you will die. 
+              
+12. During Attacks if your Strength is higher than Aggressive Enemy's strength, You can run away from fight.
+                
+13. During Attacks if your Strength is higher than  Not Aggressive Enemy's strength, You can run away from fight.
+               
+14. During Attacks if your Strength is lower than Not Aggressive Enemy's strength, Enemy will give up its pursuit.
+                
+15. During Attacks if your Strength is lower than Not Aggressive Enemy's strength, Enemy will give up its pursuit.
