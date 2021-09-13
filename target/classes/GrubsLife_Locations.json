@@ -13,7 +13,7 @@
           }
         }
       ],
-      "description": "You are in your birthplace... You don't see your mate. There are some leaves on the ground below a birds nest"
+      "description": "You are in your birthplace... Yo look around for your mate but she is nowhere to be found.There are some leaves on the ground below a birds nest. I should proceed with caution."
     },
     "Woods": {
       "north": "DEAD_END",
@@ -28,7 +28,7 @@
           }
         }
       ],
-      "description": "THE WOODS ARE DARK [bird's nest close by]"
+      "description": "Its pretty dark in here. Looks like an endless abyss leading nowhere. There are a ton of leaves on the ground."
     },
     "Hole": {
       "north": "DEAD_END",
@@ -43,7 +43,7 @@
           }
         }
       ],
-      "description": "A DECREPIT HOLE TO HIDE IN"
+      "description": "A decrepit hole.. nothing much to do here except to try not to fall in."
     },
     "Lake": {
       "north": "Genesis",
@@ -58,7 +58,7 @@
           }
         }
       ],
-      "description": "IT APPEARS THE LAKE IS RISING YOU HAVE 10 SECONDS TO EVACUATE [bird's nest close by]"
+      "description": "A huge lake with murky looking water. I probably shouldn't drink it. It appears that the lake is rising quickly. "
     },
     "Web": {
       "north": "Hill",
@@ -73,7 +73,7 @@
           }
         }
       ],
-      "description": "YOU ARE IN THE SPIDER'S DEN -AVOID TOUCHING THE WEBS!"
+      "description": "You are in the spiders den... don't get caught in the web."
     },
     "Hill": {
       "north": "DEAD_END",
@@ -88,7 +88,7 @@
           }
         }
       ],
-      "description": "I DON'T THINK THIS IS AN ORDINARY HILL -WATCH OUT FOR THE ANTS"
+      "description": "I don't think this is an ordinary hill... watch out for ants."
     },
     "Flowers": {
       "north": "DEAD_END",
@@ -103,7 +103,7 @@
           }
         }
       ],
-      "description": "SMELLS LIKE FLOWERS BZZZZZZ"
+      "description": "The smell of flowers are making me hungry. I should be cautious of bees though."
     },
     "Tree": {
       "north": "DEAD_END",
@@ -118,7 +118,7 @@
           }
         }
       ],
-      "description": "A big tree... seems suitable for settling down."
+      "description": "A big tree... seems suitable for settling down if it weren't for that squirrel."
     }
   }
 }
