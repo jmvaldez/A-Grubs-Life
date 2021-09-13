@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7cca432-aac2-4026-a46e-9424012b981d" name="Changes" comment="">
+    <list default="true" id="e7ff032e-4422-426c-86ce-2155aeb171da" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/game/model/engine/JsonReaderTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/map.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.game.model.engine.JsonReaderTest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/com.game.model.engine.JsonReaderTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/view/ViewWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/view/ViewWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/File/map.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/map.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Caterpillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Caterpillar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Leaf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Leaf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/GrubsLife_Locations.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GrubsLife_Locations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/GrubsLife_Locations.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GrubsLife_Locations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,114 +28,53 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JUnit4 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1xb3uPdpL5Jp2XhFXAjq7cXkrA3" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
+  <component name="ProjectId" id="1xs5IYNmD3guhBrbeNvrIbblOCw" />
   <component name="ProjectViewState">
+    <option name="flattenPackages" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
-    <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
-    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Back/jar_files/jackson-core-2.13.0-rc1.jar" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
   </component>
-  <component name="RecentsManager">
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
-    <key name="CreateTestDialog.RecentsKey">
-      <recent name="com.game.model.engine" />
-    </key>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+      <command value="mvn package" />
+    </option>
   </component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="11" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.game.client.Client" />
-      <module name="AGrubsLife" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LogicEngineTest.processCommand_shouldLevelCaterpillarUp_whenEatingLeavesAtLevelOne" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Java-Practical-Applications" />
+      <module name="A-Grubs-Life" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.game.model.engine.*" />
+          <option name="PATTERN" value="com.game.client.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.game.model.engine" />
-      <option name="MAIN_CLASS_NAME" value="com.game.model.engine.LogicEngineTest" />
-      <option name="METHOD_NAME" value="processCommand_shouldLevelCaterpillarUp_whenEatingLeavesAtLevelOne" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LogicEngineTest.processCommand_shouldUpdateCaterpillarExp_whenCaterpillarEatsAndIsNotLevelTwo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Java-Practical-Applications" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.game.model.engine.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.game.model.engine" />
-      <option name="MAIN_CLASS_NAME" value="com.game.model.engine.LogicEngineTest" />
-      <option name="METHOD_NAME" value="processCommand_shouldUpdateCaterpillarExp_whenCaterpillarEatsAndIsNotLevelTwo" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LogicEngineTest.processCommand_shouldUpdateCaterpillarLastAction_whenCaterpillarIsDead" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Java-Practical-Applications" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.game.model.engine.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.game.model.engine" />
-      <option name="MAIN_CLASS_NAME" value="com.game.model.engine.LogicEngineTest" />
-      <option name="METHOD_NAME" value="processCommand_shouldUpdateCaterpillarLastAction_whenCaterpillarIsDead" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LogicEngineTest.processCommand_shouldUpdateNotCaterpillarExp_whenCaterpillarEatsAndIsOverLevelOne" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Java-Practical-Applications" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.game.model.engine.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.game.model.engine" />
-      <option name="MAIN_CLASS_NAME" value="com.game.model.engine.LogicEngineTest" />
-      <option name="METHOD_NAME" value="processCommand_shouldUpdateNotCaterpillarExp_whenCaterpillarEatsAndIsOverLevelOne" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -128,27 +82,27 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Client" />
-        <item itemvalue="JUnit.LogicEngineTest.processCommand_shouldLevelCaterpillarUp_whenEatingLeavesAtLevelOne" />
-        <item itemvalue="JUnit.LogicEngineTest.processCommand_shouldUpdateNotCaterpillarExp_whenCaterpillarEatsAndIsOverLevelOne" />
-        <item itemvalue="JUnit.LogicEngineTest.processCommand_shouldUpdateCaterpillarExp_whenCaterpillarEatsAndIsNotLevelTwo" />
-        <item itemvalue="JUnit.LogicEngineTest.processCommand_shouldUpdateCaterpillarLastAction_whenCaterpillarIsDead" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b7cca432-aac2-4026-a46e-9424012b981d" name="Changes" comment="" />
-      <created>1630610192472</created>
+      <changelist id="e7ff032e-4422-426c-86ce-2155aeb171da" name="Default Changelist" comment="" />
+      <created>1631130875692</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1630610192472</updated>
-      <workItem from="1630610194559" duration="3075000" />
+      <updated>1631130875692</updated>
     </task>
+    <task id="LOCAL-00001" summary="Merge branch 'dev' of https://github.com/jmvaldez/A-Grubs-Life into playerDeath&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/com/game/controller/Game.java">
+      <created>1631303398858</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1631303398858</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -161,5 +115,19 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge branch 'dev' of https://github.com/jmvaldez/A-Grubs-Life into playerDeath&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/com/game/controller/Game.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'dev' of https://github.com/jmvaldez/A-Grubs-Life into playerDeath&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/com/game/controller/Game.java" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="4" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

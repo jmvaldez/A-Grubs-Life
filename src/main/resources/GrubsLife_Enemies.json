@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Ant",
+    "health": 50,
+    "requiredLevelToFight": 1,
+    "aggressive": false,
+    "strength": 1,
+    "tamable": false,
+    "location": "hill",
+    "hidden": false
+  },
+  {
+    "name": "Spider",
+    "health": 50,
+    "requiredLevelToFight": 1,
+    "aggressive": false,
+    "strength": 1,
+    "tamable": false,
+    "location": "web",
+    "hidden": false
+  },
+  {
+    "name": "Bee",
+    "health": 50,
+    "requiredLevelToFight": 1,
+    "aggressive": false,
+    "strength": 1,
+    "tamable": false,
+    "location": "flowers",
+    "hidden": false
+  },
+  {
+    "name": "Squirrel",
+    "health": 50,
+    "requiredLevelToFight": 1,
+    "aggressive": false,
+    "strength": 1,
+    "tamable": false,
+    "location": "tree",
+    "hidden": false
+  },
+  {
+    "name": "Flies",
+    "health": 50,
+    "requiredLevelToFight": 1,
+    "aggressive": false,
+    "strength": 1,
+    "tamable": false,
+    "location": "lake",
+    "hidden": false
+  },
+  {
+    "name": "Bird",
+    "health": 50,
+    "requiredLevelToFight": 1,
+    "aggressive": false,
+    "strength": 1,
+    "tamable": false,
+    "location": "genesis",
+    "hidden": false
+  },
+  {
+    "name": "Rat",
+    "health": 50,
+    "requiredLevelToFight": 1,
+    "aggressive": false,
+    "strength": 1,
+    "tamable": false,
+    "location": "hole",
+    "hidden": false
+  },
+  {
+    "name": "Bird",
+    "health": 50,
+    "requiredLevelToFight": 1,
+    "aggressive": false,
+    "strength": 1,
+    "tamable": false,
+    "location": "woods",
+    "hidden": false
+  },
+  {
+    "name": "Bird",
+    "health": 50,
+    "requiredLevelToFight": 1,
+    "aggressive": false,
+    "strength": 1,
+    "tamable": false,
+    "location": "lake",
+    "hidden": false
+  }
+]
