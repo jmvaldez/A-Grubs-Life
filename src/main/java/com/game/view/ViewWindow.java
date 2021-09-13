@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.io.*;
+import java.nio.CharBuffer;
 
 public class ViewWindow {
 
@@ -208,8 +210,8 @@ public class ViewWindow {
     private void setUpDescriptionPanel() {
         JPanel descriptionPanel = new JPanel();
         this.descriptionLabel = new JLabel();
-        descriptionPanel.setBackground(new Color(255, 255, 255));
-        descriptionPanel.setBorder(BorderFactory.createLineBorder(new Color(110, 16, 5)));
+        descriptionPanel.setBackground(new Color(0, 0, 0));
+        descriptionPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
         setDiscriptionLabel();
         descriptionPanel.add(descriptionLabel, BorderLayout.CENTER);
         this.window.add(descriptionPanel, BorderLayout.CENTER);
@@ -218,11 +220,87 @@ public class ViewWindow {
     }
 
     private void setDiscriptionLabel() {
+        descriptionLabel.setForeground (Color.red);
+        try {
+            //open the file
+            FileInputStream inMessage = new FileInputStream("src/main/resources/GameInstructions.txt");
+            // Get the object of DataInputStream
+            DataInputStream in = new DataInputStream(inMessage);
+           BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String strLine;
+            //Read File Line By Line
+            while ((strLine = br.readLine()) != null)   {
+                // Print the content on the console
+               // System.out.println (strLine);
+               //br.append(strLine+"/n");
+         //       descriptionLabel.setText(strLine+"/n");
+               // descriptionLabel.setText( descriptionLabel.getText()+strLine+"/n");
 
+                descriptionLabel.setText(descriptionLabel.getText()+ "<html> <br/> <html/>" + strLine);
+
+
+            }
+            //Close the input stream
+            br.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+/*
+        try {
+            //open the file
+            FileInputStream inMessage = new FileInputStream("File/GameInstructions.txt");
+            // Get the object of DataInputStream
+            DataInputStream in = new DataInputStream(inMessage);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String strLine;
+            //Read File Line By Line
+            while ((strLine = br.readLine()) != null)   {
+                // Print the content on the console
+                //System.out.println (strLine);
+                descriptionLabel.setText(strLine);
+            }
+            //Close the input stream
+            in.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+*/
+
+/*
+
+        String str = null;
+        try {
+            File file = new File("File/GameInstructions.txt");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            while ((str = br.readLine()) != null) {
+             //   System.out.println (str);
+
+
+            }
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        descriptionLabel.setText(str);
+*/
+
+/*
         String location = Game.caterpillar.getCurrentLocation().getName().toLowerCase();
         String desc = Game.caterpillar.getCurrentLocation().getDescription().toLowerCase();
 
-//        descriptionLabel.setLocation(100,100);
+       descriptionLabel.setLocation(100,100);
         descriptionLabel.setText("<html> " +
                 "<style>" +
                 "p {padding-bottom: 280px }" +
@@ -231,7 +309,7 @@ public class ViewWindow {
                 "<h1> " + location + "</h1> <br>" +
                 "<p> " + desc + "</p><br><br><br><br>" +
                 "  </html>\n");
-
+*/
     }
 
 
@@ -248,6 +326,8 @@ public class ViewWindow {
 
 //        locationPanel.add(roomLabel);
         this.window.add(locationPanel, BorderLayout.WEST);
+
+
 
 
     }
