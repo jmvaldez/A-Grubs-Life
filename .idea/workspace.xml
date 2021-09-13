@@ -5,30 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7ff032e-4422-426c-86ce-2155aeb171da" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/controller/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/engine/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/CommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/engine/KeyWordIdentifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/KeyWordIdentifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/engine/LogicEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/LogicEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/engine/TextParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/TextParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/game/model/engine/JsonReaderTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/map.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.game.model.engine.JsonReaderTest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/com.game.model.engine.JsonReaderTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/File/map.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/map.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Caterpillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Caterpillar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/view/ViewWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/view/ViewWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Leaf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Leaf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/GrubsLife_Locations.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GrubsLife_Locations.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/GrubsLife_Locations.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/GrubsLife_Locations.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/game/controller/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/controller/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/engine/CommandProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/model/engine/CommandProcessor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/engine/LogicEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/model/engine/LogicEngine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/materials/Caterpillar.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/model/materials/Caterpillar.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/game/view/ViewWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/view/ViewWindow.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.game.model.engine.JsonReaderTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.game.model.engine.JsonReaderTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/game/model/engine/JsonReaderTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

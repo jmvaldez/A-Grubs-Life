@@ -6,7 +6,7 @@ public class Caterpillar {
     private int experience;
     private int strength ;
     private int level = 1;
-    private int maxLevel = 3;
+    private int maxLevel = 10;
     private int maxExperience = 5;
 
     private Location currentLocation;
@@ -45,26 +45,33 @@ public class Caterpillar {
     }
     public void eat(Leaf leaf){
         setHealth(getHealth() + 10);
-        if( (getExperience() + leaf.getXp()) >= maxExperience && level < maxLevel) {
-            setExperience((getExperience() + leaf.getXp()) % maxExperience); //level up and transfers remaining to experience
+        System.out.println("eat");
+        //deleted some of the condition statement
+        if( (getExperience() + leaf.getXp()) >= maxExperience ) {
+            //taking this portion of code out resets the experience to 0 after level up
             levelUp(); //increases level / ends the stage once appropriate level
+            maxExperience += maxExperience; // double experience needed to level up
+            setExperience(0); // reset experience to 0 after level up
             }
-        else{
-            if(level < maxLevel){
-                setExperience(getExperience() + leaf.getXp() ); // no levelup by experience up
+        //changed the else if
+        else {
+                setExperience(getExperience() + leaf.getXp() ); // no level-up by experience up
             }
 
         }
-    }
+
     public void levelUp(){
         setStrength(strength + 50);
         setLevel(level + 1);
-        if(getLevel() == maxLevel- 1){
+        if(getLevel() == 2){
             this.setLastAction("You are level 2! You feel slightly stronger and more healthy.");
         }
-        else if(getLevel()== maxLevel) {
+        else if(getLevel()== 3) {
             this.setLastAction("You have reached level 3! You are now a butterfly... from now on you can use acid attacks.");
             }
+        else if(getLevel()== maxLevel) {
+            this.setLastAction("You have reached the max level of "+ maxLevel + "!");
+        }
 
     }
 
