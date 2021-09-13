@@ -215,7 +215,6 @@ public class CommandProcessor {
         switch(focus.toLowerCase()){
             case "leaf":
                 caterpillar.eat(caterpillar.getCurrentLocation().getLeaf());
-
                 if(!caterpillar.getLastAction().contains("level")){
                     caterpillar.setLastAction("You eat a leaf!");
                 }
