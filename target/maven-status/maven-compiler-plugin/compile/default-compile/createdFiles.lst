@@ -3,6 +3,7 @@ com\game\client\Client.class
 com\game\model\materials\Leaf.class
 com\game\model\engine\CommandProcessor.class
 com\game\model\materials\Location.class
+main\java\com\game\model\newengine\HandelUserInput.class
 com\game\controller\Game.class
 com\game\model\engine\LogicEngine.class
 com\game\model\engine\JsonReader.class
