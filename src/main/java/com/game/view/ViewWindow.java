@@ -49,16 +49,12 @@ public class ViewWindow {
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.window.pack();
         setUpInputPanel();
-//        setUpStatPanel();
         setUpDescriptionPanel();
-//        setUpLocationPanel();
+
 
 
     }
 
-    public void disposeWindow() {
-        this.window.dispose();
-    }
 
     private void setUpInputPanel() {
         JPanel inputPanel = new JPanel();
@@ -92,8 +88,6 @@ public class ViewWindow {
             updateCaterpillarStatus();
 
         });
-
-
     }
 
     private void setUpLastMoveLabel() {
@@ -211,7 +205,6 @@ public class ViewWindow {
             enemyStatLabel.setText("");
         }
 
-//        enemyStatLabel.setBorder(BorderFactory.createTitledBorder(Game.caterpillar.getEngagedEnemy().getName()));
         TitledBorder eb = new TitledBorder("Target Status");
         eb.setTitleColor(Color.GREEN);
         enemyStatLabel.setBorder(eb);
@@ -261,11 +254,6 @@ public class ViewWindow {
 
     private void setDiscriptionLabel() {
 
-
-
-
-
-
 /*
         try {
             //open the file
@@ -289,9 +277,7 @@ public class ViewWindow {
             e.printStackTrace();
         }
 
-*/
-
-/*
+        =====================
 
         String str = null;
         try {
@@ -313,7 +299,7 @@ public class ViewWindow {
         String location = Game.caterpillar.getCurrentLocation().getName().toLowerCase();
         String desc = Game.caterpillar.getCurrentLocation().getDescription().toLowerCase();
 
-       descriptionLabel.setLocation(100,100);
+        descriptionLabel.setLocation(100,100);
         descriptionLabel.setText("<html> " +
                 "<style>" +
                 "p {padding-bottom: 280px }" +
@@ -406,11 +392,7 @@ public class ViewWindow {
         JPanel roomPanel = new JPanel();
         roomLabel = new JLabel();
 
-
         roomPanel.setBackground(new Color(0, 0, 0));
-
-
-
 
         setRoomLabel();
 
@@ -510,6 +492,7 @@ public class ViewWindow {
                 "<td>";
 
         for(Map.Entry<String, Enemy> entry : Game.caterpillar.getCurrentLocation().getEnemies().entrySet()){
+            System.out.println(entry.getKey());
             result += " " + entry.getKey();
         }
 
@@ -519,6 +502,7 @@ public class ViewWindow {
                 "</table>\n" +
                 "\n" +
                 "</html>";
+
         roomLabel.setText(result);
 
     }

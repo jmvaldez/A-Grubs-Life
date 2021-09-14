@@ -88,17 +88,18 @@ public class Caterpillar {
     public void eat(Leaf leaf) {
         setHealth(getHealth() + 10);
         System.out.println("eat");
+        setExperience(leaf.getXp());
         //deleted some of the condition statement
-        if ((getExperience() + leaf.getXp()) >= maxExperience) {
-            //taking this portion of code out resets the experience to 0 after level up
-            levelUp(); //increases level / ends the stage once appropriate level
-            maxExperience += maxExperience; // double experience needed to level up
-            setExperience(0); // reset experience to 0 after level up
-        }
-        //changed the else if
-        else {
-            setExperience(getExperience() + leaf.getXp()); // no level-up by experience up
-        }
+//        if ((getExperience() + leaf.getXp()) >= maxExperience) {
+//            //taking this portion of code out resets the experience to 0 after level up
+//            levelUp(); //increases level / ends the stage once appropriate level
+//            maxExperience += maxExperience; // double experience needed to level up
+//            setExperience(0); // reset experience to 0 after level up
+//        }
+//        //changed the else if
+//        else {
+//            setExperience(getExperience() + leaf.getXp()); // no level-up by experience up
+//        }
 
     }
 
@@ -125,13 +126,6 @@ public class Caterpillar {
         return health;
     }
 
-    public void setHealth(int health) {
-        if (health < 0) {
-            this.health = 0;
-        } else {
-            this.health = health;
-        }
-    }
 
     public boolean isWinner() {
         return winner;
@@ -141,12 +135,24 @@ public class Caterpillar {
         this.winner = winner;
     }
 
+    public void setHealth(int health) {
+        this.health = Math.max(health, 0);
+
+    }
+
     public int getExperience() {
         return experience;
     }
 
     public void setExperience(int experience) {
-        this.experience = experience;
+        if ((getExperience() + experience) >= maxExperience) {
+            //taking this portion of code out resets the experience to 0 after level up
+            levelUp(); //increases level / ends the stage once appropriate level
+            maxExperience += maxExperience; // double experience needed to level up
+            this.experience = 0; // reset experience to 0 after level up
+        }
+        else {
+        this.experience += experience;}
     }
 
     public int getStrength() {

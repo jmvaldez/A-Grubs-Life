@@ -65,22 +65,13 @@ public class Game {
     private void setUpComponents() {
         this.enemies = populateEnemies();
         this.locations = populateLocations();
-        this.caterpillar = new Caterpillar(100, 0, 0);
+        this.caterpillar = new Caterpillar(100, 0, 5);
         this.processor = new LogicEngine();
         this.caterpillar.setCurrentLocation(locations.get("Genesis"));
         this.viewWindow = new ViewWindow();
     }
 
     //This class controls the game loop. As the user inputs information the view will be updated.
-    //I want an instructions panel to be read and you cant start the game until you hit
-//    private void run() {
-//        int counter = 0;
-//        while (true) {
-//            viewWindow.updateCaterpillarStatus();
-//            caterpillar.healthRegenerator(counter++);
-//        }
-//
-//    }
 
     // Returns a map of locations based on external Json file
     private HashMap<String, Location> populateLocations() {
@@ -152,36 +143,6 @@ public class Game {
 
 
     }
-
-
-//    private HashMap<String, Enemy> populateEnemies() {
-//        HashMap<String, Enemy> enemies = new HashMap<>();
-//
-//        String[] enemyFields;
-//        try {
-//
-//            InputStream inputStream = getClass().getResourceAsStream("/enemies.txt");
-//
-//            InputStreamReader myReader = new InputStreamReader(inputStream);
-//
-//            BufferedReader br = new BufferedReader(myReader);
-//            String line = null;
-//            while ((line = br.readLine()) != null) {
-//                enemyFields = line.split(",");
-//
-//                Enemy enemy = new Enemy(enemyFields[0].trim(), Integer.parseInt(enemyFields[1].trim()), Integer.parseInt(enemyFields[2].trim()), Integer.parseInt(enemyFields[3].trim()), Boolean.parseBoolean(enemyFields[4].trim()), Boolean.parseBoolean(enemyFields[5].trim()), enemyFields[6].trim(), Boolean.parseBoolean(enemyFields[7].trim()));
-//                enemies.put(enemyFields[6].trim(), enemy);
-//
-//            }
-//            System.out.println(enemies.toString());
-//            br.close();
-//            myReader.close();
-//            inputStream.close();
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return enemies;
-//    }
 
     public static HashMap<String, Enemy> getEnemies() {
         return enemies;

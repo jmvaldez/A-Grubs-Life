@@ -4,16 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7ff032e-4422-426c-86ce-2155aeb171da" name="Default Changelist" comment="">
+    <list default="true" id="e7ff032e-4422-426c-86ce-2155aeb171da" name="Default Changelist" comment="Merge branch 'dev' of https://github.com/jmvaldez/A-Grubs-Life into startcommand&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/game/model/engine/CommandProcessor.java&#10;#&#9;src/main/java/com/game/model/materials/Caterpillar.java&#10;#&#9;target/classes/com/game/model/engine/CommandProcessor.class&#10;#&#9;target/classes/com/game/model/materials/Caterpillar.class&#10;#&#9;target/classes/com/game/model/materials/Enemy.class&#10;#&#9;target/classes/com/game/view/ViewWindow.class">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/game/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/controller/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/engine/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/CommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/engine/TextParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/TextParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/engine/KeyWordIdentifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/backupclass/KeyWordIdentifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/engine/LogicEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/engine/LogicEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Ant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/backupclass/Ant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Caterpillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Caterpillar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Leaf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/model/materials/Leaf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/game/model/newengine/HandelUserInput.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/game/view/ViewWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/game/view/ViewWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/A-Grubs-Life-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/game/controller/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/controller/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/engine/CommandProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/model/engine/CommandProcessor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/engine/TextParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/model/engine/TextParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/engine/KeyWordIdentifier.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/engine/LogicEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/model/engine/LogicEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/materials/Ant.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/materials/Caterpillar.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/model/materials/Caterpillar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/game/model/materials/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/model/materials/Enemy.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/game/view/ViewWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/game/view/ViewWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/main/java/com/game/model/newengine/HandelUserInput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.game.model.engine.JsonReaderTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.game.model.engine.JsonReaderTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.game.model.engine.JsonReaderTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.game.model.engine.JsonReaderTest.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +70,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -127,10 +145,18 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="4" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/game/model/engine/CommandProcessor.java</url>
+          <line>191</line>
+          <properties class="com.game.model.engine.CommandProcessor" method="playerAttack">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/game/view/ViewWindow.java</url>
-          <line>89</line>
-          <option name="timeStamp" value="7" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/game/model/engine/CommandProcessor.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
