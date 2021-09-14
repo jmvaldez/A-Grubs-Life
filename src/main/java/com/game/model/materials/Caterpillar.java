@@ -2,6 +2,9 @@ package com.game.model.materials;
 
 import com.game.controller.Game;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Caterpillar {
     public boolean winner;
     private int health;
@@ -55,8 +58,31 @@ public class Caterpillar {
 
     public void setCurrentLocation(Location location) { //we should move this to the bottom
         currentLocation = location;
-        currentLocation.setEnemies(Game.getEnemies());
+        currentLocation.setEnemies(getRandomEnemies(currentLocation));
 
+    }
+
+    private HashMap<String, Enemy> getRandomEnemies(Location location){
+        ArrayList<String> keyList = new ArrayList<String>(Game.getEnemies().keySet());
+        int enemyQty = getRandomNumber(1, 3);
+        ArrayList<Integer> usedIndex = new ArrayList<Integer>();
+        HashMap<String, Enemy> result = new HashMap<>();
+        for (int i =0; i <= enemyQty; i++){
+            while(true){
+                int index = getRandomNumber(0, Game.getEnemies().size());
+                if (!usedIndex.contains(index)){
+                    usedIndex.add(index);
+                    String name = keyList.get(index);
+                    result.put(name, Game.getEnemies().get(name));
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    private int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
     }
 
     public void eat(Leaf leaf) {

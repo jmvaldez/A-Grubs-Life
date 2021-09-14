@@ -45,9 +45,7 @@ public class Location {
 
             this.leaf = new Leaf();
     }
-    private void setRandomSpawnedEnemy(){
 
-    }
 
     public Leaf getLeaf(){
         return this.leaf;

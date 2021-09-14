@@ -376,6 +376,7 @@ public class ViewWindow {
 
         mapPanel.setBackground(new Color(0, 0, 0));
         mapPanel.setLayout(new GridLayout(3, 3));
+        mapPanel.setPreferredSize(new Dimension(100,100));
 
         emptyRoomNorthEast.setBackground(new Color(0, 0, 0));
         emptyRoomNorthWest.setBackground(new Color(0, 0, 0));
@@ -403,6 +404,8 @@ public class ViewWindow {
 
 
         roomPanel.setBackground(new Color(0, 0, 0));
+
+
 
 
         setRoomLabel();
@@ -487,6 +490,7 @@ public class ViewWindow {
 
         TitledBorder room = new TitledBorder("Room");
         room.setTitleColor(Color.GREEN);
+        roomLabel.setPreferredSize(new Dimension(100,200));
         roomLabel.setBorder(room);
 
         String result = "<html>\n" +
