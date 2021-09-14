@@ -11,7 +11,11 @@ import com.game.model.materials.Caterpillar;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Location;
 import com.game.view.ViewWindow;
+import com.game.view.GameAudio;
 
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,10 +59,11 @@ public class Game {
     }
 
     //This should be called by the client to start a new game.
-    public void start() {
-
-
+    public void start()  {
         setUpComponents();
+        GameAudio.PlayWelcomeAudio();
+//      Hongyi: correct autometic health increase and move the refresh window function to input panel
+//        run();
     }
 
     //This method is designed to instantiate the necessary fields of a Game object.
