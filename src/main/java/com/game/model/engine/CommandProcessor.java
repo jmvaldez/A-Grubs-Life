@@ -5,6 +5,7 @@ import com.game.controller.Game;
 import com.game.model.materials.Caterpillar;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Location;
+import com.game.view.GameAudio;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -28,7 +29,7 @@ public class CommandProcessor {
 
     }
 
-    public void executeCommand(ArrayList<String> strings) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public void executeCommand(ArrayList<String> strings)  {
         if (caterpillar.isDead()) {
 
             caterpillar.setLastAction("you are dead, you can only type restart or quit");
@@ -97,24 +98,32 @@ public class CommandProcessor {
             case "GO":
                 processNavigation(focus.toLowerCase());
                 processGodMode(focus);
+                GameAudio.PlayGOAudio();
                 break;
             case "EAT":
                 processEating(focus);
+                GameAudio.PlayEatAudio();
                 break;
             case "HIDE":
                 processHide(focus);
+                GameAudio.PlayHideAudio();
                 break;
             case "HELP":
                 processAntAssistance(focus);
+                GameAudio.PlayHelpAudio();
                 break;
             case "LEAVE":
                 processLeave(focus);
+                GameAudio.PlayLeaveAudio();
+
                 break;
             case "ATTACK":
                 processAttack(focus);
+                GameAudio.PlayAttackAudio();
                 break;
             case "RUN":
                 processRun(focus);
+                GameAudio.PlayRunAudio();
                 break;
         }
     }
@@ -132,6 +141,7 @@ public class CommandProcessor {
         enemyAttack();
         if (caterpillar.getHealth() <= 0) {
             caterpillar.setLastAction("Oh dear you have died.");
+            GameAudio.PlayDeadAudio();
         }
     }
 
@@ -146,6 +156,7 @@ public class CommandProcessor {
         caterpillar.levelUp();
 
         caterpillar.setLastAction("You have defeated the mighty " + enemy.getName() + " \n " + caterpillar.getLastAction());
+        GameAudio.PlayDefeatedAudio();
 
     }
 
@@ -153,6 +164,7 @@ public class CommandProcessor {
         if (enemy.getName().equalsIgnoreCase("squirrel")) {
             caterpillar.setWinner(true);
             caterpillar.setLastAction("You have defeated the mighty " + enemy.getName() + " \n" + "After beating the boss you find your mate! Together you can find the tree and live happily ever after \n ending the game");
+            GameAudio.PlayDefeatedAudio();
         }
     }
 

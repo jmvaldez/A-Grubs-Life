@@ -40,7 +40,7 @@ public class Game {
     }
 
     //This should be called by the client to start a new game.
-    public void start() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public void start()  {
         setUpComponents();
         GameAudio.PlayWelcomeAudio();
 //      Hongyi: correct autometic health increase and move the refresh window function to input panel
