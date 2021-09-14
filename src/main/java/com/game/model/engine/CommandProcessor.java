@@ -5,9 +5,13 @@ import com.game.controller.Game;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Location;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import com.game.view.GameAudio;
 
 public class CommandProcessor {
     //    private Caterpillar caterpillar;
@@ -23,7 +27,7 @@ public class CommandProcessor {
 
     }
 
-    public void executeCommand(ArrayList<String> strings) {
+    public void executeCommand(ArrayList<String> strings) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (Game.caterpillar.isDead() == true) {
 
             Game.caterpillar.setLastAction("you are dead, you can only type restart or quit");
@@ -48,8 +52,9 @@ public class CommandProcessor {
             System.out.println("something here at executeCommand");;};
     }
 
-    private void processGodMode(String focus) {
+    private void processGodMode(String focus) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (focus.equalsIgnoreCase("GODMODE")) {
+            GameAudio.PlayGodAudio();
             Game.caterpillar.setHealth(9999999);
             Game.caterpillar.setStrength(99999999);
             Game.caterpillar.setLastAction("The Power of God him/her/itself (god is in an existential crisis) flows through you");
@@ -58,7 +63,7 @@ public class CommandProcessor {
 
     private void processRestart(){};
 
-    private void processCommand(String action, String focus) {
+    private void processCommand(String action, String focus) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
         if (enemies.containsKey(enemies.get(Game.caterpillar.getCurrentLocation().getName())) && enemies.get(Game.caterpillar.getCurrentLocation().getName().toLowerCase()).isInCombat()) {
             runCombatCheck(action, focus);
@@ -84,13 +89,15 @@ public class CommandProcessor {
     }
 
     //This method is where to put any new commands.. each of the cases links out to the corresponding logic method... this is essentially a directory for incoming eligible commands.
-    private void runProcessMenu(String action, String focus) {
+    private void runProcessMenu(String action, String focus) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         switch (action.toUpperCase(Locale.ROOT)) {
             case "GO":
                 processNavigation(focus.toLowerCase());
                 processGodMode(focus);
+                GameAudio.PlayGOAudio();
                 break;
             case "EAT":
+                GameAudio.PlayEatAudio();
                 processEating(focus);
                 break;
             case "HIDE":
