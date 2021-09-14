@@ -16,15 +16,34 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Game {
 
-    private HashMap<String, Location> locations;
-    private HashMap<String, Enemy> enemies;
+    public static HashMap<String, Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(HashMap<String, Location> locations) {
+        this.locations = locations;
+    }
+
+    public void setEnemies(HashMap<String, Enemy> enemies) {
+        this.enemies = enemies;
+    }
+
+    private static HashMap<String, Location> locations;
+    private static HashMap<String, Enemy> enemies;
     public static Caterpillar caterpillar;
     private static LogicEngine processor;
-    private ViewWindow viewWindow;
+
+    public static ViewWindow getViewWindow() {
+        return viewWindow;
+    }
+
+    private static ViewWindow viewWindow;
 
 
     public static LogicEngine getProcessor() {
@@ -37,31 +56,22 @@ public class Game {
 
     //This should be called by the client to start a new game.
     public void start() {
+
+
         setUpComponents();
-//      Hongyi: correct autometic health increase and move the refresh window function to input panel
-//        run();
     }
 
     //This method is designed to instantiate the necessary fields of a Game object.
     private void setUpComponents() {
         this.enemies = populateEnemies();
         this.locations = populateLocations();
-        this.caterpillar = new Caterpillar(100, 0, 0);
-        this.processor = new LogicEngine(caterpillar, locations, enemies);
+        this.caterpillar = new Caterpillar(100, 0, 5);
+        this.processor = new LogicEngine();
         this.caterpillar.setCurrentLocation(locations.get("Genesis"));
         this.viewWindow = new ViewWindow();
     }
 
     //This class controls the game loop. As the user inputs information the view will be updated.
-    //I want an instructions panel to be read and you cant start the game until you hit
-    private void run() {
-        int counter = 0;
-        while (true) {
-            viewWindow.updateCaterpillarStatus();
-            caterpillar.healthRegenerator(counter++);
-        }
-
-    }
 
     // Returns a map of locations based on external Json file
     private HashMap<String, Location> populateLocations() {
@@ -87,47 +97,54 @@ public class Game {
                 String west = entry.getValue().get("west").asText();
 
                 Location location = new Location(roomNames, roomDescriptions, north, south, east, west);
-                location.setEnemy(enemies.get(roomNames.toLowerCase()));
+//                location.setEnemy(enemies.get(roomNames.toLowerCase()));
                 locations.put(roomNames, location);
 
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
         return locations;
     }
 
-//    This is a private helper method to populate Enemy objects from an external text file.
     private HashMap<String, Enemy> populateEnemies() {
         HashMap<String, Enemy> enemies = new HashMap<>();
 
-        String[] enemyFields;
         try {
-            System.out.println("1");
-            InputStream inputStream = getClass().getResourceAsStream("/enemies.txt");
+            String jsonLocationFile = "src/main/resources/Enemies.json";
 
-            InputStreamReader myReader = new InputStreamReader(inputStream);
-            System.out.println("2");
-            BufferedReader br = new BufferedReader(myReader);
-            String line = null;
-            while ((line = br.readLine()) != null) {
-                enemyFields = line.split(",");
+            // passing in the jsonLocationFile as a string to be parsed into a JsonNode
+            JsonNode node = JsonReader.parse(JsonReader.stringifyFile(jsonLocationFile));
 
-                Enemy enemy = new Enemy(enemyFields[0].trim(), Integer.parseInt(enemyFields[1].trim()), Integer.parseInt(enemyFields[2].trim()), Integer.parseInt(enemyFields[3].trim()), Boolean.parseBoolean(enemyFields[4].trim()), Boolean.parseBoolean(enemyFields[5].trim()), enemyFields[6].trim(), Boolean.parseBoolean(enemyFields[7].trim()));
-                enemies.put(enemyFields[6].trim(), enemy);
+
+            Iterator<Map.Entry<String, JsonNode>> nodes = node.get("Enemies").fields();
+
+            while (nodes.hasNext()) {
+                Map.Entry<String, JsonNode> entry = (Map.Entry<String, JsonNode>) nodes.next();
+
+                String enemyName = entry.getKey();
+                int enemyHealth = entry.getValue().get("health").asInt();
+                int enemyStrength = entry.getValue().get("strength").asInt();
+
+                Enemy enemy = new Enemy(enemyName, enemyHealth,enemyStrength);
+
+
+                enemies.put(enemyName, enemy);
+
+
 
             }
-            System.out.println(enemies.toString());
-            br.close();
-            myReader.close();
-            inputStream.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
         return enemies;
+
+
     }
 
-    public HashMap<String, Enemy> getEnemies() {
+    public static HashMap<String, Enemy> getEnemies() {
         return enemies;
     }
 

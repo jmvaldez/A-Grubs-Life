@@ -10,7 +10,5 @@ public class Leaf {
     public int getXp() {
         return xp;
     }
-//    public int getXp() {
-//        int xp = (int) (Math.random() * 5)+1;
-//        return xp;
+
 }
