@@ -16,7 +16,9 @@ public class Enemy {
     private String location;
     private boolean hidden;
     private boolean inCombat;
-    public Enemy(String name, int health, int strength, int requiredLevelToFight, boolean aggressive, boolean tamable, String location, boolean hidden){
+    public Enemy(String name, int health, int strength
+            , int requiredLevelToFight, boolean aggressive, boolean tamable, String location, boolean hidden)
+    {
         this.name = name;
         this.health = health;
         this.requiredLevelToFight = requiredLevelToFight;

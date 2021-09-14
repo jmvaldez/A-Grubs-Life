@@ -16,7 +16,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Game {
 
@@ -24,7 +26,12 @@ public class Game {
     private HashMap<String, Enemy> enemies;
     public static Caterpillar caterpillar;
     private static LogicEngine processor;
-    private ViewWindow viewWindow;
+
+    public static ViewWindow getViewWindow() {
+        return viewWindow;
+    }
+
+    private static ViewWindow viewWindow;
 
 
     public static LogicEngine getProcessor() {
@@ -37,6 +44,8 @@ public class Game {
 
     //This should be called by the client to start a new game.
     public void start() {
+
+
         setUpComponents();
 //      Hongyi: correct autometic health increase and move the refresh window function to input panel
 //        run();
@@ -94,8 +103,43 @@ public class Game {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
         return locations;
     }
+
+//    private HashMap<String, Enemy> populateEnemies() {
+//        HashMap<String, Enemy> enimies = new HashMap<>();
+//
+//        try {
+//            String jsonLocationFile = "src/main/resources/Enemies.json";
+//
+//            // passing in the jsonLocationFile as a string to be parsed into a JsonNode
+//            JsonNode node = JsonReader.parse(JsonReader.stringifyFile(jsonLocationFile));
+//
+//
+//            Iterator<Map.Entry<String, JsonNode>> nodes = node.get("Enemies").fields();
+//
+//            while (nodes.hasNext()) {
+//                Map.Entry<String, JsonNode> entry = (Map.Entry<String, JsonNode>) nodes.next();
+//
+//                String enemyName = entry.getKey();
+//                int enemyHealth = entry.getValue().get("health").asInt();
+//                int enemyStrength = entry.getValue().get("strength").asInt();
+//
+//                Enemy enemy = new Enemy(enemyName, enemyHealth,enemyStrength);
+//
+//
+//                enimies.put(enemyName, enemy);
+//
+//            }
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        return enemies;
+//
+//
+//    }
 
 //    This is a private helper method to populate Enemy objects from an external text file.
     private HashMap<String, Enemy> populateEnemies() {
@@ -103,11 +147,11 @@ public class Game {
 
         String[] enemyFields;
         try {
-            System.out.println("1");
+
             InputStream inputStream = getClass().getResourceAsStream("/enemies.txt");
 
             InputStreamReader myReader = new InputStreamReader(inputStream);
-            System.out.println("2");
+
             BufferedReader br = new BufferedReader(myReader);
             String line = null;
             while ((line = br.readLine()) != null) {

@@ -1,9 +1,12 @@
 package com.game.model.engine;
 
 
+import com.game.client.Client;
 import com.game.controller.Game;
+import com.game.model.materials.Caterpillar;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Location;
+import com.game.view.ViewWindow;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,23 +32,23 @@ public class CommandProcessor {
             Game.caterpillar.setLastAction("you are dead, you can only type restart or quit");
             String action = strings.get(1).toUpperCase(Locale.ROOT);
             if (action.matches("RESTART")) {
-                Game newgame = new Game();
-                newgame.start();
+                Game.caterpillar = new Caterpillar(100, 0, 0);
+                Game.caterpillar.setCurrentLocation(locations.get("Genesis"));
+                Game.getViewWindow().updateCaterpillarStatus();
+
             } else if (action.matches("QUIT")) {
                 System.exit(0);
             }
             ;
-        } else if (strings.size() == 2 && strings.get(0) != null && strings.get(1) != null) {
+        } else{
             this.enemy = enemies.get(Game.caterpillar.getCurrentLocation().getName().toLowerCase());
             String action = strings.get(0).toUpperCase(Locale.ROOT);
             String focus = strings.get(1).toUpperCase(Locale.ROOT);
             this.misfire = true;
             processCommand(action, focus); // passing in to either the combat system or command menu..
 
-
         }
-        else{
-            System.out.println("something here at executeCommand");;};
+
     }
 
     private void processGodMode(String focus) {
