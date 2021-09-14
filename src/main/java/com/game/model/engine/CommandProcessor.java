@@ -7,9 +7,6 @@ import com.game.model.materials.Enemy;
 import com.game.model.materials.Location;
 import com.game.view.GameAudio;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -23,7 +20,7 @@ public class CommandProcessor {
 //    private boolean misfire;
 
 
-    public void executeCommand(ArrayList<String> strings)  {
+    public void executeCommand(ArrayList<String> strings) {
         if (caterpillar.isDead()) {
 
             caterpillar.setLastAction("you are dead, you can only type restart or quit");
@@ -52,6 +49,7 @@ public class CommandProcessor {
             caterpillar.setHealth(9999999);
             caterpillar.setStrength(99999999);
             caterpillar.setLastAction("The Power of God him/her/itself (god is in an existential crisis) flows through you");
+            GameAudio.PlayGodAudio();
         }
     }
 
@@ -78,82 +76,11 @@ public class CommandProcessor {
                         processNavigation(focus.toLowerCase());
                         processGodMode(focus);
                         processStart(focus);
+                        GameAudio.PlayGOAudio();
                         break;
                     case "EAT":
                         processEating(focus);
-                        break;
-                }
-            }
-        } catch (Exception e) {
-            processCantDoThatHere();
-        }
-    }
-
-
-    private void runCombatCheck(String action, String focus) {
-        if (action.toUpperCase(Locale.ROOT).equalsIgnoreCase("ATTACK")) {
-            processAttack(focus);
-        }
-        if (focus.toUpperCase(Locale.ROOT).equalsIgnoreCase("RUN")) {
-            processRun(focus);
-        }
-    }
-
-    private void processCantDoThatHere() {
-        caterpillar.setLastAction("You can't do that here.. We don't have that ");
-    }
-
-    //This method is where to put any new commands.. each of the cases links out to the corresponding logic method... this is essentially a directory for incoming eligible commands.
-    private void runProcessMenu(String action, String focus) {
-        switch (action.toUpperCase(Locale.ROOT)) {
-            case "GO":
-                processNavigation(focus.toLowerCase());
-                processGodMode(focus);
-                GameAudio.PlayGOAudio();
-                break;
-            case "EAT":
-                processEating(focus);
-                GameAudio.PlayEatAudio();
-                break;
-            case "HIDE":
-                processHide(focus);
-                GameAudio.PlayHideAudio();
-                break;
-            case "HELP":
-                processAntAssistance(focus);
-                GameAudio.PlayHelpAudio();
-                break;
-            case "LEAVE":
-                processLeave(focus);
-                GameAudio.PlayLeaveAudio();
-
-                break;
-            case "ATTACK":
-                processAttack(focus);
-                GameAudio.PlayAttackAudio();
-                break;
-            case "RUN":
-                processRun(focus);
-                GameAudio.PlayRunAudio();
-                break;
-        try {
-
-            if (action.toUpperCase(Locale.ROOT).equalsIgnoreCase("ATTACK")) {
-
-                caterpillar.setEngagedEnemy(caterpillar.getCurrentLocation().getEnemies().get(focus.toLowerCase()));
-                processAttack(caterpillar.getEngagedEnemy());
-
-
-            } else {
-                Game.caterpillar.setEngagedEnemy(null);
-                switch (action.toUpperCase(Locale.ROOT)) {
-                    case "GO":
-                        processNavigation(focus.toLowerCase());
-                        processGodMode(focus);
-                        processStart(focus);
-                        break;
-                    case "EAT":
-                        processEating(focus);
+                        GameAudio.PlayEatAudio();
                         break;
                 }
             }
@@ -188,7 +115,6 @@ public class CommandProcessor {
         if (enemy.getName().equalsIgnoreCase("squirrel")) {
             caterpillar.setWinner(true);
             caterpillar.setLastAction("You have defeated the mighty " + enemy.getName() + " \n" + "After beating the boss you find your mate! Together you can find the tree and live happily ever after \n ending the game");
-            GameAudio.PlayDefeatedAudio();
         }
     }
 
@@ -212,6 +138,7 @@ public class CommandProcessor {
         enemyAttack(enemy);
         if (caterpillar.getHealth() <= 0) {
             caterpillar.setLastAction("Oh dear you have died.");
+            GameAudio.PlayDeadAudio();
         }
     }
 
@@ -268,6 +195,7 @@ public class CommandProcessor {
         enemy.setHealth(enemyDamageCalc);
         caterpillar.setLastAction("You attacked the " + enemy.getName() + " " + caterpillar.getStrength() + " points\b" +
                 "you received " + enemy.getStrength() + " point damage!");
+        GameAudio.PlayAttackAudio();
     }
 
 
@@ -360,6 +288,7 @@ public class CommandProcessor {
                 if (!caterpillar.getCurrentLocation().getNorth().trim().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getNorth().trim()));
                     caterpillar.setLastAction("You travel north.");
+                    GameAudio.PlayGOAudio();
 
                 }
 
@@ -369,6 +298,7 @@ public class CommandProcessor {
                 if (!caterpillar.getCurrentLocation().getSouth().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getSouth().trim()));
                     caterpillar.setLastAction("You travel south.");
+                    GameAudio.PlayGOAudio();
 
                 }
                 break;
@@ -376,6 +306,7 @@ public class CommandProcessor {
                 if (!caterpillar.getCurrentLocation().getEast().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getEast().trim()));
                     caterpillar.setLastAction("You travel east.");
+                    GameAudio.PlayGOAudio();
 
                     if (caterpillar.isWinner()) {
                         caterpillar.setLastAction("You have made it to safe refuge with your mate! Congratulations you've won the game. ");
@@ -387,6 +318,7 @@ public class CommandProcessor {
                 if (!caterpillar.getCurrentLocation().getWest().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getWest().trim()));
                     caterpillar.setLastAction("You travel west.");
+                    GameAudio.PlayGOAudio();
 
                 }
                 break;
