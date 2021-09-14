@@ -235,14 +235,14 @@ public class ViewWindow {
                 //       descriptionLabel.setText(strLine+"/n");
                 // descriptionLabel.setText( descriptionLabel.getText()+strLine+"/n");
 
-                descriptionLabel.setText(descriptionLabel.getText() + "<html> <br/> <html/>" + strLine);
 
+                descriptionLabel.setText(descriptionLabel.getText() + "<html> <br/> <html/>" + strLine);
 
             }
             //Close the input stream
             br.close();
 
-        } catch (FileNotFoundException e) {
+       } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

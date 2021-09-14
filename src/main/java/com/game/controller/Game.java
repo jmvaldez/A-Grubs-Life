@@ -38,6 +38,7 @@ public class Game {
 
     //This should be called by the client to start a new game.
 
+
     public void start() {
 
         enemies = populateEnemies();
@@ -47,6 +48,8 @@ public class Game {
         processor = new LogicEngine();
         caterpillar.setCurrentLocation(locations.get("Genesis"));
         viewWindow = new ViewWindow();
+        GameAudio.PlayWelcomeAudio();
+
     }
 
     // Returns a map of locations based on external Json file

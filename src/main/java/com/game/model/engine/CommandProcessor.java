@@ -119,8 +119,10 @@ public class CommandProcessor {
         playerAttack(enemy);
         enemyAttack(enemy);
 
+
         if (enemy.getHealth() <= 0){
             caterpillar.getCurrentLocation().getEnemies().remove(enemy.getName());
+            GameAudio.PlayDeadAudio();
         }
     }
 
