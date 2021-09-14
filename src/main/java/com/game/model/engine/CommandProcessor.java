@@ -4,7 +4,9 @@ package com.game.model.engine;
 import com.game.controller.Game;
 import com.game.model.materials.Caterpillar;
 import com.game.model.materials.Enemy;
+import com.game.view.ViewWindow;
 
+import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -47,6 +49,12 @@ public class CommandProcessor {
         }
     }
 
+    private void processStart(String focus){
+        if (focus.equalsIgnoreCase("START")) {
+            Game.getViewWindow().initSidePanel();
+        }
+    }
+
     private void processCommand(String action, String focus) {
 
         try {
@@ -69,10 +77,12 @@ public class CommandProcessor {
                     case "GO":
                         processNavigation(focus.toLowerCase());
                         processGodMode(focus);
+                        processStart(focus);
                         break;
                     case "EAT":
                         processEating(focus);
                         break;
+
                 }
             }
         } catch (Exception e) {
@@ -123,9 +133,7 @@ public class CommandProcessor {
 //        }
 //    }
 
-    private void processTypo() {
 
-    }
 
     private void processAttack(Enemy enemy) {
 

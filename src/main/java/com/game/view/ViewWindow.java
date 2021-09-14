@@ -42,16 +42,16 @@ public class ViewWindow {
     public ViewWindow() {
         this.window = new JFrame("A Grub's Life.");
         this.window.setLayout(new BorderLayout());
-        this.window.setPreferredSize(new Dimension(1024, 768));
+        this.window.setPreferredSize(new Dimension(1280, 768));
         this.window.setVisible(true);
         this.window.setResizable(true);
 //        this.window.setLocationRelativeTo(null);
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.window.pack();
         setUpInputPanel();
-        setUpStatPanel();
+//        setUpStatPanel();
         setUpDescriptionPanel();
-        setUpLocationPanel();
+//        setUpLocationPanel();
 
 
     }
@@ -189,6 +189,11 @@ public class ViewWindow {
                             "</style>\n" +
                             "<table style=\"width:5%\">\n" +
                             "<tr>\n" +
+                            "<td style=\"text-align: left;\">Enemy: </td><td>" +
+                            Game.caterpillar.getEngagedEnemy().getName() +
+                            "</td>\n" +
+                            "</tr>\n" +
+                            "<tr>\n" +
                             "<td style=\"text-align: left;\">Strength: </td><td>" +
                             Game.caterpillar.getEngagedEnemy().getStrength() +
                             "</td>\n" +
@@ -207,9 +212,7 @@ public class ViewWindow {
         }
 
 //        enemyStatLabel.setBorder(BorderFactory.createTitledBorder(Game.caterpillar.getEngagedEnemy().getName()));
-        TitledBorder eb = new TitledBorder("NO Enemy");
-        if (Game.caterpillar.getEngagedEnemy() != null){
-            eb.setTitle(Game.caterpillar.getEngagedEnemy().getName() + " Stats");}
+        TitledBorder eb = new TitledBorder("Target Status");
         eb.setTitleColor(Color.GREEN);
         enemyStatLabel.setBorder(eb);
         enemyStatLabel.setPreferredSize(new Dimension(300, 220));
@@ -221,29 +224,24 @@ public class ViewWindow {
         this.descriptionLabel = new JLabel();
         descriptionPanel.setBackground(new Color(0, 0, 0));
         descriptionPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
-        setDiscriptionLabel();
         descriptionPanel.add(descriptionLabel, BorderLayout.CENTER);
         this.window.add(descriptionPanel, BorderLayout.CENTER);
 
-
-    }
-
-    private void setDiscriptionLabel() {
         descriptionLabel.setForeground (Color.red);
         try {
             //open the file
             FileInputStream inMessage = new FileInputStream("src/main/resources/GameInstructions.txt");
             // Get the object of DataInputStream
             DataInputStream in = new DataInputStream(inMessage);
-           BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine;
             //Read File Line By Line
             while ((strLine = br.readLine()) != null)   {
                 // Print the content on the console
-               // System.out.println (strLine);
-               //br.append(strLine+"/n");
-         //       descriptionLabel.setText(strLine+"/n");
-               // descriptionLabel.setText( descriptionLabel.getText()+strLine+"/n");
+                // System.out.println (strLine);
+                //br.append(strLine+"/n");
+                //       descriptionLabel.setText(strLine+"/n");
+                // descriptionLabel.setText( descriptionLabel.getText()+strLine+"/n");
 
                 descriptionLabel.setText(descriptionLabel.getText()+ "<html> <br/> <html/>" + strLine);
 
@@ -257,6 +255,12 @@ public class ViewWindow {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+    }
+
+    private void setDiscriptionLabel() {
+
 
 
 
@@ -305,7 +309,7 @@ public class ViewWindow {
         descriptionLabel.setText(str);
 */
 
-/*
+
         String location = Game.caterpillar.getCurrentLocation().getName().toLowerCase();
         String desc = Game.caterpillar.getCurrentLocation().getDescription().toLowerCase();
 
@@ -318,7 +322,7 @@ public class ViewWindow {
                 "<h1> " + location + "</h1> <br>" +
                 "<p> " + desc + "</p><br><br><br><br>" +
                 "  </html>\n");
-*/
+
     }
 
 
@@ -519,11 +523,17 @@ public class ViewWindow {
 
     }
 
+    public void initSidePanel(){
+        setUpLocationPanel();
+        setUpStatPanel();
+    }
+
     public void updateCaterpillarStatus() {
         setUpLastMoveLabel();
         setCaterpillarStatLabel();
         setEnemyStatLabel();
         setDiscriptionLabel();
+
 
 
         setMapLabel();

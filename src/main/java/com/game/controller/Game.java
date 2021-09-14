@@ -59,8 +59,6 @@ public class Game {
 
 
         setUpComponents();
-//      Hongyi: correct autometic health increase and move the refresh window function to input panel
-//        run();
     }
 
     //This method is designed to instantiate the necessary fields of a Game object.
