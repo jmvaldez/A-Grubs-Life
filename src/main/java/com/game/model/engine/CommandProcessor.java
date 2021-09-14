@@ -6,6 +6,7 @@ import com.game.model.materials.Caterpillar;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.model.materials.Location;
+import com.game.view.GameAudio;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,10 +34,20 @@ public class CommandProcessor {
 
             String action = strings.get(0).toUpperCase(Locale.ROOT);
             String focus = strings.get(1).toUpperCase(Locale.ROOT);
+//          passing in to either the combat system or command menu..
             processCommand(action, focus);
 
         }
 
+    }
+
+    private void processGodMode(String focus) {
+        if (focus.equalsIgnoreCase("GODMODE")) {
+            caterpillar.setHealth(9999999);
+            caterpillar.setStrength(99999999);
+            caterpillar.setLastAction("The Power of God him/her/itself (god is in an existential crisis) flows through you");
+            GameAudio.PlayGodAudio();
+        }
     }
 
     private void processStart(String focus) {
@@ -61,9 +72,11 @@ public class CommandProcessor {
                         processNavigation(focus.toLowerCase());
                         processGodMode(focus);
                         processStart(focus);
+                        GameAudio.PlayGOAudio();
                         break;
                     case "EAT":
                         processEating(focus);
+                        GameAudio.PlayEatAudio();
                         break;
                 }
             }
@@ -90,6 +103,7 @@ public class CommandProcessor {
 //        caterpillar.levelUp();
 
         caterpillar.setLastAction("You have defeated the mighty " + enemy.getName() + " \n " + caterpillar.getLastAction());
+        GameAudio.PlayDefeatedAudio();
 
     }
 
@@ -159,6 +173,7 @@ public class CommandProcessor {
         System.out.println("enemyDamageCalc: " + enemyDamageCalc);        enemy.setHealth(enemyDamageCalc);
         caterpillar.setLastAction("You attacked the " + enemy.getName() + " " + caterpillar.getStrength() + " points\b" +
                 "you received " + enemy.getStrength() + " point damage!");
+        GameAudio.PlayAttackAudio();
     }
 
 
@@ -250,6 +265,8 @@ public class CommandProcessor {
                 if (!caterpillar.getCurrentLocation().getNorth().trim().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getNorth().trim()));
                     caterpillar.setLastAction("You travel north.");
+                    GameAudio.PlayGOAudio();
+
                 }
 
                 break;
@@ -257,12 +274,15 @@ public class CommandProcessor {
                 if (!caterpillar.getCurrentLocation().getSouth().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getSouth().trim()));
                     caterpillar.setLastAction("You travel south.");
+                    GameAudio.PlayGOAudio();
+
                 }
                 break;
             case "east":
                 if (!caterpillar.getCurrentLocation().getEast().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getEast().trim()));
                     caterpillar.setLastAction("You travel east.");
+                    GameAudio.PlayGOAudio();
 
                 }
                 break;
@@ -270,16 +290,10 @@ public class CommandProcessor {
                 if (!caterpillar.getCurrentLocation().getWest().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getWest().trim()));
                     caterpillar.setLastAction("You travel west.");
+                    GameAudio.PlayGOAudio();
+
                 }
                 break;
-        }
-    }
-
-    private void processGodMode(String focus) {
-        if (focus.equalsIgnoreCase("GODMODE")) {
-            caterpillar.setHealth(9999999);
-            caterpillar.setStrength(99999999);
-            caterpillar.setLastAction("The Power of God him/her/itself (god is in an existential crisis) flows through you");
         }
     }
 }
