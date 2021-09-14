@@ -79,6 +79,7 @@ public class Caterpillar {
                     usedIndex.add(index);
                     String name = keyList.get(index);
                     result.put(name, Game.getEnemies().get(name));
+                    result.get(name).setHealth(result.get(name).getMaxHealth());
                     break;
                 }
             }

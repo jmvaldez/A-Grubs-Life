@@ -170,7 +170,8 @@ public class CommandProcessor {
     private void playerAttack(Enemy enemy) {
 
         int enemyDamageCalc = enemy.getHealth() - caterpillar.getStrength() - damageAdjustment(enemy);
-        System.out.println("enemyDamageCalc: " + enemyDamageCalc);        enemy.setHealth(enemyDamageCalc);
+        System.out.println("enemyDamageCalc: " + enemyDamageCalc);
+        enemy.setHealth(enemyDamageCalc);
         caterpillar.setLastAction("You attacked the " + enemy.getName() + " " + caterpillar.getStrength() + " points\b" +
                 "you received " + enemy.getStrength() + " point damage!");
         GameAudio.PlayAttackAudio();

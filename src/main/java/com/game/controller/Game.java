@@ -99,11 +99,11 @@ public class Game {
                 Map.Entry<String, JsonNode> entry = nodes.next();
 
                 String enemyName = entry.getKey();
-                int enemyHealth = entry.getValue().get("health").asInt();
+                int enemyMaxHealth = entry.getValue().get("health").asInt();
                 int enemyStrength = entry.getValue().get("strength").asInt();
                 int enemyExp = entry.getValue().get("exp").asInt();
 
-                Enemy enemy = new Enemy(enemyName, enemyHealth, enemyStrength);
+                Enemy enemy = new Enemy(enemyName, enemyMaxHealth, enemyStrength);
                 enemies.put(enemyName, enemy);
 
 
