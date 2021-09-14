@@ -6,6 +6,9 @@ import com.game.model.materials.Caterpillar;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Location;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -25,7 +28,7 @@ public class CommandProcessor {
 
     }
 
-    public void executeCommand(ArrayList<String> strings) {
+    public void executeCommand(ArrayList<String> strings) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (caterpillar.isDead()) {
 
             caterpillar.setLastAction("you are dead, you can only type restart or quit");
