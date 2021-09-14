@@ -1,6 +1,7 @@
 package com.game.view;
 
 import com.game.controller.Game;
+import com.game.model.materials.Enemy;
 import com.game.model.materials.Location;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.event.KeyListener;
 import java.io.*;
 import java.nio.CharBuffer;
+import java.util.Map;
 
 public class ViewWindow {
 
@@ -175,7 +177,7 @@ public class ViewWindow {
     private void setEnemyStatLabel() {
 
 
-        if (Game.caterpillar.getCurrentLocation().getEnemy() != null) {
+        if (Game.caterpillar.getEngagedEnemy() != null) {
             enemyStatLabel.setText(
                     "<html>\n" +
                             "<style>\n" +
@@ -188,12 +190,12 @@ public class ViewWindow {
                             "<table style=\"width:5%\">\n" +
                             "<tr>\n" +
                             "<td style=\"text-align: left;\">Strength: </td><td>" +
-                            Game.caterpillar.getCurrentLocation().getEnemy().getStrength() +
+                            Game.caterpillar.getEngagedEnemy().getStrength() +
                             "</td>\n" +
                             "</tr>\n" +
                             "<tr>\n" +
                             "<td style=\"text-align: left;\">Health: </td><td>" +
-                            Game.caterpillar.getCurrentLocation().getEnemy().getHealth() +
+                            Game.caterpillar.getEngagedEnemy().getHealth() +
                             "</td>\n" +
                             "</tr>\n" +
                             "</table>\n" +
@@ -204,9 +206,10 @@ public class ViewWindow {
             enemyStatLabel.setText("");
         }
 
-        enemyStatLabel.setBorder(BorderFactory.createTitledBorder(Game.caterpillar.getCurrentLocation().getEnemy().getName()));
+//        enemyStatLabel.setBorder(BorderFactory.createTitledBorder(Game.caterpillar.getEngagedEnemy().getName()));
         TitledBorder eb = new TitledBorder("NO Enemy");
-        eb.setTitle(Game.caterpillar.getCurrentLocation().getEnemy().getName() + " Stats");
+        if (Game.caterpillar.getEngagedEnemy() != null){
+            eb.setTitle(Game.caterpillar.getEngagedEnemy().getName() + " Stats");}
         eb.setTitleColor(Color.GREEN);
         enemyStatLabel.setBorder(eb);
         enemyStatLabel.setPreferredSize(new Dimension(300, 220));
@@ -402,10 +405,7 @@ public class ViewWindow {
         roomPanel.setBackground(new Color(0, 0, 0));
 
 
-        TitledBorder room = new TitledBorder("Room");
-        room.setTitleColor(Color.GREEN);
-        roomLabel.setBorder(room);
-        roomLabel.setPreferredSize(new Dimension(100, 200));
+        setRoomLabel();
 
         panel.add(roomLabel, BorderLayout.SOUTH);
 
@@ -489,6 +489,29 @@ public class ViewWindow {
         room.setTitleColor(Color.GREEN);
         roomLabel.setBorder(room);
 
+        String result = "<html>\n" +
+                "<style>\n" +
+                "table {\n" +
+                "color:green;\n" +
+                "font-size:10px;\n" +
+                "padding:10px;\n" +
+                "}\n" +
+                "</style>\n" +
+                "<table style=\"width:5%\">\n" +
+                "<tr>\n" +
+                "<td>";
+
+        for(Map.Entry<String, Enemy> entry : Game.caterpillar.getCurrentLocation().getEnemies().entrySet()){
+            result += " " + entry.getKey();
+        }
+
+        result +=
+                "</td>\n" +
+                "</tr>\n" +
+                "</table>\n" +
+                "\n" +
+                "</html>";
+        roomLabel.setText(result);
 
     }
 

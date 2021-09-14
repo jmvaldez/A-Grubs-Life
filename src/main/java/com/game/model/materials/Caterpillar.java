@@ -1,5 +1,7 @@
 package com.game.model.materials;
 
+import com.game.controller.Game;
+
 public class Caterpillar {
     public boolean winner;
     private int health;
@@ -15,6 +17,16 @@ public class Caterpillar {
 
     private boolean isDead;
 
+    public Enemy getEngagedEnemy() {
+        return engagedEnemy;
+    }
+
+    public void setEngagedEnemy(Enemy engagedEnemy) {
+        this.engagedEnemy = engagedEnemy;
+    }
+
+    private Enemy engagedEnemy;
+
     public Caterpillar(int health, int experience, int strength) {
         this.health = health;
         this.experience = experience;
@@ -23,6 +35,7 @@ public class Caterpillar {
         this.lastAction = "";
         this.winner = false;
         this.isDead = false;
+        this.engagedEnemy = null;
     }
 
     public boolean isDead() {
@@ -32,6 +45,7 @@ public class Caterpillar {
     public void checkDeath() {
         if (this.health <= 0) {
             this.isDead = true;
+            Game.caterpillar.setLastAction("Oh dear you have died.");
         }
     }
 
@@ -40,7 +54,9 @@ public class Caterpillar {
     }
 
     public void setCurrentLocation(Location location) { //we should move this to the bottom
-        this.currentLocation = location;
+        currentLocation = location;
+        currentLocation.setEnemies(Game.getEnemies());
+
     }
 
     public void eat(Leaf leaf) {

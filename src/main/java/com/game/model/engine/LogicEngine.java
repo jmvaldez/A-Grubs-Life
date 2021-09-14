@@ -12,15 +12,12 @@ public class LogicEngine {
     private CommandProcessor commandProcessor;
     private KeyWordIdentifier keyWordIdentifier;
     private TextParser textParser;
-    public LogicEngine(Caterpillar caterpillar, HashMap<String, Location> locations, HashMap<String, Enemy> enemies){
-        setUpEngineComponents(caterpillar,locations, enemies);
-    }
-
-    private void setUpEngineComponents(Caterpillar caterpillar, HashMap<String, Location> locations, HashMap<String,Enemy> enemies){
+    public LogicEngine(){
         this.textParser = new TextParser();
         this.keyWordIdentifier = new KeyWordIdentifier();
-        this.commandProcessor = new CommandProcessor(locations, enemies);
+        this.commandProcessor = new CommandProcessor();
     }
+
     public void processCommand(String userInput){//
         try{
         ArrayList parsedInput = textParser.parseInput(userInput);

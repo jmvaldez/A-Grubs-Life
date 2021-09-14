@@ -1,18 +1,18 @@
 {
   "Enemies": {
-    "Ant": {
+    "ant": {
       "health": 50,
       "strength": 1
     },
-    "Spider": {
+    "spider": {
       "health": 40,
       "strength": 1
     },
-    "Bee": {
+    "bee": {
       "health": 30,
       "strength": 1
     },
-    "Flies": {
+    "flies": {
       "health": 20,
       "strength": 1
     }
