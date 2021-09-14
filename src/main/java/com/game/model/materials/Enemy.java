@@ -12,6 +12,12 @@ public class Enemy {
     private int requiredLevelToFight;
     private boolean aggressive;
     private int strength;
+
+    public int getExp() {
+        return exp;
+    }
+
+    private int exp;
     private boolean tamable;
     private String location;
     private boolean hidden;

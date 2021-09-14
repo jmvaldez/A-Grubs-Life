@@ -4,6 +4,7 @@ package com.game.model.engine;
 import com.game.controller.Game;
 import com.game.model.materials.Caterpillar;
 import com.game.model.materials.Enemy;
+import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 
 import java.util.ArrayList;
@@ -11,13 +12,9 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class CommandProcessor {
-//    private Caterpillar caterpillar;
 
     private final Caterpillar caterpillar = Game.caterpillar;
     private final HashMap<String, Location> locations = Game.getLocations();
-
-//    private boolean misfire;
-
 
     public void executeCommand(ArrayList<String> strings) {
         if (caterpillar.isDead()) {
@@ -36,19 +33,10 @@ public class CommandProcessor {
 
             String action = strings.get(0).toUpperCase(Locale.ROOT);
             String focus = strings.get(1).toUpperCase(Locale.ROOT);
-//          passing in to either the combat system or command menu..
             processCommand(action, focus);
 
         }
 
-    }
-
-    private void processGodMode(String focus) {
-        if (focus.equalsIgnoreCase("GODMODE")) {
-            caterpillar.setHealth(9999999);
-            caterpillar.setStrength(99999999);
-            caterpillar.setLastAction("The Power of God him/her/itself (god is in an existential crisis) flows through you");
-        }
     }
 
     private void processStart(String focus) {
@@ -62,7 +50,6 @@ public class CommandProcessor {
         try {
 
             if (action.toUpperCase(Locale.ROOT).equalsIgnoreCase("ATTACK")) {
-
                 caterpillar.setEngagedEnemy(caterpillar.getCurrentLocation().getEnemies().get(focus.toLowerCase()));
                 processAttack(caterpillar.getEngagedEnemy());
 
@@ -95,7 +82,7 @@ public class CommandProcessor {
     private void enemyDefeated(Enemy enemy) {
         enemy.setHidden(true);
         enemy.setInCombat(false);
-        caterpillar.setExperience(2);
+        caterpillar.setExperience(enemy.getExp());
 
         //checks if enemy defeated is the squirrel to set end game criteria
         winnerWinnerSquirrelDinner(enemy);
@@ -114,25 +101,12 @@ public class CommandProcessor {
     }
 
 
-    private void processAttackBackUp(Enemy enemy) {
-
-        enemy.setHealth(enemy.getHealth() - caterpillar.getStrength());
-
-        caterpillar.setHealth(caterpillar.getHealth() - enemy.getStrength());
-        caterpillar.setLastAction("You attacked the " + enemy.getName() + " " + caterpillar.getStrength() + " points\b" +
-                "you received " + enemy.getStrength() + " point damage!");
-    }
-
-
     private void processAttack(Enemy enemy) {
         playerAttack(enemy);
-
-        if (isEnemyDefeated(enemy)) {
-            enemyDefeated(enemy);
-        }
         enemyAttack(enemy);
-        if (caterpillar.getHealth() <= 0) {
-            caterpillar.setLastAction("Oh dear you have died.");
+
+        if (enemy.getHealth() <= 0){
+            caterpillar.getCurrentLocation().getEnemies().remove(enemy.getName());
         }
     }
 
@@ -178,15 +152,11 @@ public class CommandProcessor {
 //        if (Game.caterpillar.getHealth() <= 0) {
 //            Game.caterpillar.setLastAction("Oh dear you have died.");
 //        }
-    private boolean isEnemyDefeated(Enemy enemy) {
-        return enemy.getHealth() <= 0;
-    }
 
     private void playerAttack(Enemy enemy) {
 
         int enemyDamageCalc = enemy.getHealth() - caterpillar.getStrength() - damageAdjustment(enemy);
-        System.out.println("enemyDamageCalc: " + enemyDamageCalc);
-        enemy.setHealth(enemyDamageCalc);
+        System.out.println("enemyDamageCalc: " + enemyDamageCalc);        enemy.setHealth(enemyDamageCalc);
         caterpillar.setLastAction("You attacked the " + enemy.getName() + " " + caterpillar.getStrength() + " points\b" +
                 "you received " + enemy.getStrength() + " point damage!");
     }
@@ -263,14 +233,13 @@ public class CommandProcessor {
 
 
     private void processEating(String focus) {
-        switch (focus.toLowerCase()) {
-            case "leaf":
-                caterpillar.eat(caterpillar.getCurrentLocation().getLeaf());
-
-                if (!caterpillar.getLastAction().contains("level")) {
-                    caterpillar.setLastAction("You eat a leaf!");
-                }
-
+        Item currentItem = caterpillar.getCurrentLocation().getItems().get(focus.toLowerCase());
+        caterpillar.setHealth(caterpillar.getHealth() + currentItem.getHealth());
+        caterpillar.setExperience(caterpillar.getExperience() + currentItem.getExp());
+        currentItem.setQty(currentItem.getQty()-1);
+        if (currentItem.getQty() <= 0){
+            caterpillar.getCurrentLocation().getItems().remove(currentItem.getName());
+            System.out.println(caterpillar.getCurrentLocation().getItems());
         }
     }
 
@@ -281,16 +250,13 @@ public class CommandProcessor {
                 if (!caterpillar.getCurrentLocation().getNorth().trim().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getNorth().trim()));
                     caterpillar.setLastAction("You travel north.");
-
                 }
-
 
                 break;
             case "south":
                 if (!caterpillar.getCurrentLocation().getSouth().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getSouth().trim()));
                     caterpillar.setLastAction("You travel south.");
-
                 }
                 break;
             case "east":
@@ -298,19 +264,22 @@ public class CommandProcessor {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getEast().trim()));
                     caterpillar.setLastAction("You travel east.");
 
-                    if (caterpillar.isWinner()) {
-                        caterpillar.setLastAction("You have made it to safe refuge with your mate! Congratulations you've won the game. ");
-                    }
-
                 }
                 break;
             case "west":
                 if (!caterpillar.getCurrentLocation().getWest().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getWest().trim()));
                     caterpillar.setLastAction("You travel west.");
-
                 }
                 break;
+        }
+    }
+
+    private void processGodMode(String focus) {
+        if (focus.equalsIgnoreCase("GODMODE")) {
+            caterpillar.setHealth(9999999);
+            caterpillar.setStrength(99999999);
+            caterpillar.setLastAction("The Power of God him/her/itself (god is in an existential crisis) flows through you");
         }
     }
 }

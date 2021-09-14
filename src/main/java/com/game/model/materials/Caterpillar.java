@@ -45,6 +45,10 @@ public class Caterpillar {
         return isDead;
     }
 
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
+
     public void checkDeath() {
         if (this.health <= 0) {
             this.isDead = true;
@@ -58,11 +62,12 @@ public class Caterpillar {
 
     public void setCurrentLocation(Location location) { //we should move this to the bottom
         currentLocation = location;
-        currentLocation.setEnemies(getRandomEnemies(currentLocation));
+        currentLocation.setEnemies(getRandomEnemies());
+        currentLocation.setItems(getRandomItems());
 
     }
 
-    private HashMap<String, Enemy> getRandomEnemies(Location location){
+    private HashMap<String, Enemy> getRandomEnemies(){
         ArrayList<String> keyList = new ArrayList<String>(Game.getEnemies().keySet());
         int enemyQty = getRandomNumber(1, 3);
         ArrayList<Integer> usedIndex = new ArrayList<Integer>();
@@ -81,27 +86,35 @@ public class Caterpillar {
         return result;
     }
 
+    private HashMap<String, Item> getRandomItems(){
+        ArrayList<String> keyList = new ArrayList<String>(Game.getItems().keySet());
+
+        int itemQty = getRandomNumber(1, 3);
+
+        ArrayList<Integer> usedIndex = new ArrayList<Integer>();
+        HashMap<String, Item> result = new HashMap<>();
+        for (int i =0; i <= itemQty; i++){
+            while(true){
+                int itemAmount = getRandomNumber(1, 5);
+                int index = getRandomNumber(0, Game.getItems().size());
+                if (!usedIndex.contains(index)){
+                    usedIndex.add(index);
+                    String name = keyList.get(index);
+                    result.put(name, Game.getItems().get(name));
+                    result.get(name).setQty(itemAmount);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+
     private int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
-    public void eat(Leaf leaf) {
-        setHealth(getHealth() + 10);
-        System.out.println("eat");
-        setExperience(leaf.getXp());
-        //deleted some of the condition statement
-//        if ((getExperience() + leaf.getXp()) >= maxExperience) {
-//            //taking this portion of code out resets the experience to 0 after level up
-//            levelUp(); //increases level / ends the stage once appropriate level
-//            maxExperience += maxExperience; // double experience needed to level up
-//            setExperience(0); // reset experience to 0 after level up
-//        }
-//        //changed the else if
-//        else {
-//            setExperience(getExperience() + leaf.getXp()); // no level-up by experience up
-//        }
 
-    }
 
     public void levelUp() {
         setStrength(strength + 50);
