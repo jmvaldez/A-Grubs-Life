@@ -121,6 +121,7 @@ public class CommandProcessor {
 
         if (enemy.getHealth() <= 0){
             caterpillar.getCurrentLocation().getEnemies().remove(enemy.getName());
+
         }
     }
 

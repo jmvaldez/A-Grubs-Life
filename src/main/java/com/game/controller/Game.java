@@ -47,6 +47,8 @@ public class Game {
         processor = new LogicEngine();
         caterpillar.setCurrentLocation(locations.get("Genesis"));
         viewWindow = new ViewWindow();
+        GameAudio.PlayWelcomeAudio();
+
     }
 
     // Returns a map of locations based on external Json file
