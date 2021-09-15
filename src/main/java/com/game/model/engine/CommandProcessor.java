@@ -24,6 +24,7 @@ public class CommandProcessor {
         if (caterpillar.isDead()) {
 
             caterpillar.setLastAction("you are dead, you can only type restart or quit");
+            GameAudio.PlayYOUADEADAudio();
             String action = strings.get(1).toUpperCase(Locale.ROOT);
             if (action.matches("RESTART")) {
                 Game.caterpillar = new Caterpillar(100, 0, 0);
@@ -76,7 +77,6 @@ public class CommandProcessor {
                         processNavigation(focus.toLowerCase());
                         processGodMode(focus);
                         processStart(focus);
-                        GameAudio.PlayGOAudio();
                         break;
                     case "EAT":
                         processEating(focus);
@@ -93,6 +93,7 @@ public class CommandProcessor {
 
     private void processCantDoThatHere() {
         Game.caterpillar.setLastAction("You can't do that here.. We don't have that ");
+        GameAudio.PlayYOUCANTAudio();
     }
 
 
@@ -288,7 +289,7 @@ public class CommandProcessor {
                 if (!caterpillar.getCurrentLocation().getNorth().trim().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getNorth().trim()));
                     caterpillar.setLastAction("You travel north.");
-                    GameAudio.PlayGOAudio();
+                    GameAudio.PlayNORTHAudio();
 
                 }
 
@@ -298,7 +299,7 @@ public class CommandProcessor {
                 if (!caterpillar.getCurrentLocation().getSouth().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getSouth().trim()));
                     caterpillar.setLastAction("You travel south.");
-                    GameAudio.PlayGOAudio();
+                    GameAudio.PlaySOUTHAudio();
 
                 }
                 break;
@@ -306,10 +307,11 @@ public class CommandProcessor {
                 if (!caterpillar.getCurrentLocation().getEast().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getEast().trim()));
                     caterpillar.setLastAction("You travel east.");
-                    GameAudio.PlayGOAudio();
+                    GameAudio.PlayEASTAudio();
 
                     if (caterpillar.isWinner()) {
                         caterpillar.setLastAction("You have made it to safe refuge with your mate! Congratulations you've won the game. ");
+                        GameAudio.PlayCONGRATSAudio();
                     }
 
                 }
@@ -318,7 +320,7 @@ public class CommandProcessor {
                 if (!caterpillar.getCurrentLocation().getWest().equalsIgnoreCase("DEAD_END")) {
                     caterpillar.setCurrentLocation(locations.get(caterpillar.getCurrentLocation().getWest().trim()));
                     caterpillar.setLastAction("You travel west.");
-                    GameAudio.PlayGOAudio();
+                    GameAudio.PlayWESTAudio();
 
                 }
                 break;
