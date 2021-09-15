@@ -1,6 +1,7 @@
 package com.game.model.materials;
 
 import com.game.controller.Game;
+import com.game.view.GameAudio;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,10 +123,13 @@ public class Caterpillar {
         setLevel(level + 1);
         if (getLevel() == 2) {
             this.setLastAction("You are level 2! You feel slightly stronger and more healthy.");
+            GameAudio.PlayLEVEL2Audio();
         } else if (getLevel() == 3) {
             this.setLastAction("You have reached level 3! You are now a butterfly... from now on you can use acid attacks.");
+            GameAudio.PlayBUTTERFLYAudio();
         } else if (getLevel() == maxLevel) {
             this.setLastAction("You have reached the max level of " + maxLevel + "!");
+            GameAudio.PlayMAXLEVELAudio();
         }
 
     }
