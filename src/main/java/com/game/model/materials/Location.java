@@ -16,7 +16,6 @@ public class Location {
     private String south;
     private String east;
     private String west;
-    private Leaf leaf;
     private HashMap<String, Enemy> enemies;
     private HashMap<String, Item> items;
 
@@ -27,18 +26,6 @@ public class Location {
         this.south = south;
         this.east = east;
         this.west = west;
-        setLeaf();
-
-    }
-
-    private void setLeaf() {
-        Random random = new Random();
-
-            this.leaf = new Leaf();
-    }
-
-    public Leaf getLeaf(){
-        return this.leaf;
     }
 
     public String getName() {
