@@ -12,33 +12,33 @@ public class Enemy {
     private int requiredLevelToFight;
     private boolean aggressive;
     private int strength;
+    private int maxHealth;
+
+    public int getExp() {
+        return exp;
+    }
+
+    private int exp;
     private boolean tamable;
     private String location;
     private boolean hidden;
     private boolean inCombat;
-    public Enemy(String name, int health, int strength, int requiredLevelToFight, boolean aggressive, boolean tamable, String location, boolean hidden){
+    public Enemy(String name, int maxHealth, int strength)
+
+    {
         this.name = name;
-        this.health = health;
-        this.requiredLevelToFight = requiredLevelToFight;
-        this.aggressive = aggressive;
+        this.maxHealth = maxHealth;
         this.strength = strength;
-        this.tamable = tamable;
-        this.location = location;
-        this.hidden = hidden;
+
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        this.health = Math.max(health, 0);
     }
-
 
     public String getName() {
         return name;
     }
-
-//    public void setName(String name) {
-//        this.name = name;
-//    }
 
     public int getHealth() {
         return health;
@@ -79,12 +79,12 @@ public class Enemy {
     public void setInCombat(boolean inCombat) {
         this.inCombat = inCombat;
     }
-    //Caterpillar should be able to hide when there is a bird in a room
+//  Caterpillar should be able to hide when there is a bird in a room
     public String getBird() {
         return "Bird";
     }
 
-    //To increase the probability of a bird not being selected randomly in a room. It just returns an empty string
+//  To increase the probability of a bird not being selected randomly in a room. It just returns an empty string
     public String getEmptyString(){
         return "";
     }
@@ -97,5 +97,13 @@ public class Enemy {
         String bird = birds.get(randomBird);
 
         return bird;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
 }

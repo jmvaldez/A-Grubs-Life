@@ -35,6 +35,10 @@ public class TextParser {
         nouns.add("GODMODE");
         nouns.add("RESTART");
         nouns.add("QUIT");
+        nouns.add("START");
+        nouns.add("FLOWER");
+        nouns.add("MONSTER");
+        nouns.add("PINECONE");
 
     }
 
@@ -46,7 +50,7 @@ public class TextParser {
         verbs.add("HIDE");
         verbs.add("ATTACK");
         verbs.add("HELP");
-        verbs.add("START");
+
         verbs.add("RUN");
     }
 

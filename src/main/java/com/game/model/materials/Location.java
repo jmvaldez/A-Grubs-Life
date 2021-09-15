@@ -5,6 +5,8 @@ package com.game.model.materials;
 
 import com.game.controller.Game;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Location {
@@ -15,8 +17,8 @@ public class Location {
     private String east;
     private String west;
     private Leaf leaf;
-    private Enemy enemy;
-
+    private HashMap<String, Enemy> enemies;
+    private HashMap<String, Item> items;
 
     public Location(String name, String description, String north, String south, String east, String west){
         this.name = name;
@@ -33,9 +35,6 @@ public class Location {
         Random random = new Random();
 
             this.leaf = new Leaf();
-    }
-    private void setRandomSpawnedEnemy(){
-
     }
 
     public Leaf getLeaf(){
@@ -66,8 +65,20 @@ public class Location {
         return this.west;
     }
 
-    public Enemy getEnemy() {
-        return enemy;
+    public void setEnemies(HashMap<String, Enemy> enemies) {
+        this.enemies = enemies;
     }
-    public void setEnemy(Enemy enemy){ this.enemy = enemy;}
+
+    public HashMap<String, Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public HashMap<String, Item> getItems() {
+        return items;
+    }
+    public void setItems(HashMap<String, Item> items) {
+        this.items = items;
+    }
+
+
 }
