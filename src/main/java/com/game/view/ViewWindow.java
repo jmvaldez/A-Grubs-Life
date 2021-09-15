@@ -5,9 +5,14 @@ import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.*;
 import java.util.Map;
@@ -38,9 +43,16 @@ public class ViewWindow {
     private JLabel northEmptyLabel;
     private JLabel westEmptyLabel;
     private JLabel northEastLabel;
+    private JButton soundButton;
+    private String rickRoll;
+    private String musicOnOff;
+    private ButtonHandler bHandler;
+    private Music mu;
 
 
     public ViewWindow() {
+        bHandler = new ButtonHandler();
+        mu = new Music();
         this.window = new JFrame("A Grub's Life.");
         this.window.setLayout(new BorderLayout());
         this.window.setPreferredSize(new Dimension(1280, 768));
@@ -49,9 +61,72 @@ public class ViewWindow {
 //        this.window.setLocationRelativeTo(null);
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.window.pack();
+        setUpSoundButton();
         setUpInputPanel();
         setUpDescriptionPanel();
+    }
 
+    public class Music {
+        Clip clip;
+
+        public void setFile(String soundFileName) {
+
+            try {
+                File file = new File(soundFileName);
+                AudioInputStream sound = AudioSystem.getAudioInputStream(file);
+                clip = AudioSystem.getClip();
+                clip.open(sound);
+            } catch (Exception e) {
+            }
+        }
+
+        public void play() {
+            clip.setFramePosition(0);
+            clip.start();
+        }
+
+        public void loop() {
+            clip.loop(clip.LOOP_CONTINUOUSLY);
+        }
+
+        public void stop() {
+            clip.stop();
+            clip.close();
+        }
+    }
+
+    public class ButtonHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            String clickedButton = event.getActionCommand();
+
+            switch (clickedButton) {
+                case "buttonClick":
+                    if (musicOnOff.equals("off")) {
+                        mu.setFile(rickRoll);
+                        mu.play();
+                        mu.loop();
+                        musicOnOff = "on";
+                        soundButton.setText("Hot Tunes Playing!!!");
+                    } else if (musicOnOff.equals("on")) {
+                        mu.stop();
+                        musicOnOff = "off";
+                        soundButton.setText("No More Hot Tunes");
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void setUpSoundButton(){
+
+        soundButton = new JButton("Hot Tunes!");
+        soundButton.setPreferredSize(new Dimension(200,50));
+        soundButton.setFocusPainted(false);
+        soundButton.addActionListener(bHandler);
+        soundButton.setActionCommand("buttonClick");
+        rickRoll = "src/main/resources/audio/never.wav";
+        musicOnOff = "off";
+        this.window.add(soundButton,BorderLayout.NORTH);
 
     }
 
@@ -72,6 +147,7 @@ public class ViewWindow {
         this.window.add(inputPanel, BorderLayout.SOUTH);
 
 
+
     }
 
     private void setUpInputField(JPanel inputPanel) {
@@ -87,6 +163,8 @@ public class ViewWindow {
             updateCaterpillarStatus();
 
         });
+
+
     }
 
     private void setUpLastMoveLabel() {
@@ -240,7 +318,7 @@ public class ViewWindow {
             //Close the input stream
             br.close();
 
-       } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -267,28 +345,22 @@ public class ViewWindow {
             }
             //Close the input stream
             in.close();
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         =====================
-
         String str = null;
         try {
             File file = new File("File/GameInstructions.txt");
             BufferedReader br = new BufferedReader(new FileReader(file));
             while ((str = br.readLine()) != null) {
              //   System.out.println (str);
-
-
             }
         }catch(IOException e) {
             e.printStackTrace();
         }
-
         descriptionLabel.setText(str);
 */
 
