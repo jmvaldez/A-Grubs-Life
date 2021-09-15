@@ -36,6 +36,9 @@ public class TextParser {
         nouns.add("RESTART");
         nouns.add("QUIT");
         nouns.add("START");
+        nouns.add("FLOWER");
+        nouns.add("MONSTER");
+        nouns.add("PINECONE");
 
     }
 

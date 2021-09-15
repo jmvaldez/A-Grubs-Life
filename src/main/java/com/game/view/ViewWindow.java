@@ -2,14 +2,19 @@ package com.game.view;
 
 import com.game.controller.Game;
 import com.game.model.materials.Enemy;
+import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.*;
-import java.nio.CharBuffer;
 import java.util.Map;
 
 public class ViewWindow {
@@ -20,7 +25,8 @@ public class ViewWindow {
     private JLabel caterpillarStatLabel;
     private JLabel enemyStatLabel;
     private JLabel descriptionLabel;
-    private JLabel roomLabel;
+    private JLabel enemyListLabel;
+    private JLabel itemListLabel;
 
     private JTextField inputField;
     private JPanel inputPanel;
@@ -37,9 +43,16 @@ public class ViewWindow {
     private JLabel northEmptyLabel;
     private JLabel westEmptyLabel;
     private JLabel northEastLabel;
+    private JButton soundButton;
+    private String rickRoll;
+    private String musicOnOff;
+    private ButtonHandler bHandler;
+    private Music mu;
 
 
     public ViewWindow() {
+        bHandler = new ButtonHandler();
+        mu = new Music();
         this.window = new JFrame("A Grub's Life.");
         this.window.setLayout(new BorderLayout());
         this.window.setPreferredSize(new Dimension(1280, 768));
@@ -48,13 +61,74 @@ public class ViewWindow {
 //        this.window.setLocationRelativeTo(null);
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.window.pack();
+        setUpSoundButton();
         setUpInputPanel();
         setUpDescriptionPanel();
-
-
-
     }
 
+    public class Music {
+        Clip clip;
+
+        public void setFile(String soundFileName) {
+
+            try {
+                File file = new File(soundFileName);
+                AudioInputStream sound = AudioSystem.getAudioInputStream(file);
+                clip = AudioSystem.getClip();
+                clip.open(sound);
+            } catch (Exception e) {
+            }
+        }
+
+        public void play() {
+            clip.setFramePosition(0);
+            clip.start();
+        }
+
+        public void loop() {
+            clip.loop(clip.LOOP_CONTINUOUSLY);
+        }
+
+        public void stop() {
+            clip.stop();
+            clip.close();
+        }
+    }
+
+    public class ButtonHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            String clickedButton = event.getActionCommand();
+
+            switch (clickedButton) {
+                case "buttonClick":
+                    if (musicOnOff.equals("off")) {
+                        mu.setFile(rickRoll);
+                        mu.play();
+                        mu.loop();
+                        musicOnOff = "on";
+                        soundButton.setText("Hot Tunes Playing!!!");
+                    } else if (musicOnOff.equals("on")) {
+                        mu.stop();
+                        musicOnOff = "off";
+                        soundButton.setText("No More Hot Tunes");
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void setUpSoundButton(){
+
+        soundButton = new JButton("Hot Tunes!");
+        soundButton.setPreferredSize(new Dimension(200,50));
+        soundButton.setFocusPainted(false);
+        soundButton.addActionListener(bHandler);
+        soundButton.setActionCommand("buttonClick");
+        rickRoll = "src/main/resources/audio/never.wav";
+        musicOnOff = "off";
+        this.window.add(soundButton,BorderLayout.NORTH);
+
+    }
 
     private void setUpInputPanel() {
         JPanel inputPanel = new JPanel();
@@ -73,6 +147,7 @@ public class ViewWindow {
         this.window.add(inputPanel, BorderLayout.SOUTH);
 
 
+
     }
 
     private void setUpInputField(JPanel inputPanel) {
@@ -88,6 +163,8 @@ public class ViewWindow {
             updateCaterpillarStatus();
 
         });
+
+
     }
 
     private void setUpLastMoveLabel() {
@@ -220,7 +297,7 @@ public class ViewWindow {
         descriptionPanel.add(descriptionLabel, BorderLayout.CENTER);
         this.window.add(descriptionPanel, BorderLayout.CENTER);
 
-        descriptionLabel.setForeground (Color.red);
+        descriptionLabel.setForeground(Color.red);
         try {
             //open the file
             FileInputStream inMessage = new FileInputStream("src/main/resources/GameInstructions.txt");
@@ -229,19 +306,19 @@ public class ViewWindow {
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             String strLine;
             //Read File Line By Line
-            while ((strLine = br.readLine()) != null)   {
+            while ((strLine = br.readLine()) != null) {
                 // Print the content on the console
                 // System.out.println (strLine);
                 //br.append(strLine+"/n");
                 //       descriptionLabel.setText(strLine+"/n");
                 // descriptionLabel.setText( descriptionLabel.getText()+strLine+"/n");
+                descriptionLabel.setText(descriptionLabel.getText() + "<html> <br/> <html/>" + strLine);
 
-                descriptionLabel.setText(descriptionLabel.getText()+ "<html> <br/> <html/>" + strLine);
             }
             //Close the input stream
             br.close();
 
-       } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -268,28 +345,22 @@ public class ViewWindow {
             }
             //Close the input stream
             in.close();
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         =====================
-
         String str = null;
         try {
             File file = new File("File/GameInstructions.txt");
             BufferedReader br = new BufferedReader(new FileReader(file));
             while ((str = br.readLine()) != null) {
              //   System.out.println (str);
-
-
             }
         }catch(IOException e) {
             e.printStackTrace();
         }
-
         descriptionLabel.setText(str);
 */
 
@@ -297,7 +368,7 @@ public class ViewWindow {
         String location = Game.caterpillar.getCurrentLocation().getName().toLowerCase();
         String desc = Game.caterpillar.getCurrentLocation().getDescription().toLowerCase();
 
-        descriptionLabel.setLocation(100,100);
+        descriptionLabel.setLocation(100, 100);
         descriptionLabel.setText("<html> " +
                 "<style>" +
                 "p {padding-bottom: 280px }" +
@@ -308,7 +379,6 @@ public class ViewWindow {
                 "  </html>\n");
 
     }
-
 
     private void setUpLocationPanel() {
 
@@ -333,6 +403,7 @@ public class ViewWindow {
 //        locationPanel.add(roomLabel);
         this.window.add(locationPanel, BorderLayout.WEST);
 
+
     }
 
     private void setMapPanel(JPanel locationPanel) {
@@ -352,7 +423,6 @@ public class ViewWindow {
         emptyRoomSouthWest = new JPanel();
 
 
-
         TitledBorder map = new TitledBorder("Map");
         map.setTitleColor(Color.GREEN);
         mapLabel.setBorder(map);
@@ -361,7 +431,7 @@ public class ViewWindow {
 
         mapPanel.setBackground(new Color(0, 0, 0));
         mapPanel.setLayout(new GridLayout(3, 3));
-        mapPanel.setPreferredSize(new Dimension(100,100));
+        mapPanel.setPreferredSize(new Dimension(100, 100));
 
         emptyRoomNorthEast.setBackground(new Color(0, 0, 0));
         emptyRoomNorthWest.setBackground(new Color(0, 0, 0));
@@ -385,13 +455,19 @@ public class ViewWindow {
 
     private void setRoomPanel(JPanel panel) {
         JPanel roomPanel = new JPanel();
-        roomLabel = new JLabel();
+        enemyListLabel = new JLabel();
+        itemListLabel = new JLabel();
 
         roomPanel.setBackground(new Color(0, 0, 0));
+        roomPanel.setLayout(new BorderLayout());
 
-        setRoomLabel();
+        setItemListLabel();
+        setEnemyListLabel();
 
-        panel.add(roomLabel, BorderLayout.SOUTH);
+        roomPanel.add(itemListLabel, BorderLayout.WEST);
+        roomPanel.add(enemyListLabel, BorderLayout.EAST);
+
+        panel.add(roomPanel, BorderLayout.SOUTH);
 
     }
 
@@ -458,7 +534,7 @@ public class ViewWindow {
                 "</style>\n" +
                 "<table style=\"width:5%\">\n" +
                 "<tr>\n" +
-                "<td>" + locationName +
+                "<td{\"text-align: right;\\n\"}>" + locationName +
                 "</td>\n" +
                 "</tr>\n" +
                 "</table>\n" +
@@ -467,42 +543,67 @@ public class ViewWindow {
         return result;
     }
 
-    private void setRoomLabel() {
+    private void setItemListLabel() {
 
-        TitledBorder room = new TitledBorder("Room");
-        room.setTitleColor(Color.GREEN);
-        roomLabel.setPreferredSize(new Dimension(100,200));
-        roomLabel.setBorder(room);
+        TitledBorder item = new TitledBorder("Item List");
+        item.setTitleColor(Color.GREEN);
+        itemListLabel.setPreferredSize(new Dimension(150, 200));
+        itemListLabel.setBorder(item);
 
         String result = "<html>\n" +
                 "<style>\n" +
                 "table {\n" +
                 "color:green;\n" +
                 "font-size:10px;\n" +
-                "padding:10px;\n" +
+                "padding: 10px;\n" +
+                "text-align: right;\n" +
                 "}\n" +
                 "</style>\n" +
-                "<table style=\"width:5%\">\n" +
-                "<tr>\n" +
-                "<td>";
+                "<table style=\"width:100%\"" +
+                ">\n";
 
-        for(Map.Entry<String, Enemy> entry : Game.caterpillar.getCurrentLocation().getEnemies().entrySet()){
-            System.out.println(entry.getKey());
-            result += " " + entry.getKey();
+
+        for (Map.Entry<String, Item> entry : Game.caterpillar.getCurrentLocation().getItems().entrySet()) {
+            result += "<tr>\n" + "<td{\"text-align: right;\\n\" }>" +  entry.getKey().toUpperCase() + " * "+ entry.getValue().getQty() +"</td>\n" + " </tr>\n";
         }
 
         result +=
-                "</td>\n" +
-                "</tr>\n" +
                 "</table>\n" +
-                "\n" +
-                "</html>";
+                        "\n" +
+                        "</html>";
 
-        roomLabel.setText(result);
+        itemListLabel.setText(result);
 
     }
 
-    public void initSidePanel(){
+    private void setEnemyListLabel() {
+
+        TitledBorder enemy = new TitledBorder("Enemy List");
+        enemy.setTitleColor(Color.GREEN);
+        enemyListLabel.setPreferredSize(new Dimension(150, 200));
+        enemyListLabel.setBorder(enemy);
+
+        String result = "<html>\n" +
+                "<style>\n" +
+                "table {\n" +
+                "color:green;\n" +
+                "font-size:10px;\n" +
+                "padding:15px;\n" +
+                "}\n" +
+                "</style>\n" +
+                "<table style=\"width:100%\">\n";
+
+        for (Map.Entry<String, Enemy> entry : Game.caterpillar.getCurrentLocation().getEnemies().entrySet()) {
+            System.out.println(entry.getKey());
+            result += "<tr>\n" + "<td{\"text-align: right;\\n\"}>" + " " + entry.getKey().toUpperCase()+ "\thp: " + entry.getValue().getHealth() + "</td>\n" + "</tr>\n";
+        }
+        result += "</table>\n" +
+                "\n" +
+                "</html>";
+        enemyListLabel.setText(result);
+    }
+
+    public void initSidePanel() {
         setUpLocationPanel();
         setUpStatPanel();
     }
@@ -512,11 +613,9 @@ public class ViewWindow {
         setCaterpillarStatLabel();
         setEnemyStatLabel();
         setDiscriptionLabel();
-
-
-
         setMapLabel();
-        setRoomLabel();
+        setEnemyListLabel();
+        setItemListLabel();
 
         Game.caterpillar.checkDeath();
         this.window.repaint();
