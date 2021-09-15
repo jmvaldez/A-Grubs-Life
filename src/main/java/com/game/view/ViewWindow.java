@@ -1,6 +1,8 @@
 package com.game.view;
 
 import com.game.controller.Game;
+import com.game.model.materials.Enemy;
+import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 
 import javax.sound.sampled.AudioInputStream;
@@ -12,7 +14,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
-import java.io.File;
+import java.io.*;
+import java.util.Map;
 
 public class ViewWindow {
 
@@ -22,7 +25,8 @@ public class ViewWindow {
     private JLabel caterpillarStatLabel;
     private JLabel enemyStatLabel;
     private JLabel descriptionLabel;
-    private JLabel roomLabel;
+    private JLabel enemyListLabel;
+    private JLabel itemListLabel;
 
     private JTextField inputField;
     private JPanel inputPanel;
@@ -36,7 +40,9 @@ public class ViewWindow {
     private JLabel eastRoomLabel;
     private JLabel westRoomLabel;
     private JLabel currentRoomLabel;
-    private JLabel emptyLabel;
+    private JLabel northEmptyLabel;
+    private JLabel westEmptyLabel;
+    private JLabel northEastLabel;
     private JButton soundButton;
     private String rickRoll;
     private String musicOnOff;
@@ -49,7 +55,7 @@ public class ViewWindow {
         mu = new Music();
         this.window = new JFrame("A Grub's Life.");
         this.window.setLayout(new BorderLayout());
-        this.window.setPreferredSize(new Dimension(1024, 768));
+        this.window.setPreferredSize(new Dimension(1280, 768));
         this.window.setVisible(true);
         this.window.setResizable(true);
 //        this.window.setLocationRelativeTo(null);
@@ -57,11 +63,7 @@ public class ViewWindow {
         this.window.pack();
         setUpSoundButton();
         setUpInputPanel();
-        setUpStatPanel();
         setUpDescriptionPanel();
-        setUpLocationPanel();
-
-
     }
 
     public class Music {
@@ -114,15 +116,6 @@ public class ViewWindow {
             }
         }
     }
-//    private void menuBar(){
-//        final JMenuBar menuBar = new JMenuBar();
-//
-//        //creating menus
-//        JMenu audioMenu = new JMenu("Audio");
-//
-//        //create menu items
-//        menuBar.add(audioMenu);
-//    }
 
     private void setUpSoundButton(){
 
@@ -255,7 +248,7 @@ public class ViewWindow {
     private void setEnemyStatLabel() {
 
 
-        if (Game.caterpillar.getCurrentLocation().getEnemy() != null) {
+        if (Game.caterpillar.getEngagedEnemy() != null) {
             enemyStatLabel.setText(
                     "<html>\n" +
                             "<style>\n" +
@@ -267,13 +260,18 @@ public class ViewWindow {
                             "</style>\n" +
                             "<table style=\"width:5%\">\n" +
                             "<tr>\n" +
+                            "<td style=\"text-align: left;\">Enemy: </td><td>" +
+                            Game.caterpillar.getEngagedEnemy().getName() +
+                            "</td>\n" +
+                            "</tr>\n" +
+                            "<tr>\n" +
                             "<td style=\"text-align: left;\">Strength: </td><td>" +
-                            Game.caterpillar.getCurrentLocation().getEnemy().getStrength() +
+                            Game.caterpillar.getEngagedEnemy().getStrength() +
                             "</td>\n" +
                             "</tr>\n" +
                             "<tr>\n" +
                             "<td style=\"text-align: left;\">Health: </td><td>" +
-                            Game.caterpillar.getCurrentLocation().getEnemy().getHealth() +
+                            Game.caterpillar.getEngagedEnemy().getHealth() +
                             "</td>\n" +
                             "</tr>\n" +
                             "</table>\n" +
@@ -284,9 +282,7 @@ public class ViewWindow {
             enemyStatLabel.setText("");
         }
 
-        enemyStatLabel.setBorder(BorderFactory.createTitledBorder(Game.caterpillar.getCurrentLocation().getEnemy().getName()));
-        TitledBorder eb = new TitledBorder("NO Enemy");
-        eb.setTitle(Game.caterpillar.getCurrentLocation().getEnemy().getName() + " Stats");
+        TitledBorder eb = new TitledBorder("Target Status");
         eb.setTitleColor(Color.GREEN);
         enemyStatLabel.setBorder(eb);
         enemyStatLabel.setPreferredSize(new Dimension(300, 220));
@@ -296,21 +292,83 @@ public class ViewWindow {
     private void setUpDescriptionPanel() {
         JPanel descriptionPanel = new JPanel();
         this.descriptionLabel = new JLabel();
-        descriptionPanel.setBackground(new Color(255, 255, 255));
-        descriptionPanel.setBorder(BorderFactory.createLineBorder(new Color(110, 16, 5)));
-        setDiscriptionLabel();
+        descriptionPanel.setBackground(new Color(0, 0, 0));
+        descriptionPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
         descriptionPanel.add(descriptionLabel, BorderLayout.CENTER);
         this.window.add(descriptionPanel, BorderLayout.CENTER);
+
+        descriptionLabel.setForeground(Color.red);
+        try {
+            //open the file
+            FileInputStream inMessage = new FileInputStream("src/main/resources/GameInstructions.txt");
+            // Get the object of DataInputStream
+            DataInputStream in = new DataInputStream(inMessage);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String strLine;
+            //Read File Line By Line
+            while ((strLine = br.readLine()) != null) {
+                // Print the content on the console
+                // System.out.println (strLine);
+                //br.append(strLine+"/n");
+                //       descriptionLabel.setText(strLine+"/n");
+                // descriptionLabel.setText( descriptionLabel.getText()+strLine+"/n");
+                descriptionLabel.setText(descriptionLabel.getText() + "<html> <br/> <html/>" + strLine);
+
+            }
+            //Close the input stream
+            br.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
 
     private void setDiscriptionLabel() {
 
+/*
+        try {
+            //open the file
+            FileInputStream inMessage = new FileInputStream("File/GameInstructions.txt");
+            // Get the object of DataInputStream
+            DataInputStream in = new DataInputStream(inMessage);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String strLine;
+            //Read File Line By Line
+            while ((strLine = br.readLine()) != null)   {
+                // Print the content on the console
+                //System.out.println (strLine);
+                descriptionLabel.setText(strLine);
+            }
+            //Close the input stream
+            in.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        =====================
+        String str = null;
+        try {
+            File file = new File("File/GameInstructions.txt");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            while ((str = br.readLine()) != null) {
+             //   System.out.println (str);
+            }
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+        descriptionLabel.setText(str);
+*/
+
+
         String location = Game.caterpillar.getCurrentLocation().getName().toLowerCase();
         String desc = Game.caterpillar.getCurrentLocation().getDescription().toLowerCase();
 
-//        descriptionLabel.setLocation(100,100);
+        descriptionLabel.setLocation(100, 100);
         descriptionLabel.setText("<html> " +
                 "<style>" +
                 "p {padding-bottom: 280px }" +
@@ -322,9 +380,17 @@ public class ViewWindow {
 
     }
 
-
     private void setUpLocationPanel() {
+
         JPanel locationPanel = new JPanel();
+
+        northRoomLabel = new JLabel();
+        southRoomLabel = new JLabel();
+        eastRoomLabel = new JLabel();
+        westRoomLabel = new JLabel();
+        currentRoomLabel = new JLabel();
+        northEastLabel = new JLabel();
+        mapLabel = new JLabel();
 
         locationPanel.setLayout(new BorderLayout());
         locationPanel.setBackground(new Color(0, 0, 0));
@@ -341,8 +407,11 @@ public class ViewWindow {
     }
 
     private void setMapPanel(JPanel locationPanel) {
-        JPanel mapPanel, northRoom, southRoom, eastRoom, westRoom, currentRoom, emptyRoomNorthEast, emptyRoomNorthWest, emptyRoomSouthEast, emptyRoomSouthWest;
-        mapPanel = new JPanel();
+        Location location = Game.caterpillar.getCurrentLocation();
+
+        JPanel northRoom, southRoom, eastRoom, westRoom, currentRoom, emptyRoomNorthEast, emptyRoomNorthWest, emptyRoomSouthEast, emptyRoomSouthWest,
+                emptyRoomNorth, emptyRoomSouth, emptyRoomWest, emptyRoomEast, emptyRoomCurrent;
+        JPanel mapPanel = new JPanel();
         northRoom = new JPanel();
         southRoom = new JPanel();
         eastRoom = new JPanel();
@@ -353,14 +422,6 @@ public class ViewWindow {
         emptyRoomSouthEast = new JPanel();
         emptyRoomSouthWest = new JPanel();
 
-        northRoomLabel = new JLabel();
-        southRoomLabel = new JLabel();
-        eastRoomLabel = new JLabel();
-        westRoomLabel = new JLabel();
-        currentRoomLabel = new JLabel();
-        emptyLabel = new JLabel();
-        mapLabel = new JLabel();
-
 
         TitledBorder map = new TitledBorder("Map");
         map.setTitleColor(Color.GREEN);
@@ -368,55 +429,25 @@ public class ViewWindow {
         mapLabel.setPreferredSize(new Dimension(100, 15));
         locationPanel.add(mapLabel, BorderLayout.NORTH);
 
-//
-//        TitledBorder map = new TitledBorder("Map");
-//        map.setTitleColor(Color.GREEN);
-//        mapLabel.setBorder(map);
-
         mapPanel.setBackground(new Color(0, 0, 0));
         mapPanel.setLayout(new GridLayout(3, 3));
+        mapPanel.setPreferredSize(new Dimension(100, 100));
 
         emptyRoomNorthEast.setBackground(new Color(0, 0, 0));
         emptyRoomNorthWest.setBackground(new Color(0, 0, 0));
         emptyRoomSouthEast.setBackground(new Color(0, 0, 0));
         emptyRoomSouthWest.setBackground(new Color(0, 0, 0));
 
-        mapPanel.add(emptyRoomNorthEast);
 
-
-        TitledBorder north = new TitledBorder("North");
-        north.setTitleColor(Color.GREEN);
-        northRoomLabel.setBorder(north);
+        mapPanel.add(northEastLabel);
         mapPanel.add(northRoomLabel);
-
         mapPanel.add(emptyRoomNorthWest);
-
-        TitledBorder west = new TitledBorder("West");
-        west.setTitleColor(Color.GREEN);
-        westRoomLabel.setBorder(west);
         mapPanel.add(westRoomLabel);
-
-        TitledBorder current = new TitledBorder("Current");
-        current.setTitleColor(Color.GREEN);
-        currentRoomLabel.setBorder(current);
         mapPanel.add(currentRoomLabel);
-
-
-        TitledBorder east = new TitledBorder("East");
-        east.setTitleColor(Color.GREEN);
-        eastRoomLabel.setBorder(east);
         mapPanel.add(eastRoomLabel);
-
         mapPanel.add(emptyRoomSouthEast);
-
-        TitledBorder south = new TitledBorder("South");
-        south.setTitleColor(Color.GREEN);
-        southRoomLabel.setBorder(south);
         mapPanel.add(southRoomLabel);
-
         mapPanel.add(emptyRoomSouthWest);
-
-
         locationPanel.add(mapPanel, BorderLayout.CENTER);
         setMapLabel();
 
@@ -424,21 +455,19 @@ public class ViewWindow {
 
     private void setRoomPanel(JPanel panel) {
         JPanel roomPanel = new JPanel();
-        roomLabel = new JLabel();
-//
-//        TitledBorder map = new TitledBorder("Map");
-//        map.setTitleColor(Color.GREEN);
-//        mapLabel.setBorder(map);
+        enemyListLabel = new JLabel();
+        itemListLabel = new JLabel();
 
         roomPanel.setBackground(new Color(0, 0, 0));
+        roomPanel.setLayout(new BorderLayout());
 
+        setItemListLabel();
+        setEnemyListLabel();
 
-        TitledBorder room = new TitledBorder("Room");
-        room.setTitleColor(Color.GREEN);
-        roomLabel.setBorder(room);
-        roomLabel.setPreferredSize(new Dimension(100, 200));
+        roomPanel.add(itemListLabel, BorderLayout.WEST);
+        roomPanel.add(enemyListLabel, BorderLayout.EAST);
 
-        panel.add(roomLabel, BorderLayout.SOUTH);
+        panel.add(roomPanel, BorderLayout.SOUTH);
 
     }
 
@@ -446,98 +475,137 @@ public class ViewWindow {
 
         Location location = Game.caterpillar.getCurrentLocation();
 
-        currentRoomLabel.setText("<html>\n" +
-                "<style>\n" +
-                "table {\n" +
-                "color:green;\n" +
-                "font-size:10px;\n" +
-                "padding:10px;\n" +
-                "}\n" +
-                "</style>\n" +
-                "<table style=\"width:5%\">\n" +
-                "<tr>\n" +
-                "<td>" + location.getName() +
-                "</td>\n" +
-                "</tr>\n" +
-                "</table>\n" +
-                "\n" +
-                "</html>");
+        TitledBorder current = new TitledBorder("Current");
+        current.setTitleColor(Color.GREEN);
+        currentRoomLabel.setBorder(current);
+        currentRoomLabel.setText(roomTextFormatter(location.getName()));
 
-        northRoomLabel.setText("<html>\n" +
-                "<style>\n" +
-                "table {\n" +
-                "color:green;\n" +
-                "font-size:10px;\n" +
-                "padding:10px;\n" +
-                "}\n" +
-                "</style>\n" +
-                "<table style=\"width:5%\">\n" +
-                "<tr>\n" +
-                "<td>" + location.getNorth() +
-                "</td>\n" +
-                "</tr>\n" +
-                "</table>\n" +
-                "\n" +
-                "</html>");
 
-        southRoomLabel.setText("<html>\n" +
-                "<style>\n" +
-                "table {\n" +
-                "color:green;\n" +
-                "font-size:10px;\n" +
-                "padding:10px;\n" +
-                "}\n" +
-                "</style>\n" +
-                "<table style=\"width:5%\">\n" +
-                "<tr>\n" +
-                "<td>" + location.getSouth() +
-                "</td>\n" +
-                "</tr>\n" +
-                "</table>\n" +
-                "\n" +
-                "</html>");
-        eastRoomLabel.setText("<html>\n" +
-                "<style>\n" +
-                "table {\n" +
-                "color:green;\n" +
-                "font-size:10px;\n" +
-                "padding:10px;\n" +
-                "}\n" +
-                "</style>\n" +
-                "<table style=\"width:5%\">\n" +
-                "<tr>\n" +
-                "<td>" + location.getEast() +
-                "</td>\n" +
-                "</tr>\n" +
-                "</table>\n" +
-                "\n" +
-                "</html>");
-        westRoomLabel.setText("<html>\n" +
-                "<style>\n" +
-                "table {\n" +
-                "color:green;\n" +
-                "font-size:10px;\n" +
-                "padding:10px;\n" +
-                "}\n" +
-                "</style>\n" +
-                "<table style=\"width:5%\">\n" +
-                "<tr>\n" +
-                "<td>" + location.getWest() +
-                "</td>\n" +
-                "</tr>\n" +
-                "</table>\n" +
-                "\n" +
-                "</html>");
+        if (location.getNorth().equals("DEAD_END")) {
+            northRoomLabel.setBorder(null);
+            northRoomLabel.setText("");
+        } else {
+            TitledBorder north = new TitledBorder("North");
+            north.setTitleColor(Color.GREEN);
+            northRoomLabel.setBorder(north);
+            northRoomLabel.setText(roomTextFormatter(location.getNorth()));
+        }
+
+
+        if (location.getWest().equals("DEAD_END")) {
+            westRoomLabel.setBorder(null);
+            westRoomLabel.setText("");
+        } else {
+            TitledBorder west = new TitledBorder("West");
+            west.setTitleColor(Color.GREEN);
+            westRoomLabel.setBorder(west);
+            westRoomLabel.setText(roomTextFormatter(location.getWest()));
+        }
+
+        if (location.getEast().equals("DEAD_END")) {
+            eastRoomLabel.setBorder(null);
+            eastRoomLabel.setText("");
+        } else {
+            TitledBorder east = new TitledBorder("East");
+            east.setTitleColor(Color.GREEN);
+            eastRoomLabel.setBorder(east);
+            eastRoomLabel.setText(roomTextFormatter(location.getEast()));
+        }
+
+        if (location.getSouth().equals("DEAD_END")) {
+            southRoomLabel.setBorder(null);
+            southRoomLabel.setText("");
+        } else {
+            TitledBorder south = new TitledBorder("South");
+            south.setTitleColor(Color.GREEN);
+            southRoomLabel.setBorder(south);
+            southRoomLabel.setText(roomTextFormatter(location.getSouth()));
+        }
     }
 
+    private String roomTextFormatter(String locationName) {
+        String result = "<html>\n" +
+                "<style>\n" +
+                "table {\n" +
+                "color:green;\n" +
+                "font-size:10px;\n" +
+                "padding:10px;\n" +
+                "}\n" +
+                "</style>\n" +
+                "<table style=\"width:5%\">\n" +
+                "<tr>\n" +
+                "<td{\"text-align: right;\\n\"}>" + locationName +
+                "</td>\n" +
+                "</tr>\n" +
+                "</table>\n" +
+                "\n" +
+                "</html>";
+        return result;
+    }
 
-    private void setRoomLabel() {
+    private void setItemListLabel() {
 
-        TitledBorder room = new TitledBorder("Room");
-        room.setTitleColor(Color.GREEN);
-        roomLabel.setBorder(room);
+        TitledBorder item = new TitledBorder("Item List");
+        item.setTitleColor(Color.GREEN);
+        itemListLabel.setPreferredSize(new Dimension(150, 200));
+        itemListLabel.setBorder(item);
+
+        String result = "<html>\n" +
+                "<style>\n" +
+                "table {\n" +
+                "color:green;\n" +
+                "font-size:10px;\n" +
+                "padding: 10px;\n" +
+                "text-align: right;\n" +
+                "}\n" +
+                "</style>\n" +
+                "<table style=\"width:100%\"" +
+                ">\n";
 
 
+        for (Map.Entry<String, Item> entry : Game.caterpillar.getCurrentLocation().getItems().entrySet()) {
+            result += "<tr>\n" + "<td{\"text-align: right;\\n\" }>" +  entry.getKey().toUpperCase() + " * "+ entry.getValue().getQty() +"</td>\n" + " </tr>\n";
+        }
+
+        result +=
+                "</table>\n" +
+                        "\n" +
+                        "</html>";
+
+        itemListLabel.setText(result);
+
+    }
+
+    private void setEnemyListLabel() {
+
+        TitledBorder enemy = new TitledBorder("Enemy List");
+        enemy.setTitleColor(Color.GREEN);
+        enemyListLabel.setPreferredSize(new Dimension(150, 200));
+        enemyListLabel.setBorder(enemy);
+
+        String result = "<html>\n" +
+                "<style>\n" +
+                "table {\n" +
+                "color:green;\n" +
+                "font-size:10px;\n" +
+                "padding:15px;\n" +
+                "}\n" +
+                "</style>\n" +
+                "<table style=\"width:100%\">\n";
+
+        for (Map.Entry<String, Enemy> entry : Game.caterpillar.getCurrentLocation().getEnemies().entrySet()) {
+            System.out.println(entry.getKey());
+            result += "<tr>\n" + "<td{\"text-align: right;\\n\"}>" + " " + entry.getKey().toUpperCase()+ "\thp: " + entry.getValue().getHealth() + "</td>\n" + "</tr>\n";
+        }
+        result += "</table>\n" +
+                "\n" +
+                "</html>";
+        enemyListLabel.setText(result);
+    }
+
+    public void initSidePanel() {
+        setUpLocationPanel();
+        setUpStatPanel();
     }
 
     public void updateCaterpillarStatus() {
@@ -545,8 +613,10 @@ public class ViewWindow {
         setCaterpillarStatLabel();
         setEnemyStatLabel();
         setDiscriptionLabel();
-        setRoomLabel();
         setMapLabel();
+        setEnemyListLabel();
+        setItemListLabel();
+
         Game.caterpillar.checkDeath();
         this.window.repaint();
     }
