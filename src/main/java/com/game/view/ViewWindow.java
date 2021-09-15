@@ -333,9 +333,6 @@ public class ViewWindow {
 //        locationPanel.add(roomLabel);
         this.window.add(locationPanel, BorderLayout.WEST);
 
-
-
-
     }
 
     private void setMapPanel(JPanel locationPanel) {

@@ -77,6 +77,7 @@ public class CommandProcessor {
                         processNavigation(focus.toLowerCase());
                         processGodMode(focus);
                         processStart(focus);
+                        GameAudio.PlayGOAudio();
                         break;
                     case "EAT":
                         processEating(focus);
