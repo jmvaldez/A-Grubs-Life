@@ -1,4 +1,7 @@
-package com.game.model.materials;
+package com.game.backupclass;
+
+import com.game.model.materials.Caterpillar;
+import com.game.model.materials.Enemy;
 
 public class Combat {
     private Caterpillar caterpillar;

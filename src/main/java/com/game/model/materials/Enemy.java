@@ -12,15 +12,22 @@ public class Enemy {
     private int requiredLevelToFight;
     private boolean aggressive;
     private int strength;
+    private int maxHealth;
+
+    public int getExp() {
+        return exp;
+    }
+
+    private int exp;
     private boolean tamable;
     private String location;
     private boolean hidden;
     private boolean inCombat;
-    public Enemy(String name, int health, int strength)
+    public Enemy(String name, int maxHealth, int strength)
 
     {
         this.name = name;
-        this.health = health;
+        this.maxHealth = maxHealth;
         this.strength = strength;
 
     }
@@ -90,5 +97,13 @@ public class Enemy {
         String bird = birds.get(randomBird);
 
         return bird;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
 }
