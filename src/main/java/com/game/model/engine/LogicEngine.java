@@ -18,7 +18,7 @@ public class LogicEngine {
 
     public void processCommand(String userInput){//
         try{
-        ArrayList parsedInput = textParser.parseInput(userInput);
+        ArrayList<String> parsedInput = textParser.parseInput(userInput);
 //        ArrayList command = keyWordIdentifier.identifyKewWords(parsedInput);
         commandProcessor.executeCommand(parsedInput);}
         catch(Exception e){
@@ -26,7 +26,5 @@ public class LogicEngine {
             GameAudio.PlayICANTAudio();
         }
     }
-
-
 
 }

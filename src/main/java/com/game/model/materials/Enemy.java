@@ -1,5 +1,8 @@
 package com.game.model.materials;
 
+import com.game.model.engine.Functions;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +16,7 @@ public class Enemy {
     private boolean aggressive;
     private int strength;
     private int maxHealth;
+    private ImageIcon enemyImageIcon;
 
     public int getExp() {
         return exp;
@@ -29,7 +33,7 @@ public class Enemy {
         this.name = name;
         this.maxHealth = maxHealth;
         this.strength = strength;
-
+        this.enemyImageIcon = Functions.readImage(name);
     }
 
     public void setHealth(int health) {
@@ -89,15 +93,7 @@ public class Enemy {
         return "";
     }
 
-    public String displayBirdRandomly() {
-        List<String> birds = new ArrayList<>(Arrays.asList(getBird(),getEmptyString()));
 
-        Random random = new Random();
-        int randomBird = random.nextInt(birds.size());
-        String bird = birds.get(randomBird);
-
-        return bird;
-    }
 
     public int getMaxHealth() {
         return maxHealth;
@@ -105,5 +101,9 @@ public class Enemy {
 
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
+    }
+
+    public ImageIcon getEnemyImageIcon() {
+        return enemyImageIcon;
     }
 }

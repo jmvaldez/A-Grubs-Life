@@ -39,14 +39,15 @@ public class Game {
     //This should be called by the client to start a new game.
 
     public void start() {
-
         enemies = populateEnemies();
         items = populateItems();
         locations = populateLocations();
+
         caterpillar = new Caterpillar(100, 0, 5);
-        processor = new LogicEngine();
         caterpillar.setCurrentLocation(locations.get("Genesis"));
+        processor = new LogicEngine();
         viewWindow = new ViewWindow();
+        viewWindow.initSidePanel();
         GameAudio.PlayWelcomeAudio();
 
     }

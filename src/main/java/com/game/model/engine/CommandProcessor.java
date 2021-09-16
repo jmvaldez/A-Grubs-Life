@@ -19,12 +19,11 @@ public class CommandProcessor {
 
     public void executeCommand(ArrayList<String> strings) {
         if (caterpillar.isDead()) {
-
             caterpillar.setLastAction("you are dead, you can only type restart or quit");
             GameAudio.PlayYOUADEADAudio();
             String action = strings.get(1).toUpperCase(Locale.ROOT);
             if (action.matches("RESTART")) {
-                Game.caterpillar = new Caterpillar(100, 0, 0);
+                Game.caterpillar = new Caterpillar(100, 0, 20);
                 Game.caterpillar.setCurrentLocation(Game.getLocations().get("Genesis"));
                 Game.getViewWindow().updateCaterpillarStatus();
 
@@ -42,20 +41,7 @@ public class CommandProcessor {
 
     }
 
-    private void processGodMode(String focus) {
-        if (focus.equalsIgnoreCase("GODMODE")) {
-            caterpillar.setHealth(9999999);
-            caterpillar.setStrength(99999999);
-            caterpillar.setLastAction("The Power of God him/her/itself (god is in an existential crisis) flows through you");
-            GameAudio.PlayGodAudio();
-        }
-    }
 
-    private void processStart(String focus) {
-        if (focus.equalsIgnoreCase("START")) {
-            Game.getViewWindow().initSidePanel();
-        }
-    }
 
     private void processCommand(String action, String focus) {
 
@@ -85,7 +71,20 @@ public class CommandProcessor {
             processCantDoThatHere();
         }
     }
+    private void processGodMode(String focus) {
+        if (focus.equalsIgnoreCase("GODMODE")) {
+            caterpillar.setHealth(9999999);
+            caterpillar.setStrength(99999999);
+            caterpillar.setLastAction("The Power of God him/her/itself (god is in an existential crisis) flows through you");
+            GameAudio.PlayGodAudio();
+        }
+    }
 
+    private void processStart(String focus) {
+        if (focus.equalsIgnoreCase("START")) {
+            Game.getViewWindow().initSidePanel();
+        }
+    }
 
 
     private void processCantDoThatHere() {
