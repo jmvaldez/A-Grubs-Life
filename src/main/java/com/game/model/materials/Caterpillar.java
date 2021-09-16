@@ -23,7 +23,7 @@ public class Caterpillar {
 
     private boolean isDead;
     private ImageIcon caterpillarImageIcon;
-    private Enemy engagedEnemy;
+    public Enemy engagedEnemy = null;
 
     public Caterpillar(int health, int experience, int strength) {
         this.health = health;
@@ -36,13 +36,13 @@ public class Caterpillar {
         this.caterpillarImageIcon = Functions.readImage("caterpillar");
     }
 
-    public Enemy getEngagedEnemy() {
-        return engagedEnemy;
-    }
-
-    public void setEngagedEnemy(Enemy engagedEnemy) {
-        this.engagedEnemy = engagedEnemy;
-    }
+//    public Enemy getEngagedEnemy() {
+//        return engagedEnemy;
+//    }
+//
+//    public void setEngagedEnemy(Enemy engagedEnemy) {
+//        this.engagedEnemy = engagedEnemy;
+//    }
 
     public ImageIcon getCaterpillarImageIcon() {
         return caterpillarImageIcon;
@@ -73,15 +73,22 @@ public class Caterpillar {
         return this.currentLocation;
     }
 
-    public void setCurrentLocation(Location location) { //we should move this to the bottom
-        currentLocation = location;
-        currentLocation.setEnemies(Functions.getRandomEnemies());
-        currentLocation.setItems(Functions.getRandomItems());
-        if (currentLocation.getName().toLowerCase().equals("genesis")){
-            currentLocation.setEnemies(new HashMap<>());
+    public void setCurrentLocation(String location) { //we should move this to the bottom
+
+        switch (location){
+            case "DEAD_END":
+                Game.caterpillar.setLastAction("Dead end, find another direction, check MAP!");
+                break;
+            case "Genesis":
+                currentLocation = Game.getLocations().get("Genesis");
+                currentLocation.setItems(Functions.getRandomItems());
+                currentLocation.setEnemies(new HashMap<>());
+                break;
+            default:
+                currentLocation = Game.getLocations().get(location);
+                currentLocation.setEnemies(Functions.getRandomEnemies());
+                currentLocation.setItems(Functions.getRandomItems());
         }
-
-
     }
 
     public void levelUp() {

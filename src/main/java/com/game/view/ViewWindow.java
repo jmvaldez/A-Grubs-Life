@@ -168,7 +168,7 @@ public class ViewWindow {
         inputField.addActionListener(e -> {
 
             String input = inputField.getText();
-            Game.getProcessor().processCommand(input);
+            Game.getProcessor().processUserInput(input);
             inputField.setText("");
             updateCaterpillarStatus();
 
@@ -178,7 +178,6 @@ public class ViewWindow {
     private void setUpLastMoveLabel() {
 
         String lastAction = Game.caterpillar.getLastAction();
-        System.out.println(lastAction);
         lastMoveLabel.setBorder(BorderFactory.createTitledBorder("Your Last Move"));
         if (lastAction.length() > 0) {
             lastMoveLabel.setText("<html> " +
@@ -344,8 +343,7 @@ public class ViewWindow {
 
     private void setEnemyStatLabel() {
 
-
-        if (Game.caterpillar.getEngagedEnemy() != null) {
+        if (Game.caterpillar.engagedEnemy != null) {
             enemyStatLabel.setText(
                     "<html>\n" +
                             "<style>\n" +
@@ -358,17 +356,17 @@ public class ViewWindow {
                             "<table style=\"width:5%\">\n" +
                             "<tr>\n" +
                             "<td style=\"text-align: left;\">Enemy: </td><td>" +
-                            Game.caterpillar.getEngagedEnemy().getName() +
+                            Game.caterpillar.engagedEnemy.getName() +
                             "</td>\n" +
                             "</tr>\n" +
                             "<tr>\n" +
                             "<td style=\"text-align: left;\">Strength: </td><td>" +
-                            Game.caterpillar.getEngagedEnemy().getStrength() +
+                            Game.caterpillar.engagedEnemy.getStrength() +
                             "</td>\n" +
                             "</tr>\n" +
                             "<tr>\n" +
                             "<td style=\"text-align: left;\">Health: </td><td>" +
-                            Game.caterpillar.getEngagedEnemy().getHealth() +
+                            Game.caterpillar.engagedEnemy.getHealth() +
                             "</td>\n" +
                             "</tr>\n" +
                             "</table>\n" +
@@ -666,7 +664,6 @@ public class ViewWindow {
                 "<table style=\"width:100%\">\n";
 
         for (Map.Entry<String, Enemy> entry : Game.caterpillar.getCurrentLocation().getEnemies().entrySet()) {
-            System.out.println(entry.getKey());
             result += "<tr>\n" + "<td{\"text-align: right;\\n\"}>" + " " + entry.getKey().toUpperCase() + "<br>hp: " + entry.getValue().getHealth() + "</td>\n" + "</tr>\n";
         }
         result += "</table>\n" +
@@ -692,6 +689,7 @@ public class ViewWindow {
 
         Game.caterpillar.checkDeathAndImage();
         this.window.repaint();
+        Game.caterpillar.engagedEnemy = null;
     }
 
     public JPanel getLocationPanel() {
