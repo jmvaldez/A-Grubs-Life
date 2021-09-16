@@ -7,7 +7,7 @@
     },
     "spider": {
       "health": 40,
-      "strength": 1,
+      "strength": 100,
       "exp": 4
     },
     "bee": {

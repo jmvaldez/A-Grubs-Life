@@ -1,13 +1,15 @@
 package com.game.model.materials;
 
 import com.game.controller.Game;
+import com.game.model.engine.Functions;
 import com.game.view.GameAudio;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Caterpillar {
-    public boolean winner;
+
     private int health;
     private int experience;
     private int strength;
@@ -16,10 +18,23 @@ public class Caterpillar {
     private int maxExperience = 5;
 
     private Location currentLocation;
-    private boolean hidden;
+    private boolean winner;
     private String lastAction;
 
     private boolean isDead;
+    private ImageIcon caterpillarImageIcon;
+    private Enemy engagedEnemy;
+
+    public Caterpillar(int health, int experience, int strength) {
+        this.health = health;
+        this.experience = experience;
+        this.strength = strength;
+        this.isDead = false;
+        this.lastAction = "";
+        this.winner = false;
+        this.engagedEnemy = null;
+        this.caterpillarImageIcon = Functions.readImage("caterpillar");
+    }
 
     public Enemy getEngagedEnemy() {
         return engagedEnemy;
@@ -29,17 +44,8 @@ public class Caterpillar {
         this.engagedEnemy = engagedEnemy;
     }
 
-    private Enemy engagedEnemy;
-
-    public Caterpillar(int health, int experience, int strength) {
-        this.health = health;
-        this.experience = experience;
-        this.strength = strength;
-        this.hidden = false;
-        this.lastAction = "";
-        this.winner = false;
-        this.isDead = false;
-        this.engagedEnemy = null;
+    public ImageIcon getCaterpillarImageIcon() {
+        return caterpillarImageIcon;
     }
 
     public boolean isDead() {
@@ -50,10 +56,16 @@ public class Caterpillar {
         isDead = dead;
     }
 
-    public void checkDeath() {
+    public void checkDeathAndImage() {
         if (this.health <= 0) {
             this.isDead = true;
             Game.caterpillar.setLastAction("Oh dear you have died.");
+        }
+        if (3 < this.level && this.level < 7) {
+            this.caterpillarImageIcon = Functions.readImage("caterpillar");
+        }
+        if (this.level >= 7) {
+            this.caterpillarImageIcon = Functions.readImage("caterpillar");
         }
     }
 
@@ -63,60 +75,14 @@ public class Caterpillar {
 
     public void setCurrentLocation(Location location) { //we should move this to the bottom
         currentLocation = location;
-        currentLocation.setEnemies(getRandomEnemies());
-        currentLocation.setItems(getRandomItems());
-
-    }
-
-    private HashMap<String, Enemy> getRandomEnemies(){
-        ArrayList<String> keyList = new ArrayList<String>(Game.getEnemies().keySet());
-        int enemyQty = getRandomNumber(1, 3);
-        ArrayList<Integer> usedIndex = new ArrayList<Integer>();
-        HashMap<String, Enemy> result = new HashMap<>();
-        for (int i =0; i <= enemyQty; i++){
-            while(true){
-                int index = getRandomNumber(0, Game.getEnemies().size());
-                if (!usedIndex.contains(index)){
-                    usedIndex.add(index);
-                    String name = keyList.get(index);
-                    result.put(name, Game.getEnemies().get(name));
-                    result.get(name).setHealth(result.get(name).getMaxHealth());
-                    break;
-                }
-            }
+        currentLocation.setEnemies(Functions.getRandomEnemies());
+        currentLocation.setItems(Functions.getRandomItems());
+        if (currentLocation.getName().toLowerCase().equals("genesis")){
+            currentLocation.setEnemies(new HashMap<>());
         }
-        return result;
+
+
     }
-
-    private HashMap<String, Item> getRandomItems(){
-        ArrayList<String> keyList = new ArrayList<String>(Game.getItems().keySet());
-
-        int itemQty = getRandomNumber(1, 3);
-
-        ArrayList<Integer> usedIndex = new ArrayList<Integer>();
-        HashMap<String, Item> result = new HashMap<>();
-        for (int i =0; i <= itemQty; i++){
-            while(true){
-                int itemAmount = getRandomNumber(1, 5);
-                int index = getRandomNumber(0, Game.getItems().size());
-                if (!usedIndex.contains(index)){
-                    usedIndex.add(index);
-                    String name = keyList.get(index);
-                    result.put(name, Game.getItems().get(name));
-                    result.get(name).setQty(itemAmount);
-                    break;
-                }
-            }
-        }
-        return result;
-    }
-
-
-    private int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
-
-
 
     public void levelUp() {
         setStrength(strength + 50);
@@ -134,23 +100,8 @@ public class Caterpillar {
 
     }
 
-    public void healthRegenerator(int counter) {
-        if (counter % 2934342 == 0) {
-            setHealth(getHealth() + 1);
-        }
-    }
-
     public int getHealth() {
         return health;
-    }
-
-
-    public boolean isWinner() {
-        return winner;
-    }
-
-    public void setWinner(boolean winner) {
-        this.winner = winner;
     }
 
     public void setHealth(int health) {
@@ -168,9 +119,9 @@ public class Caterpillar {
             levelUp(); //increases level / ends the stage once appropriate level
             maxExperience += maxExperience; // double experience needed to level up
             this.experience = 0; // reset experience to 0 after level up
+        } else {
+            this.experience += experience;
         }
-        else {
-        this.experience += experience;}
     }
 
     public int getStrength() {
@@ -197,15 +148,15 @@ public class Caterpillar {
         this.lastAction = str;
     }
 
-    public boolean isHidden() {
-        return hidden;
-    }
-
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
-    }
-
     public int getMaxExperience() {
         return maxExperience;
+    }
+
+    public boolean isWinner() {
+        return winner;
+    }
+
+    public void setWinner(boolean winner) {
+        this.winner = winner;
     }
 }
