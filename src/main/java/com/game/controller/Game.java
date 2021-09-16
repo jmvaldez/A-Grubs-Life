@@ -48,8 +48,7 @@ public class Game {
         processor = new LogicEngine();
         viewWindow = new ViewWindow();
         viewWindow.initSidePanel();
-
-
+        GameAudio.PlayWelcomeAudio();
 
     }
 
