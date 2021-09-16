@@ -3,11 +3,11 @@
  */
 package com.game.model.materials;
 
-import com.game.controller.Game;
+import com.game.model.engine.Functions;
 
-import java.util.ArrayList;
+import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
-import java.util.Random;
 
 public class Location {
     private String name;
@@ -16,9 +16,9 @@ public class Location {
     private String south;
     private String east;
     private String west;
-    private Leaf leaf;
     private HashMap<String, Enemy> enemies;
     private HashMap<String, Item> items;
+    private ImageIcon backgroundImageIcon;
 
     public Location(String name, String description, String north, String south, String east, String west){
         this.name = name;
@@ -27,18 +27,8 @@ public class Location {
         this.south = south;
         this.east = east;
         this.west = west;
-        setLeaf();
+        this.backgroundImageIcon = Functions.readImage(name);
 
-    }
-
-    private void setLeaf() {
-        Random random = new Random();
-
-            this.leaf = new Leaf();
-    }
-
-    public Leaf getLeaf(){
-        return this.leaf;
     }
 
     public String getName() {
@@ -80,5 +70,7 @@ public class Location {
         this.items = items;
     }
 
-
+    public ImageIcon getBackgroundImageIcon() {
+        return backgroundImageIcon;
+    }
 }
