@@ -1,29 +1,37 @@
 package com.game.model.engine;
 
-import com.game.backupclass.KeyWordIdentifier;
 import com.game.controller.Game;
-import com.game.view.GameAudio;
+import com.game.exception.DeadPlayerInputException;
+import com.game.exception.InputLengthException;
 
 import java.util.ArrayList;
 
 public class LogicEngine {
     private CommandProcessor commandProcessor;
-    private com.game.backupclass.KeyWordIdentifier keyWordIdentifier;
     private TextParser textParser;
-    public LogicEngine(){
+    private ArrayList<String> parsedInput;
+
+    public LogicEngine() {
         this.textParser = new TextParser();
-        this.keyWordIdentifier = new KeyWordIdentifier();
         this.commandProcessor = new CommandProcessor();
     }
 
-    public void processCommand(String userInput){//
-        try{
-        ArrayList<String> parsedInput = textParser.parseInput(userInput);
-//        ArrayList command = keyWordIdentifier.identifyKewWords(parsedInput);
-        commandProcessor.executeCommand(parsedInput);}
-        catch(Exception e){
-            Game.caterpillar.setLastAction("I can't process that, try again with a verb/noun combo of relevant game objects.");
-            GameAudio.PlayICANTAudio();
+    public void processUserInput(String userInput) {//
+        try {
+            if (Game.caterpillar.isDead()) {
+                parsedInput = textParser.parserDeadInput(userInput);
+            } else {
+                parsedInput = textParser.parserLiveInput(userInput);
+            }
+            commandProcessor.executeCommand(parsedInput);
+        } catch (InputLengthException e) {
+            System.out.println("Exception: [LogicEngine/processCommand/textParser/parseInput], Message: " + e.getMessage());
+        } catch (DeadPlayerInputException e){
+            System.out.println("Exception: [LogicEngine/processCommand/textParser/parseInput], Message: " + e.getMessage());
+        }
+
+        catch (Exception e) {
+            System.out.println("Exception: [LogicEngine/processCommand], Message: " + e.getMessage());
         }
     }
 

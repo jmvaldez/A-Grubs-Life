@@ -44,7 +44,7 @@ public class Game {
         locations = populateLocations();
 
         caterpillar = new Caterpillar(100, 0, 5);
-        caterpillar.setCurrentLocation(locations.get("Genesis"));
+        caterpillar.setCurrentLocation("Genesis");
         processor = new LogicEngine();
         viewWindow = new ViewWindow();
         viewWindow.initSidePanel();
