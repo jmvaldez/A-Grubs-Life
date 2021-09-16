@@ -55,7 +55,6 @@ public class Game {
         try {
 
             String locationsStream = JsonReader.getJsonStream("/json/Locations.json");
-
             JsonNode node = JsonReader.parse(locationsStream);
 
             Iterator<Map.Entry<String, JsonNode>> nodes = node.get("Locations").fields();
