@@ -83,7 +83,7 @@ public class ViewWindow {
         public void setFile(String soundFileName) {
 
             try {
-               // File file = new File(soundFileName);
+                // File file = new File(soundFileName);
                 AudioInputStream sound = AudioSystem.getAudioInputStream(ViewWindow.class.getResource(soundFileName));
                 clip = AudioSystem.getClip();
                 clip.open(sound);
