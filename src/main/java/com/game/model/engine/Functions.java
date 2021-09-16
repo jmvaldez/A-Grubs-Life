@@ -13,7 +13,7 @@ public class Functions {
     public static ImageIcon readImage(String name) {
         ImageIcon image = null;
         try {
-            image = new ImageIcon("src/main/resources/image/" + name + ".png");
+            image = new ImageIcon(Functions.class.getResource("/image/" + name + ".png"));
         }
         catch (Exception exception) {
             System.out.println(exception.getMessage());

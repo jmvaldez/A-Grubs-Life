@@ -8,6 +8,7 @@ import com.game.model.engine.Functions;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class Location {
     private String name;
@@ -27,7 +28,7 @@ public class Location {
         this.south = south;
         this.east = east;
         this.west = west;
-        this.backgroundImageIcon = Functions.readImage(name);
+        this.backgroundImageIcon = Functions.readImage(name.toLowerCase());
 
     }
 
