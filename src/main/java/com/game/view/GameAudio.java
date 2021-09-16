@@ -38,8 +38,29 @@ public class GameAudio {
     }
     public static void PlayHideAudio() {
         SetAudio("src/main/resources/audio/HIDE.wav");
-
     }
+    public static void PlayNORTHAudio() {
+        SetAudio("src/main/resources/audio/NORTH.wav");
+    }
+    public static void PlaySOUTHAudio() {
+        SetAudio("src/main/resources/audio/SOUTH.wav");
+    }
+    public static void PlayEASTAudio() {
+        SetAudio("src/main/resources/audio/EAST.wav");
+    }
+    public static void PlayWESTAudio() {
+        SetAudio("src/main/resources/audio/WEST.wav");
+    }
+    public static void PlayYOUADEADAudio() {
+        SetAudio("src/main/resources/audio/YOUADEAD.wav");
+    }
+    public static void PlayYOUCANTAudio() {
+        SetAudio("src/main/resources/audio/YOUCANT.wav");
+    }
+    public static void PlayCONGRATSAudio() {
+        SetAudio("src/main/resources/audio/CONGRATS.wav");
+    }
+
     public static void PlayRunAudio() {
         SetAudio("src/main/resources/audio/Run.wav");
 
@@ -50,16 +71,29 @@ public class GameAudio {
     }
     public static void PlayLeaveAudio() {
         SetAudio("src/main/resources/audio/Leave.wav");
-
     }
     public static void PlayDeadAudio() {
         SetAudio("src/main/resources/audio/Dead.wav");
-
     }
     public static void PlayDefeatedAudio() {
         SetAudio("src/main/resources/audio/Defeated.wav");
-
     }
+    public static void PlayICANTAudio() {
+        SetAudio("src/main/resources/audio/ICANT.wav");
+    }
+    public static void PlayMAXLEVELAudio() {
+        SetAudio("src/main/resources/audio/MAXLEVEL.wav");
+    }
+    public static void PlayBUTTERFLYAudio() {
+        SetAudio("src/main/resources/audio/BUTTERFLY.wav");
+    }
+    public static void PlayLEVEL2Audio() {
+        SetAudio("src/main/resources/audio/LEVEL2.wav");
+    }
+
+
+
+
 
     private static void SetAudio(String s)  {
 

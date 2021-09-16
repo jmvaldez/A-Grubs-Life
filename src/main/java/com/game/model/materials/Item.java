@@ -1,5 +1,9 @@
 package com.game.model.materials;
 
+import com.game.model.engine.Functions;
+
+import javax.swing.*;
+
 public class Item {
 
     private String name;
@@ -8,12 +12,15 @@ public class Item {
     private int rarity;
     private int qty;
     private boolean isActive;
+    private ImageIcon itemImageIcon;
+
 
     public Item(String name, int health, int exp, int rarity){
         this.name = name;
         this.health = health;
         this.exp = exp;
         this.rarity = rarity;
+        this.itemImageIcon = Functions.readImage(name);
     }
 
     public int getQty() {
@@ -46,5 +53,9 @@ public class Item {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public ImageIcon getItemImageIcon() {
+        return itemImageIcon;
     }
 }

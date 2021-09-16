@@ -3,16 +3,8 @@
     "Genesis": {
       "north": "Woods",
       "south": "Lake",
-      "east": "Web",
+      "east": "Windmill",
       "west": "Hole",
-      "items": [
-        {
-          "Leaf": {
-            "health": 10,
-            "count": 3
-          }
-        }
-      ],
       "description": "You are in your birthplace... Yo look around for your mate but she is nowhere to be found.There are some leaves on the ground below a birds nest. I should proceed with caution."
     },
     "Woods": {
@@ -60,7 +52,7 @@
       ],
       "description": "A huge lake with murky looking water. I probably shouldn't drink it. It appears that the lake is rising quickly. "
     },
-    "Web": {
+    "Windmill": {
       "north": "Hill",
       "south": "DEAD_END",
       "east": "Flowers",
@@ -77,7 +69,7 @@
     },
     "Hill": {
       "north": "DEAD_END",
-      "south": "Web",
+      "south": "Windmill",
       "east": "DEAD_END",
       "west": "DEAD_END",
       "items": [
@@ -94,7 +86,7 @@
       "north": "DEAD_END",
       "south": "DEAD_END",
       "east": "Tree",
-      "west": "Web",
+      "west": "Windmill",
       "items": [
         {
           "Leaf": {

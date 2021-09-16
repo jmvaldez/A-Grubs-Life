@@ -2,6 +2,7 @@ package com.game.model.engine;
 
 import com.game.backupclass.KeyWordIdentifier;
 import com.game.controller.Game;
+import com.game.view.GameAudio;
 
 import java.util.ArrayList;
 
@@ -17,14 +18,13 @@ public class LogicEngine {
 
     public void processCommand(String userInput){//
         try{
-        ArrayList parsedInput = textParser.parseInput(userInput);
+        ArrayList<String> parsedInput = textParser.parseInput(userInput);
 //        ArrayList command = keyWordIdentifier.identifyKewWords(parsedInput);
         commandProcessor.executeCommand(parsedInput);}
         catch(Exception e){
             Game.caterpillar.setLastAction("I can't process that, try again with a verb/noun combo of relevant game objects.");
+            GameAudio.PlayICANTAudio();
         }
     }
-
-
 
 }

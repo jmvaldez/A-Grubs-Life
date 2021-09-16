@@ -50,7 +50,6 @@ public class TextParser {
         verbs.add("HIDE");
         verbs.add("ATTACK");
         verbs.add("HELP");
-
         verbs.add("RUN");
     }
 
