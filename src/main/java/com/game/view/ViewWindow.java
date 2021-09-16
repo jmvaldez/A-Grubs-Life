@@ -5,9 +5,7 @@ import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -15,10 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ViewWindow {
 
@@ -88,11 +83,12 @@ public class ViewWindow {
         public void setFile(String soundFileName) {
 
             try {
-                File file = new File(soundFileName);
-                AudioInputStream sound = AudioSystem.getAudioInputStream(file);
+                // File file = new File(soundFileName);
+                AudioInputStream sound = AudioSystem.getAudioInputStream(ViewWindow.class.getResource(soundFileName));
                 clip = AudioSystem.getClip();
                 clip.open(sound);
-            } catch (Exception e) {
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                e.printStackTrace();
             }
         }
 
@@ -140,7 +136,7 @@ public class ViewWindow {
         soundButton.setFocusPainted(false);
         soundButton.addActionListener(bHandler);
         soundButton.setActionCommand("buttonClick");
-        rickRoll = "src/main/resources/audio/never.wav";
+        rickRoll = "/audio/never.wav";
         musicOnOff = "off";
     }
 
@@ -419,7 +415,7 @@ public class ViewWindow {
         descriptionLabel.setForeground(Color.red);
         try {
             //open the file
-            FileInputStream inMessage = new FileInputStream("src/main/resources/GameInstructions.txt");
+            FileInputStream inMessage = new FileInputStream("/json/GameInstructions.txt");
             // Get the object of DataInputStream
             DataInputStream in = new DataInputStream(inMessage);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));

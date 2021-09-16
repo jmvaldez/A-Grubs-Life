@@ -15,13 +15,8 @@ import com.game.view.ViewWindow;
 import com.game.view.GameAudio;
 
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 public class Game {
 
@@ -54,14 +49,13 @@ public class Game {
 
     // Returns a map of locations based on external Json file
     private HashMap<String, Location> populateLocations() {
+
         HashMap<String, Location> locations = new HashMap<>();
 
         try {
-            String jsonLocationFile = "src/main/resources/GrubsLife_Locations.json";
 
-            // passing in the jsonLocationFile as a string to be parsed into a JsonNode
-            JsonNode node = JsonReader.parse(JsonReader.stringifyFile(jsonLocationFile));
-
+            String locationsStream = JsonReader.getJsonStream("/json/Locations.json");
+            JsonNode node = JsonReader.parse(locationsStream);
 
             Iterator<Map.Entry<String, JsonNode>> nodes = node.get("Locations").fields();
 
@@ -86,15 +80,21 @@ public class Game {
         return locations;
     }
 
+//    private String getJsonStream(String filePath) throws IOException {
+//        byte[] data;
+//        InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(filePath));
+//        data = in.readAllBytes();
+//        return new String(data);
+//    }
+
     private HashMap<String, Enemy> populateEnemies() {
         HashMap<String, Enemy> enemies = new HashMap<>();
 
         try {
-            String jsonLocationFile = "src/main/resources/Enemies.json";
+            String enemiesStream = JsonReader.getJsonStream("/json/Enemies.json");
 
             // passing in the jsonLocationFile as a string to be parsed into a JsonNode
-            JsonNode node = JsonReader.parse(JsonReader.stringifyFile(jsonLocationFile));
-
+            JsonNode node = JsonReader.parse(enemiesStream);
 
             Iterator<Map.Entry<String, JsonNode>> nodes = node.get("Enemies").fields();
 
@@ -124,10 +124,10 @@ public class Game {
         HashMap<String, Item> items = new HashMap<>();
 
         try {
-            String jsonLocationFile = "src/main/resources/Items.json";
 
+            String itemStream = JsonReader.getJsonStream("/json/Items.json");
             // passing in the jsonLocationFile as a string to be parsed into a JsonNode
-            JsonNode node = JsonReader.parse(JsonReader.stringifyFile(jsonLocationFile));
+            JsonNode node = JsonReader.parse(itemStream);
 
 
             Iterator<Map.Entry<String, JsonNode>> nodes = node.get("Items").fields();

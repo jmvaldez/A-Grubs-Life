@@ -1,107 +1,114 @@
 package com.game.view;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
 import javax.sound.sampled.*;
+import java.io.IOException;
 
 
 public class GameAudio {
     public static void PlayWelcomeAudio() {
-        SetAudio("src/main/resources/audio/Welcome.wav");
+        SetAudio("Welcome.wav");
 
     }
 
-
     public static void PlayEatAudio() {
-        SetAudio("src/main/resources/audio/Eat.wav");
+        SetAudio("Eat.wav");
 
     }
 
     public static void PlayGodAudio() {
-        SetAudio("src/main/resources/audio/God.wav");
+        SetAudio("God.wav");
 
     }
 
     public static void PlayGOAudio() {
-        SetAudio("src/main/resources/audio/GO.wav");
+        SetAudio("GO.wav");
 
     }
 
     public static void PlayAttackAudio() {
-        SetAudio("src/main/resources/audio/Attack.wav");
+        SetAudio("Attack.wav");
 
     }
+
     public static void PlayHelpAudio() {
-        SetAudio("src/main/resources/audio/Help.wav");
+        SetAudio("Help.wav");
 
     }
+
     public static void PlayHideAudio() {
-        SetAudio("src/main/resources/audio/HIDE.wav");
+        SetAudio("HIDE.wav");
     }
+
     public static void PlayNORTHAudio() {
-        SetAudio("src/main/resources/audio/NORTH.wav");
+        SetAudio("NORTH.wav");
     }
+
     public static void PlaySOUTHAudio() {
-        SetAudio("src/main/resources/audio/SOUTH.wav");
+        SetAudio("SOUTH.wav");
     }
+
     public static void PlayEASTAudio() {
-        SetAudio("src/main/resources/audio/EAST.wav");
+        SetAudio("EAST.wav");
     }
+
     public static void PlayWESTAudio() {
-        SetAudio("src/main/resources/audio/WEST.wav");
+        SetAudio("WEST.wav");
     }
+
     public static void PlayYOUADEADAudio() {
-        SetAudio("src/main/resources/audio/YOUADEAD.wav");
+        SetAudio("YOUADEAD.wav");
     }
+
     public static void PlayYOUCANTAudio() {
-        SetAudio("src/main/resources/audio/YOUCANT.wav");
+        SetAudio("YOUCANT.wav");
     }
+
     public static void PlayCONGRATSAudio() {
-        SetAudio("src/main/resources/audio/CONGRATS.wav");
+        SetAudio("CONGRATS.wav");
     }
 
     public static void PlayRunAudio() {
-        SetAudio("src/main/resources/audio/Run.wav");
+        SetAudio("Run.wav");
 
     }
+
     public static void PlaySadAudio() {
-        SetAudio("src/main/resources/audio/Sad.wav");
+        SetAudio("Sad.wav");
 
     }
+
     public static void PlayLeaveAudio() {
-        SetAudio("src/main/resources/audio/Leave.wav");
+        SetAudio("Leave.wav");
     }
+
     public static void PlayDeadAudio() {
-        SetAudio("src/main/resources/audio/Dead.wav");
+        SetAudio("Dead.wav");
     }
+
     public static void PlayDefeatedAudio() {
-        SetAudio("src/main/resources/audio/Defeated.wav");
+        SetAudio("Defeated.wav");
     }
+
     public static void PlayICANTAudio() {
-        SetAudio("src/main/resources/audio/ICANT.wav");
+        SetAudio("ICANT.wav");
     }
+
     public static void PlayMAXLEVELAudio() {
-        SetAudio("src/main/resources/audio/MAXLEVEL.wav");
+        SetAudio("MAXLEVEL.wav");
     }
+
     public static void PlayBUTTERFLYAudio() {
-        SetAudio("src/main/resources/audio/BUTTERFLY.wav");
+        SetAudio("BUTTERFLY.wav");
     }
+
     public static void PlayLEVEL2Audio() {
-        SetAudio("src/main/resources/audio/LEVEL2.wav");
+        SetAudio("LEVEL2.wav");
     }
 
-
-
-
-
-    private static void SetAudio(String s)  {
+    private static void SetAudio(String s) {
 
         try {
-            Scanner scanner = new Scanner(System.in);
-
-            File file = new File(s);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(GameAudio.class.getResource("/audio/" + s));
             Clip clip = null;
             clip = AudioSystem.getClip();
             clip.open(audioStream);
@@ -111,8 +118,5 @@ public class GameAudio {
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
             e.printStackTrace();
         }
-
     }
-
-
 }
