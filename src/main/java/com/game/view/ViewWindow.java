@@ -8,9 +8,6 @@ import com.game.model.materials.Location;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.SliderUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,8 +59,6 @@ public class ViewWindow {
     private Music mu;
 
 
-
-
     public ViewWindow() {
 
         this.window = new JFrame("A Grub's Life.");
@@ -88,7 +83,7 @@ public class ViewWindow {
         public void setFile(String soundFileName) {
 
             try {
-               // File file = new File(soundFileName);
+                // File file = new File(soundFileName);
                 AudioInputStream sound = AudioSystem.getAudioInputStream(ViewWindow.class.getResource(soundFileName));
                 clip = AudioSystem.getClip();
                 clip.open(sound);
@@ -144,8 +139,6 @@ public class ViewWindow {
         rickRoll = "/audio/never.wav";
         musicOnOff = "off";
     }
-
-
 
     private void setUpInputPanel() {
         JPanel inputPanel = new JPanel();
