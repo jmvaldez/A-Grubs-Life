@@ -145,6 +145,7 @@ public class CommandProcessor {
 
             default:
                 System.out.println("CommandProcessor/processNavigation user Typed: [ go " + focus + " ], Error");
+                GameAudio.PlayICANTAudio();
 
         }
     }

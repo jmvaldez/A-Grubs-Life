@@ -3,6 +3,7 @@ package com.game.model.engine;
 import com.game.controller.Game;
 import com.game.exception.DeadPlayerInputException;
 import com.game.exception.InputLengthException;
+import com.game.view.GameAudio;
 
 import java.util.ArrayList;
 
@@ -26,12 +27,16 @@ public class LogicEngine {
             commandProcessor.executeCommand(parsedInput);
         } catch (InputLengthException e) {
             System.out.println("Exception: [LogicEngine/processCommand/textParser/parseInput], Message: " + e.getMessage());
+            GameAudio.PlayICANTAudio();
         } catch (DeadPlayerInputException e){
             System.out.println("Exception: [LogicEngine/processCommand/textParser/parseInput], Message: " + e.getMessage());
+            GameAudio.PlayICANTAudio();
         }
 
         catch (Exception e) {
             System.out.println("Exception: [LogicEngine/processCommand], Message: " + e.getMessage());
+            GameAudio.PlayICANTAudio();
+
         }
     }
 
