@@ -1,36 +1,43 @@
 package com.game.model.engine;
 
 import com.game.controller.Game;
-import com.game.model.materials.Caterpillar;
-import com.game.model.materials.Enemy;
-import com.game.model.materials.Location;
+import com.game.exception.DeadPlayerInputException;
+import com.game.exception.InputLengthException;
+import com.game.view.GameAudio;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class LogicEngine {
     private CommandProcessor commandProcessor;
-    private KeyWordIdentifier keyWordIdentifier;
     private TextParser textParser;
-    public LogicEngine(Caterpillar caterpillar, HashMap<String, Location> locations, HashMap<String, Enemy> enemies){
-        setUpEngineComponents(caterpillar,locations, enemies);
+    private ArrayList<String> parsedInput;
+
+    public LogicEngine() {
+        this.textParser = new TextParser();
+        this.commandProcessor = new CommandProcessor();
     }
 
-    private void setUpEngineComponents(Caterpillar caterpillar, HashMap<String, Location> locations, HashMap<String,Enemy> enemies){
-        this.textParser = new TextParser();
-        this.keyWordIdentifier = new KeyWordIdentifier();
-        this.commandProcessor = new CommandProcessor(locations, enemies);
-    }
-    public void processCommand(String userInput){//
-        try{
-        ArrayList parsedInput = textParser.parseInput(userInput);
-//        ArrayList command = keyWordIdentifier.identifyKewWords(parsedInput);
-        commandProcessor.executeCommand(parsedInput);}
-        catch(Exception e){
-            Game.caterpillar.setLastAction("I can't process that, try again with a verb/noun combo of relevant game objects.");
+    public void processUserInput(String userInput) {//
+        try {
+            if (Game.caterpillar.isDead()) {
+                parsedInput = textParser.parserDeadInput(userInput);
+            } else {
+                parsedInput = textParser.parserLiveInput(userInput);
+            }
+            commandProcessor.executeCommand(parsedInput);
+        } catch (InputLengthException e) {
+            System.out.println("Exception: [LogicEngine/processCommand/textParser/parseInput], Message: " + e.getMessage());
+            GameAudio.PlayICANTAudio();
+        } catch (DeadPlayerInputException e){
+            System.out.println("Exception: [LogicEngine/processCommand/textParser/parseInput], Message: " + e.getMessage());
+            GameAudio.PlayICANTAudio();
+        }
+
+        catch (Exception e) {
+            System.out.println("Exception: [LogicEngine/processCommand], Message: " + e.getMessage());
+            GameAudio.PlayICANTAudio();
+
         }
     }
-
-
 
 }

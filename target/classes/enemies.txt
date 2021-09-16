@@ -1,9 +1,0 @@
-Ant , 75 , 10 , 2 ,false,true , hill, 1
-Spider , 100 , 15 , 2 , true, false , web, 1
-Bee , 40 , 25 , 2 , false, false , flowers, 1
-Squirrel , 200, 35 , 3,true, false , boss, 1
-Flies , 20 , 1 ,1, true, false, lake, 1
-Bird, 10000, 200, 1, true, false, genesis, 1
-Rat, 100 , 20 , 1 , false, false, hole, 1
-Bird, 10000, 200, 1, true, false, woods, 1
-Bird, 10000, 200, 1, true, false, lake, 1

@@ -6,9 +6,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.util.Objects;
 
 public class JsonReader {
 
@@ -16,7 +15,7 @@ public class JsonReader {
     private static final ObjectMapper objectMapper = getDefaultObjectMapper();
 
     // creating ObjectMapper in this method for configuration purposes
-    private static ObjectMapper getDefaultObjectMapper(){
+    private static ObjectMapper getDefaultObjectMapper() {
         ObjectMapper defaultObjectMapper = new ObjectMapper();
         defaultObjectMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
         return defaultObjectMapper;
@@ -27,8 +26,15 @@ public class JsonReader {
         return objectMapper.readTree(srcData);
     }
 
-    // stringifies the passed in file
-    public static String stringifyFile(String file) throws IOException {
-        return new String(Files.readAllBytes(Path.of(file)));
+    /*
+     * Returns the data as a String read from the file passed in.
+     * getJsonStream is being used to pass the read out content to the parse() method
+     * EX: JsonReader.parse(getJsonStream("Some/path/to/json"))
+     */
+    public static String getJsonStream(String filePath) throws IOException {
+        byte[] data;
+        InputStream in = Objects.requireNonNull(JsonReader.class.getResourceAsStream(filePath));
+        data = in.readAllBytes();
+        return new String(data);
     }
 }

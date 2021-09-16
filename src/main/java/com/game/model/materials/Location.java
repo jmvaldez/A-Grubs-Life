@@ -3,9 +3,12 @@
  */
 package com.game.model.materials;
 
-import com.game.controller.Game;
+import com.game.model.engine.Functions;
 
-import java.util.Random;
+import javax.swing.*;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Locale;
 
 public class Location {
     private String name;
@@ -14,9 +17,9 @@ public class Location {
     private String south;
     private String east;
     private String west;
-    private Leaf leaf;
-    private Enemy enemy;
-
+    private HashMap<String, Enemy> enemies;
+    private HashMap<String, Item> items;
+    private ImageIcon backgroundImageIcon;
 
     public Location(String name, String description, String north, String south, String east, String west){
         this.name = name;
@@ -25,21 +28,8 @@ public class Location {
         this.south = south;
         this.east = east;
         this.west = west;
-        setLeaf();
+        this.backgroundImageIcon = Functions.readImage(name.toLowerCase());
 
-    }
-
-    private void setLeaf() {
-        Random random = new Random();
-
-            this.leaf = new Leaf();
-    }
-    private void setRandomSpawnedEnemy(){
-
-    }
-
-    public Leaf getLeaf(){
-        return this.leaf;
     }
 
     public String getName() {
@@ -66,8 +56,22 @@ public class Location {
         return this.west;
     }
 
-    public Enemy getEnemy() {
-        return enemy;
+    public void setEnemies(HashMap<String, Enemy> enemies) {
+        this.enemies = enemies;
     }
-    public void setEnemy(Enemy enemy){ this.enemy = enemy;}
+
+    public HashMap<String, Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public HashMap<String, Item> getItems() {
+        return items;
+    }
+    public void setItems(HashMap<String, Item> items) {
+        this.items = items;
+    }
+
+    public ImageIcon getBackgroundImageIcon() {
+        return backgroundImageIcon;
+    }
 }
