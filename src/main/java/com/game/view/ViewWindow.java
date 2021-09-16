@@ -10,6 +10,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.plaf.SliderUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,6 +53,8 @@ public class ViewWindow {
     private Music mu;
 
 
+
+
     public ViewWindow() {
         bHandler = new ButtonHandler();
         mu = new Music();
@@ -64,6 +69,7 @@ public class ViewWindow {
         setUpSoundButton();
         setUpInputPanel();
         setUpDescriptionPanel();
+
     }
 
     public class Music {
@@ -129,6 +135,8 @@ public class ViewWindow {
         this.window.add(soundButton,BorderLayout.NORTH);
 
     }
+
+
 
     private void setUpInputPanel() {
         JPanel inputPanel = new JPanel();
