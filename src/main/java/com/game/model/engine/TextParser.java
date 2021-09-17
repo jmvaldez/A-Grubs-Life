@@ -2,7 +2,7 @@ package com.game.model.engine;
 
 import com.game.controller.Game;
 import com.game.exception.DeadPlayerInputException;
-import com.game.exception.InputLengthException;
+import com.game.exception.LivePlayerInputException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,8 +23,6 @@ public class TextParser {
         super();
         populateVerbs();
         populateDirection();
-        populateItem();
-        populateEnemy();
         populateCheatCode();
         populateDeadComand();
 
@@ -32,51 +30,67 @@ public class TextParser {
 
     //If we dont get a viable verb and noun then we will pass null.
     public ArrayList<String> parserLiveInput(String input) {
+        populateItem();
+        populateEnemy();
+        ArrayList<String> result = new ArrayList<>();
         inputArray = input.toUpperCase(Locale.ROOT).split(" ");
+
         if (inputArray.length != 2) {
             Game.caterpillar.setLastAction("TWO words Command ONLY!");
-            throw new InputLengthException();
+            throw new LivePlayerInputException();
         }
-
-        ArrayList<String> result = new ArrayList<>();
 
         for (String str : inputArray) {
             String otherStr = theOtherString(str);
-
             switch (str.toUpperCase()) {
                 case "GO":
                     if (directions.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
                         result.add(0, str);
                         result.add(1, otherStr);
+                        return result;
                     } else {
                         Game.caterpillar.setLastAction("You can not go " + otherStr + "!! Go North/South/East/West wherever is showing on the MAP!");
+                        throw new LivePlayerInputException();
                     }
-                    break;
                 case "EAT":
                     if (items.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
                         result.add(0, str);
                         result.add(1, otherStr);
+                        return result;
                     } else {
                         Game.caterpillar.setLastAction("Can you eat " + otherStr + "?! Check the item list!");
+                        throw new LivePlayerInputException();
                     }
-                    break;
                 case "ATTACK":
                     if (enemies.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
                         result.add(0, str);
                         result.add(1, otherStr);
+                        return result;
                     } else {
                         Game.caterpillar.setLastAction("Is " + otherStr + " a lived Enemy?! Check the enemy list!");
+                        throw new LivePlayerInputException();
                     }
-                    break;
+                case "RECON":
+                    if (enemies.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
+                        result.add(0, str);
+                        result.add(1, otherStr);
+                        return result;
+                    } else {
+                        Game.caterpillar.setLastAction("How can you recon " + otherStr + "?! Situation awareness Guy!");
+                        throw new LivePlayerInputException();
+                    }
                 case "CHEAT":
-
                     if (cheatCode.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
                         result.add(0, str);
                         result.add(1, otherStr);
+                        return result;
                     } else {
                         Game.caterpillar.setLastAction("Nice Try, Your Cheating Code is not Valid");
+                        throw new LivePlayerInputException();
                     }
-                    break;
+                default:
+                    Game.caterpillar.setLastAction("[ " + str + " " + otherStr + " ]" + " is not a valid command!");
+
             }
         }
         return result;
@@ -105,7 +119,7 @@ public class TextParser {
     }
 
     private void populateVerbs() {
-        verbs = new HashSet<String>(Arrays.asList("GO", "EAT", "ATTACK", "CHEAT"));
+        verbs = new HashSet<String>(Arrays.asList("GO", "EAT", "ATTACK", "CHEAT", "RECON"));
     }
 
     private void populateDirection() {
@@ -113,23 +127,20 @@ public class TextParser {
     }
 
     private void populateCheatCode() {
-        cheatCode = new HashSet<String>(Arrays.asList("XP", "HEALTH", "LEVEL", "EXP"));
+        cheatCode = new HashSet<String>(Arrays.asList("STRENGTH", "HEALTH", "LEVEL", "AMAZON"));
     }
 
     private void populateItem() {
         items = new HashSet<String>();
-        for (String str : Game.getItems().keySet()) {
+        for (String str : Game.caterpillar.getCurrentLocation().getItems().keySet()) {
             items.add(str.toUpperCase());
-        }
-        for (String str: items){
-            System.out.println(str);
         }
 
     }
 
     private void populateEnemy() {
         enemies = new HashSet<String>();
-        for (String str : Game.getEnemies().keySet()) {
+        for (String str : Game.caterpillar.getCurrentLocation().getEnemies().keySet()) {
             enemies.add(str.toUpperCase());
         }
     }

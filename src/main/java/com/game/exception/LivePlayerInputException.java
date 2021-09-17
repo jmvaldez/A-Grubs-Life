@@ -1,6 +1,6 @@
 package com.game.exception;
 
-public class InputLengthException extends RuntimeException{
+public class LivePlayerInputException extends RuntimeException{
     private String errorMessage;
 
 

@@ -13,7 +13,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewWindow {
 
@@ -50,13 +53,21 @@ public class ViewWindow {
     private JLabel enemy1Label;
     private JLabel enemy2Label;
     private JLabel enemy3Label;
+    private JLabel item1QtyLabel;
+    private JLabel item2QtyLabel;
+    private JLabel enemy1HPLabel;
+    private JLabel enemy2HPLabel;
+    private JLabel enemy3HPLabel;
     private ArrayList<JLabel> itemLabelList;
     private ArrayList<JLabel> enemyLabelList;
+    private ArrayList<JLabel> itemQtyLabelList;
+    private ArrayList<JLabel> enemyHPLabelList;
     private JButton soundButton;
     private String rickRoll;
     private String musicOnOff;
     private ButtonHandler bHandler;
     private Music mu;
+
 
 
     public ViewWindow() {
@@ -77,62 +88,10 @@ public class ViewWindow {
 
     }
 
-    public class Music {
-        Clip clip;
-
-        public void setFile(String soundFileName) {
-
-            try {
-                // File file = new File(soundFileName);
-                AudioInputStream sound = AudioSystem.getAudioInputStream(ViewWindow.class.getResource(soundFileName));
-                clip = AudioSystem.getClip();
-                clip.open(sound);
-            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void play() {
-            clip.setFramePosition(0);
-            clip.start();
-        }
-
-        public void loop() {
-            clip.loop(clip.LOOP_CONTINUOUSLY);
-        }
-
-        public void stop() {
-            clip.stop();
-            clip.close();
-        }
-    }
-
-    public class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
-            String clickedButton = event.getActionCommand();
-
-            switch (clickedButton) {
-                case "buttonClick":
-                    if (musicOnOff.equals("off")) {
-                        mu.setFile(rickRoll);
-                        mu.play();
-                        mu.loop();
-                        musicOnOff = "on";
-                        soundButton.setText("Hot Tunes Playing!!!");
-                    } else if (musicOnOff.equals("on")) {
-                        mu.stop();
-                        musicOnOff = "off";
-                        soundButton.setText("No More Hot Tunes");
-                    }
-                    break;
-            }
-        }
-    }
-
-    private void setUpSoundButton(){
+    private void setUpSoundButton() {
 
         soundButton = new JButton("Hot Tunes!");
-        soundButton.setPreferredSize(new Dimension(200,50));
+        soundButton.setPreferredSize(new Dimension(200, 20));
         soundButton.setFocusPainted(false);
         soundButton.addActionListener(bHandler);
         soundButton.setActionCommand("buttonClick");
@@ -149,11 +108,14 @@ public class ViewWindow {
         inputPanel.setBorder(BorderFactory.createLineBorder(new Color(110, 16, 5)));
         inputPanel.setBackground(background);
         inputPanel.setPreferredSize(new Dimension(1000, 200));
+        lastMoveLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+        lastMoveLabel.setPreferredSize(new Dimension(1024,135));
+
 
         setUpInputField(inputPanel);
         setUpLastMoveLabel();
-        inputPanel.add(inputField, BorderLayout.NORTH);
-        inputPanel.add(lastMoveLabel, BorderLayout.CENTER);
+        inputPanel.add(inputField, BorderLayout.CENTER);
+        inputPanel.add(lastMoveLabel, BorderLayout.NORTH);
         inputPanel.add(soundButton, BorderLayout.SOUTH);
         this.window.add(inputPanel, BorderLayout.SOUTH);
 
@@ -170,7 +132,7 @@ public class ViewWindow {
             String input = inputField.getText();
             Game.getProcessor().processUserInput(input);
             inputField.setText("");
-            updateCaterpillarStatus();
+            updateLabels();
 
         });
     }
@@ -178,10 +140,10 @@ public class ViewWindow {
     private void setUpLastMoveLabel() {
 
         String lastAction = Game.caterpillar.getLastAction();
-        lastMoveLabel.setBorder(BorderFactory.createTitledBorder("Your Last Move"));
+        lastMoveLabel.setBorder(BorderFactory.createTitledBorder("Note"));
         if (lastAction.length() > 0) {
             lastMoveLabel.setText("<html> " +
-                    "<h1>" + lastAction + "</h1>" +
+                    "<h3>" + lastAction + "</h3>" +
                     "</html>");
 
         } else {
@@ -241,20 +203,26 @@ public class ViewWindow {
         JPanel descriptionPanel = new JPanel(null);
         item1Label = new JLabel();
         item2Label = new JLabel();
+        item1QtyLabel = new JLabel();
+        item2QtyLabel = new JLabel();
         item3Label = new JLabel();
         enemy1Label = new JLabel();
         enemy2Label = new JLabel();
         enemy3Label = new JLabel();
+        enemy1HPLabel = new JLabel();
+        enemy2HPLabel = new JLabel();
+        enemy3HPLabel = new JLabel();
 
 
         itemLabelList = new ArrayList<JLabel>(Arrays.asList(item1Label, item2Label, item3Label));
         enemyLabelList = new ArrayList<JLabel>(Arrays.asList(enemy1Label, enemy2Label, enemy3Label));
+        itemQtyLabelList = new ArrayList<JLabel>(Arrays.asList(item1QtyLabel, item2QtyLabel));
+        enemyHPLabelList =  new ArrayList<JLabel>(Arrays.asList(enemy1HPLabel, enemy2HPLabel, enemy3HPLabel));
 
         animationPanel = new JPanel(null);
         descriptionLabel = new JLabel();
         backgroundLabel = new JLabel();
         caterpillarImageLabel = new JLabel();
-
 
 
         descriptionPanel.setBackground(new Color(0, 0, 0));
@@ -270,23 +238,39 @@ public class ViewWindow {
         descriptionLabel.setBounds(0, 0, 550, 195);
         animationPanel.setBounds(0, 195, 550, 335);
         backgroundLabel.setBounds(5, 5, 540, 325);
-        caterpillarImageLabel.setBounds(220, 200, 100, 100);
+        caterpillarImageLabel.setBounds(210, 190, 100, 100);
 
 
+        item1Label.setBounds(100, 230, 80, 80);
+        item2Label.setBounds(20, 230, 80, 80);
+        item1QtyLabel.setBounds(160, 300, 30, 30);
+        item2QtyLabel.setBounds(80, 300, 30, 30);
+        item3Label.setBounds(10, 350, 80, 80);
+        enemy1Label.setBounds(100, 80, 80, 80);
+        enemy2Label.setBounds(340, 80, 80, 80);
+        enemy3Label.setBounds(220, 50, 80, 80);
+        enemy1HPLabel.setBounds(100, 70, 80, 10);
+        enemy2HPLabel.setBounds(340, 70, 80, 10);
+        enemy3HPLabel.setBounds(220, 40, 80, 10);
 
-        item1Label.setBounds(100,230, 80, 80);
-        item2Label.setBounds(20,230, 80, 80);
-        item3Label.setBounds(10,350, 80, 80);
-        enemy1Label.setBounds(100,80, 80, 80);
-        enemy2Label.setBounds(340,80, 80, 80);
-        enemy3Label.setBounds(220,50, 80, 80);
 
+        item1QtyLabel.setForeground(Color.RED);
+        item2QtyLabel.setForeground(Color.RED);
+        item1QtyLabel.setFont(new Font("Serif", Font.BOLD, 15));
+        item2QtyLabel.setFont(new Font("Serif", Font.BOLD, 15));
+
+        animationPanel.add(item1QtyLabel);
+        animationPanel.add(item2QtyLabel);
+        animationPanel.add(enemy1HPLabel);
+        animationPanel.add(enemy2HPLabel);
+        animationPanel.add(enemy3HPLabel);
         animationPanel.add(item1Label);
         animationPanel.add(item2Label);
         animationPanel.add(item3Label);
         animationPanel.add(enemy1Label);
         animationPanel.add(enemy2Label);
         animationPanel.add(enemy3Label);
+
 
         animationPanel.add(caterpillarImageLabel);
         animationPanel.add(backgroundLabel);
@@ -318,6 +302,7 @@ public class ViewWindow {
                 "</tr>\n" +
                 "<tr>\n" +
                 "<td style=\"text-align: left;\">Health: </td><td>" + Game.caterpillar.getHealth() +
+                "/" + Game.caterpillar.getLevelMaxHealth() +
                 "</td>\n" +
                 "</tr>\n" +
                 "<tr>\n" +
@@ -326,7 +311,7 @@ public class ViewWindow {
                 "</tr>\n" +
                 "<tr>\n" +
                 "<td style=\"text-align: left;\">Experience: </td><td>" + Game.caterpillar.getExperience() +
-                "/" + Game.caterpillar.getMaxExperience() +
+                "/" + Game.caterpillar.getLevelMaxExp() +
                 "</td>\n" +
                 "</tr>\n" +
                 "</table>\n" +
@@ -391,6 +376,11 @@ public class ViewWindow {
         enemy1Label.setIcon(null);
         enemy2Label.setIcon(null);
         enemy3Label.setIcon(null);
+        item1QtyLabel.setText(null);
+        item2QtyLabel.setText(null);
+        enemy1HPLabel.setIcon(null);
+        enemy2HPLabel.setIcon(null);
+        enemy3HPLabel.setIcon(null);
 
         backgroundLabel.setIcon(Game.caterpillar.getCurrentLocation().getBackgroundImageIcon());
         caterpillarImageLabel.setIcon(Game.caterpillar.getCaterpillarImageIcon());
@@ -403,10 +393,12 @@ public class ViewWindow {
 
         for (Map.Entry<String, Item> entry : currentItems.entrySet()) {
             itemLabelList.get(itemCounter).setIcon(entry.getValue().getItemImageIcon());
+            itemQtyLabelList.get(itemCounter).setText("x " + String.valueOf(entry.getValue().getQty()));
             itemCounter++;
         }
-        for (Map.Entry<String, Enemy> entry : currentEnemies.entrySet()){
+        for (Map.Entry<String, Enemy> entry : currentEnemies.entrySet()) {
             enemyLabelList.get(enemyCounter).setIcon(entry.getValue().getEnemyImageIcon());
+            enemyHPLabelList.get(enemyCounter).setIcon(entry.getValue().getCurrentEnemyHPIcon());
             enemyCounter++;
         }
     }
@@ -677,7 +669,7 @@ public class ViewWindow {
         setUpStatPanel();
     }
 
-    public void updateCaterpillarStatus() {
+    public void updateLabels() {
         setUpLastMoveLabel();
         setCaterpillarStatLabel();
         setEnemyStatLabel();
@@ -686,13 +678,63 @@ public class ViewWindow {
         setEnemyListLabel();
         setItemListLabel();
         setImageLabels();
-
-        Game.caterpillar.checkDeathAndImage();
         this.window.repaint();
         Game.caterpillar.engagedEnemy = null;
     }
 
     public JPanel getLocationPanel() {
         return locationPanel;
+    }
+
+    public class Music {
+        Clip clip;
+
+        public void setFile(String soundFileName) {
+
+            try {
+                // File file = new File(soundFileName);
+                AudioInputStream sound = AudioSystem.getAudioInputStream(ViewWindow.class.getResource(soundFileName));
+                clip = AudioSystem.getClip();
+                clip.open(sound);
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void play() {
+            clip.setFramePosition(0);
+            clip.start();
+        }
+
+        public void loop() {
+            clip.loop(clip.LOOP_CONTINUOUSLY);
+        }
+
+        public void stop() {
+            clip.stop();
+            clip.close();
+        }
+    }
+
+    public class ButtonHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            String clickedButton = event.getActionCommand();
+
+            switch (clickedButton) {
+                case "buttonClick":
+                    if (musicOnOff.equals("off")) {
+                        mu.setFile(rickRoll);
+                        mu.play();
+                        mu.loop();
+                        musicOnOff = "on";
+                        soundButton.setText("Hot Tunes Playing!!!");
+                    } else if (musicOnOff.equals("on")) {
+                        mu.stop();
+                        musicOnOff = "off";
+                        soundButton.setText("No More Hot Tunes");
+                    }
+                    break;
+            }
+        }
     }
 }
