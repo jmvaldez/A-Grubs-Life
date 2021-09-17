@@ -80,8 +80,8 @@ public class CommandProcessor {
         enemy.setHealth(enemy.getHealth() - Game.caterpillar.getStrength() - damageAdjustment(enemy));
         switch(enemy.getHealth()){
             case 0:
-                Game.caterpillar.setExperience(Game.caterpillar.getExperience() + enemy.getExp());
                 Game.caterpillar.setLastAction(enemy.getName() + " defeated!!" + " you received " + enemy.getExp()+" experience points");
+                Game.caterpillar.setExperience(Game.caterpillar.getExperience() + enemy.getExp());
                 Game.caterpillar.getCurrentLocation().getEnemies().remove(enemy.getName());
                 break;
             default:
