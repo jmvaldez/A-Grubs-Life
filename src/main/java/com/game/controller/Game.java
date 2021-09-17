@@ -5,6 +5,7 @@ package com.game.controller;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.game.model.engine.Functions;
 import com.game.model.engine.JsonReader;
 import com.game.model.engine.LogicEngine;
 import com.game.model.materials.Caterpillar;
@@ -38,8 +39,8 @@ public class Game {
         items = populateItems();
         locations = populateLocations();
 
-        caterpillar = new Caterpillar(100, 0, 5);
-        caterpillar.setCurrentLocation("Genesis");
+        caterpillar = new Caterpillar();
+        Functions.setCurrentLocationElement("Genesis");
         processor = new LogicEngine();
         viewWindow = new ViewWindow();
         viewWindow.initSidePanel();
@@ -106,7 +107,7 @@ public class Game {
                 int enemyStrength = entry.getValue().get("strength").asInt();
                 int enemyExp = entry.getValue().get("exp").asInt();
 
-                Enemy enemy = new Enemy(enemyName, enemyMaxHealth, enemyStrength);
+                Enemy enemy = new Enemy(enemyName, enemyMaxHealth, enemyStrength, enemyExp);
                 enemies.put(enemyName, enemy);
 
 

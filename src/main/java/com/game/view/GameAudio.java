@@ -5,6 +5,10 @@ import java.io.IOException;
 
 
 public class GameAudio {
+    public static void playAudio(String name){
+        SetAudio(name + ".wav");
+    }
+
     public static void PlayWelcomeAudio() {
         SetAudio("Welcome.wav");
 

@@ -3,6 +3,7 @@ package com.game.model.engine;
 import com.game.controller.Game;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
+import com.game.view.GameAudio;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -62,6 +63,27 @@ public class Functions {
             }
         }
         return result;
+    }
+
+    public static void setCurrentLocationElement(String location){
+
+        switch (location){
+            case "DEAD_END":
+                Game.caterpillar.setLastAction("Dead End, find another direction, check MAP!");
+                GameAudio.playAudio("Leave");
+                break;
+            case "Genesis":
+                Game.caterpillar.setCurrentLocation("Genesis");
+                Game.caterpillar.getCurrentLocation().setItems(Functions.getRandomItems());
+                Game.caterpillar.getCurrentLocation().setEnemies(new HashMap<>());
+                break;
+            default:
+                Game.caterpillar.setCurrentLocation(location);
+                Game.caterpillar.getCurrentLocation().setItems(Functions.getRandomItems());
+                Game.caterpillar.getCurrentLocation().setEnemies(Functions.getRandomEnemies());
+
+        }
+
     }
 
     public static int getRandomNumber(int min, int max) {
