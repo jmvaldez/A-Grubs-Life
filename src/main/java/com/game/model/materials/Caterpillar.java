@@ -2,7 +2,7 @@ package com.game.model.materials;
 
 import com.game.controller.Game;
 import com.game.model.engine.Functions;
-import com.game.view.GameAudio;
+import com.game.util.GameAudio;
 
 import javax.swing.*;
 
