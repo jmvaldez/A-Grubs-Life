@@ -6,7 +6,7 @@ import com.game.model.materials.Caterpillar;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.model.materials.Location;
-import com.game.view.GameAudio;
+import com.game.util.GameAudio;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,26 +27,26 @@ public class CommandProcessor {
     private void processCommand(String action, String focus) {
         switch (action.toUpperCase(Locale.ROOT)) {
             case "ATTACK":
-                Game.caterpillar.engagedEnemy = Game.caterpillar.getCurrentLocation().getEnemies().get(focus.toLowerCase());
-                processAttack(Game.caterpillar.engagedEnemy);
+                processAttack(focus);
                 break;
             case "RECON":
                 Game.caterpillar.engagedEnemy = Game.caterpillar.getCurrentLocation().getEnemies().get(focus.toLowerCase());
                 Game.caterpillar.setLastAction("ARMY lead the way!");
+                GameAudio.playAudio("Recon");
                 break;
             case "GO":
                 processNavigation(focus);
-                GameAudio.PlayGOAudio();
                 break;
             case "EAT":
                 processEating(focus);
-                GameAudio.PlayEatAudio();
+                GameAudio.playAudio("Eat");
                 break;
             case "DEAD":
                 processDead(focus);
                 break;
             case "CHEAT":
                 processCheat(focus);
+                GameAudio.playAudio("Cheat");
                 break;
         }
     }
@@ -74,24 +74,28 @@ public class CommandProcessor {
 //        }
 //    }
 
-    private void processAttack(Enemy enemy) {
+    private void processAttack(String focus) {
         GameAudio.PlayAttackAudio();
-        Game.caterpillar.setHealth(Game.caterpillar.getHealth() - enemy.getStrength());
-        enemy.setHealth(enemy.getHealth() - Game.caterpillar.getStrength() - damageAdjustment(enemy));
-        switch(enemy.getHealth()){
-            case 0:
-                Game.caterpillar.setLastAction(enemy.getName() + " defeated!!" + " you received " + enemy.getExp()+" experience points");
-                Game.caterpillar.setExperience(Game.caterpillar.getExperience() + enemy.getExp());
-                Game.caterpillar.getCurrentLocation().getEnemies().remove(enemy.getName());
-                break;
-            default:
-                Game.caterpillar.setLastAction("You attacked the " + enemy.getName() + " " + Game.caterpillar.getStrength() + " points " + "you received " + enemy.getStrength() + " point damage!");
+        Game.caterpillar.engagedEnemy = Game.caterpillar.getCurrentLocation().getEnemies().get(focus.toLowerCase());
+
+        Enemy engagedEnemy = Game.caterpillar.engagedEnemy;
+        Game.caterpillar.setHealth(Game.caterpillar.getHealth() - engagedEnemy.getStrength());
+        engagedEnemy.setHealth(engagedEnemy.getHealth() - Game.caterpillar.getStrength() - damageAdjustment(engagedEnemy));
+        Game.caterpillar.setLastAction("You attacked the " + engagedEnemy.getName() + " " + Game.caterpillar.getStrength() + " points " + "you received " + engagedEnemy.getStrength() + " point damage!");
+
+        if (engagedEnemy.getHealth() == 0) {
+
+            Game.caterpillar.setLastAction(Game.caterpillar.engagedEnemy.getName() + " defeated!!" + " you received " + Game.caterpillar.engagedEnemy.getExp() + " experience points");
+            Game.caterpillar.setExperience(Game.caterpillar.getExperience() + Game.caterpillar.engagedEnemy.getExp());
+            Game.caterpillar.engagedEnemy.setDead();
+
         }
+
     }
 
     private void processEating(String focus) {
         Item currentItem = Game.caterpillar.getCurrentLocation().getItems().get(focus.toLowerCase());
-        Game.caterpillar.setLastAction("you eat a " + focus +". you get " + currentItem.getHealth() + " health point and " + currentItem.getExp() + " exp point!");
+        Game.caterpillar.setLastAction("you eat a " + focus + ". you get " + currentItem.getHealth() + " health point and " + currentItem.getExp() + " exp point!");
         Game.caterpillar.setHealth(Game.caterpillar.getHealth() + currentItem.getHealth());
         Game.caterpillar.setExperience(Game.caterpillar.getExperience() + currentItem.getExp());
         currentItem.setQty(currentItem.getQty() - 1);
@@ -132,22 +136,19 @@ public class CommandProcessor {
         }
     }
 
-    private void processDead(String focus){
-        switch (focus){
+    private void processDead(String focus) {
+        switch (focus) {
             case "RESTART":
-                Game.caterpillar = new Caterpillar();
-                Functions.setCurrentLocationElement("Genesis");
-                Game.caterpillar.resetLastAction();
-                Game.caterpillar.setLastAction("NEW LIFE!");
-                Game.getViewWindow().updateLabels();
+                Game.initGame();
+                GameAudio.playAudio("Reborn");
                 break;
             case "QUIT":
                 System.exit(0);
         }
     }
 
-    private void processCheat(String focus){
-        switch (focus){
+    private void processCheat(String focus) {
+        switch (focus) {
             case "LEVEL":
                 Game.caterpillar.levelUp();
                 Game.caterpillar.setLastAction("Who is your Dady");
@@ -162,12 +163,15 @@ public class CommandProcessor {
                 break;
             case "AMAZON":
                 Game.caterpillar.setHealth(0);
+                Game.gamePanel.cheatImageLabel.setIcon(Functions.readImage("cheatAmazon"));
+                AnimationTimer.cheatAmazonTimer.start();
                 Game.caterpillar.setLastAction("LOL, your Manager is behind you!");
                 break;
 
         }
 
     }
+
     // adjusts damage output for combat
     private int damageAdjustment(Enemy enemy) {
         int caterpillarStrength = Game.caterpillar.getStrength();
@@ -180,6 +184,9 @@ public class CommandProcessor {
         } else if (caterpillarStrength < enemyStrength) {
             adjustDamageBy = -5;
         }
+
+        int levelAdajust = Functions.getRandomNumber(1, Game.caterpillar.getLevel()) * caterpillarStrength;
+        adjustDamageBy += levelAdajust;
         return adjustDamageBy;
     }
 
