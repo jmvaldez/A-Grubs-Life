@@ -2,19 +2,16 @@ package com.game.model.engine;
 
 
 import com.game.controller.Game;
-import com.game.model.materials.Caterpillar;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 import com.game.util.GameAudio;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class CommandProcessor {
-
-    private final HashMap<String, Location> locations = Game.getLocations();
 
     public void executeCommand(ArrayList<String> strings) {
         String action = strings.get(0).toUpperCase(Locale.ROOT);
@@ -30,12 +27,14 @@ public class CommandProcessor {
                 processAttack(focus);
                 break;
             case "RECON":
-                Game.caterpillar.engagedEnemy = Game.caterpillar.getCurrentLocation().getEnemies().get(focus.toLowerCase());
+                Game.caterpillar.engagedEnemy = Location.getEnemies().get(focus.toLowerCase());
                 Game.caterpillar.setLastAction("ARMY lead the way!");
                 GameAudio.playAudio("Recon");
                 break;
             case "GO":
                 processNavigation(focus);
+                enemyAttackFirst();
+                GameAudio.PlayGOAudio();
                 break;
             case "EAT":
                 processEating(focus);
@@ -48,6 +47,43 @@ public class CommandProcessor {
                 processCheat(focus);
                 GameAudio.playAudio("Cheat");
                 break;
+        }
+    }
+
+    /*
+     * enemyAttackFirst() executes the enemy attack if there is an enemy in the current area
+     * also based on chanceForAction in enemyCalcAttack
+     */
+    private void enemyAttackFirst() {
+        if (!Location.getEnemies().isEmpty()) {
+            Map.Entry<String, Enemy> enemy = Location.getEnemies().entrySet()
+                    .stream()
+                    .findFirst()
+                    .get();
+            enemyAttackCalc(enemy);
+        } else {
+            Game.caterpillar.setLastAction("No enemies in this area.");
+        }
+    }
+
+    /*
+     * enemyAttackCalc() does the damage calculation if the enemy succeeded in attacking first
+     * if chance for action is true then we subtract player health based on enemy strength plus a surprise hit bonus
+     * if chance for action is false then the enemy fails to attack and a message is displayed
+     */
+    private void enemyAttackCalc(Map.Entry<String, Enemy> enemy) {
+        if (Functions.chanceForAction(1, 10, 5)) {
+            int surpriseHitBonus = 5;
+            GameAudio.PlayAttackAudio();
+            Game.caterpillar.setHealth(Game.caterpillar.getHealth() - (enemy.getValue().getStrength() + surpriseHitBonus));
+            String enemyAttackBuilder = "You were spotted by the" +
+                    enemy.getValue().getName() +
+                    "They attack you for" +
+                    enemy.getValue().getStrength() +
+                    "damage";
+            Game.caterpillar.setLastAction(enemyAttackBuilder);
+        } else {
+            Game.caterpillar.setLastAction("The Enemy didn't see you");
         }
     }
 
@@ -76,7 +112,7 @@ public class CommandProcessor {
 
     private void processAttack(String focus) {
         GameAudio.PlayAttackAudio();
-        Game.caterpillar.engagedEnemy = Game.caterpillar.getCurrentLocation().getEnemies().get(focus.toLowerCase());
+        Game.caterpillar.engagedEnemy = Location.getEnemies().get(focus.toLowerCase());
 
         Enemy engagedEnemy = Game.caterpillar.engagedEnemy;
         Game.caterpillar.setHealth(Game.caterpillar.getHealth() - engagedEnemy.getStrength());
@@ -172,6 +208,7 @@ public class CommandProcessor {
 
     }
 
+
     // adjusts damage output for combat
     private int damageAdjustment(Enemy enemy) {
         int caterpillarStrength = Game.caterpillar.getStrength();
@@ -185,8 +222,8 @@ public class CommandProcessor {
             adjustDamageBy = -5;
         }
 
-        int levelAdajust = Functions.getRandomNumber(1, Game.caterpillar.getLevel()) * caterpillarStrength;
-        adjustDamageBy += levelAdajust;
+        int levelAdjust = Functions.getRandomNumber(1, Game.caterpillar.getLevel()) * caterpillarStrength;
+        adjustDamageBy += levelAdjust;
         return adjustDamageBy;
     }
 

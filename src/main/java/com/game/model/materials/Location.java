@@ -15,7 +15,7 @@ public class Location {
     private String south;
     private String east;
     private String west;
-    private HashMap<String, Enemy> enemies;
+    private static HashMap<String, Enemy> enemies;
     private HashMap<String, Item> items;
     private ImageIcon backgroundImageIcon;
 
@@ -54,7 +54,7 @@ public class Location {
         return this.west;
     }
 
-    public HashMap<String, Enemy> getEnemies() {
+    public static HashMap<String, Enemy> getEnemies() {
         return enemies;
     }
 

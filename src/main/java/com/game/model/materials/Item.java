@@ -14,7 +14,7 @@ public class Item {
     private ImageIcon itemImageIcon;
 
 
-    public Item(String name, int health, int exp, int rarity){
+    public Item(String name, int health, int exp, int rarity) {
         this.name = name;
         this.health = health;
         this.exp = exp;
