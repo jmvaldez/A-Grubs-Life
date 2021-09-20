@@ -12,13 +12,11 @@ import java.util.HashMap;
 public class Functions {
 
 
-
     public static ImageIcon readImage(String name) {
         ImageIcon image = null;
         try {
             image = new ImageIcon(Functions.class.getResource(Game.IMAGE_PATH + name + ".png"));
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
         return image;
@@ -68,9 +66,9 @@ public class Functions {
         return result;
     }
 
-    public static void setCurrentLocationElement(String location){
+    public static void setCurrentLocationElement(String location) {
 
-        switch (location){
+        switch (location) {
             case "DEAD_END":
                 Game.caterpillar.setLastAction("Dead End, find another direction, check MAP!");
                 GameAudio.playAudio("Leave");
