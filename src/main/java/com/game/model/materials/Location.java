@@ -54,7 +54,7 @@ public class Location {
         return this.west;
     }
 
-    public HashMap<String, Enemy> getEnemies() {
+    public static HashMap<String, Enemy> getEnemies() {
         return enemies;
     }
 

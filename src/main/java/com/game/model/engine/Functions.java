@@ -91,6 +91,11 @@ public class Functions {
 
     }
 
+    // method for random chance to execute an action.
+    public static boolean chanceForAction(int min, int max, int chance) {
+        int rand = Functions.getRandomNumber(min, max);
+        return rand > chance;
+    }
 
     public static int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
