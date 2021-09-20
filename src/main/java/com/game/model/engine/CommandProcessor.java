@@ -9,12 +9,10 @@ import com.game.model.materials.Location;
 import com.game.view.GameAudio;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class CommandProcessor {
-
-    private final HashMap<String, Location> locations = Game.getLocations();
 
     public void executeCommand(ArrayList<String> strings) {
         String action = strings.get(0).toUpperCase(Locale.ROOT);
@@ -27,15 +25,16 @@ public class CommandProcessor {
     private void processCommand(String action, String focus) {
         switch (action.toUpperCase(Locale.ROOT)) {
             case "ATTACK":
-                Game.caterpillar.engagedEnemy = Game.caterpillar.getCurrentLocation().getEnemies().get(focus.toLowerCase());
+                Game.caterpillar.engagedEnemy = Location.getEnemies().get(focus.toLowerCase());
                 processAttack(Game.caterpillar.engagedEnemy);
                 break;
             case "RECON":
-                Game.caterpillar.engagedEnemy = Game.caterpillar.getCurrentLocation().getEnemies().get(focus.toLowerCase());
+                Game.caterpillar.engagedEnemy = Location.getEnemies().get(focus.toLowerCase());
                 Game.caterpillar.setLastAction("ARMY lead the way!");
                 break;
             case "GO":
                 processNavigation(focus);
+                enemyAttackFirst();
                 GameAudio.PlayGOAudio();
                 break;
             case "EAT":
@@ -49,6 +48,40 @@ public class CommandProcessor {
                 processCheat(focus);
                 break;
         }
+    }
+
+
+
+    private void enemyAttackFirst() {
+        if (Location.getEnemies() != null) {
+            Map.Entry<String, Enemy> enemy = Location.getEnemies().entrySet()
+                    .stream()
+                    .findFirst()
+                    .get();
+            enemyAttack(enemy);
+        } else {
+            System.out.println("NULL");
+        }
+    }
+
+    //
+    private void enemyAttack(Map.Entry<String, Enemy> enemy) {
+        if (isEnemyAttackingFirst()) {
+            GameAudio.PlayAttackAudio();
+            Game.caterpillar.setHealth(Game.caterpillar.getHealth() - (enemy.getValue().getStrength() + 10));
+            Game.caterpillar.setLastAction("You were spotted by the " + enemy.getValue().getName() + "They attack you for BLANK damage.");
+        } else {
+            Game.caterpillar.setLastAction("The Enemy didn't see you");
+        }
+    }
+
+    // method for random chance that an enemy will attack the player
+    private boolean isEnemyAttackingFirst() {
+        int min = 1;
+        int max = 10;
+        int chance = 5;
+        int rand = Functions.getRandomNumber(min, max);
+        return rand > chance;
     }
 
 
@@ -78,20 +111,18 @@ public class CommandProcessor {
         GameAudio.PlayAttackAudio();
         Game.caterpillar.setHealth(Game.caterpillar.getHealth() - enemy.getStrength());
         enemy.setHealth(enemy.getHealth() - Game.caterpillar.getStrength() - damageAdjustment(enemy));
-        switch(enemy.getHealth()){
-            case 0:
-                Game.caterpillar.setLastAction(enemy.getName() + " defeated!!" + " you received " + enemy.getExp()+" experience points");
-                Game.caterpillar.setExperience(Game.caterpillar.getExperience() + enemy.getExp());
-                Game.caterpillar.getCurrentLocation().getEnemies().remove(enemy.getName());
-                break;
-            default:
-                Game.caterpillar.setLastAction("You attacked the " + enemy.getName() + " " + Game.caterpillar.getStrength() + " points " + "you received " + enemy.getStrength() + " point damage!");
+        if (enemy.getHealth() == 0) {
+            Game.caterpillar.setLastAction(enemy.getName() + " defeated!!" + " you received " + enemy.getExp() + " experience points");
+            Game.caterpillar.setExperience(Game.caterpillar.getExperience() + enemy.getExp());
+            Game.caterpillar.getCurrentLocation().getEnemies().remove(enemy.getName());
+        } else {
+            Game.caterpillar.setLastAction("You attacked the " + enemy.getName() + " " + Game.caterpillar.getStrength() + " points " + "you received " + enemy.getStrength() + " point damage!");
         }
     }
 
     private void processEating(String focus) {
         Item currentItem = Game.caterpillar.getCurrentLocation().getItems().get(focus.toLowerCase());
-        Game.caterpillar.setLastAction("you eat a " + focus +". you get " + currentItem.getHealth() + " health point and " + currentItem.getExp() + " exp point!");
+        Game.caterpillar.setLastAction("you eat a " + focus + ". you get " + currentItem.getHealth() + " health point and " + currentItem.getExp() + " exp point!");
         Game.caterpillar.setHealth(Game.caterpillar.getHealth() + currentItem.getHealth());
         Game.caterpillar.setExperience(Game.caterpillar.getExperience() + currentItem.getExp());
         currentItem.setQty(currentItem.getQty() - 1);
@@ -132,8 +163,8 @@ public class CommandProcessor {
         }
     }
 
-    private void processDead(String focus){
-        switch (focus){
+    private void processDead(String focus) {
+        switch (focus) {
             case "RESTART":
                 Game.caterpillar = new Caterpillar();
                 Functions.setCurrentLocationElement("Genesis");
@@ -146,8 +177,8 @@ public class CommandProcessor {
         }
     }
 
-    private void processCheat(String focus){
-        switch (focus){
+    private void processCheat(String focus) {
+        switch (focus) {
             case "LEVEL":
                 Game.caterpillar.levelUp();
                 Game.caterpillar.setLastAction("Who is your Dady");
@@ -168,6 +199,8 @@ public class CommandProcessor {
         }
 
     }
+
+
     // adjusts damage output for combat
     private int damageAdjustment(Enemy enemy) {
         int caterpillarStrength = Game.caterpillar.getStrength();

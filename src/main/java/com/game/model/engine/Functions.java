@@ -3,11 +3,14 @@ package com.game.model.engine;
 import com.game.controller.Game;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
+import com.game.model.materials.Location;
 import com.game.view.GameAudio;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Functions {
 
@@ -85,6 +88,7 @@ public class Functions {
         }
 
     }
+
 
     public static int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
