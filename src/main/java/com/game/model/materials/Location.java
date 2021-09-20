@@ -6,9 +6,7 @@ package com.game.model.materials;
 import com.game.model.engine.Functions;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class Location {
     private String name;
@@ -21,7 +19,7 @@ public class Location {
     private HashMap<String, Item> items;
     private ImageIcon backgroundImageIcon;
 
-    public Location(String name, String description, String north, String south, String east, String west){
+    public Location(String name, String description, String north, String south, String east, String west) {
         this.name = name;
         this.description = description;
         this.north = north;
@@ -56,17 +54,18 @@ public class Location {
         return this.west;
     }
 
-    public void setEnemies(HashMap<String, Enemy> enemies) {
-        this.enemies = enemies;
+    public HashMap<String, Enemy> getEnemies() {
+        return enemies;
     }
 
-    public static HashMap<String, Enemy> getEnemies() {
-        return enemies;
+    public void setEnemies(HashMap<String, Enemy> enemiesone) {
+        this.enemies = (HashMap) enemiesone.clone();
     }
 
     public HashMap<String, Item> getItems() {
         return items;
     }
+
     public void setItems(HashMap<String, Item> items) {
         this.items = items;
     }

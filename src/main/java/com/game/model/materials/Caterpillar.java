@@ -1,8 +1,9 @@
 package com.game.model.materials;
 
 import com.game.controller.Game;
+import com.game.model.engine.AnimationTimer;
 import com.game.model.engine.Functions;
-import com.game.view.GameAudio;
+import com.game.util.GameAudio;
 
 import javax.swing.*;
 
@@ -16,12 +17,14 @@ public class Caterpillar {
     private int level;
     private int levelMaxExp;
     private int levelMaxHealth;
+    private int energy;
     private Location currentLocation;
     private boolean winner;
     private String lastAction;
 
     private boolean isDead;
     private ImageIcon caterpillarImageIcon;
+    private ImageIcon actionImageIcon;
 
 
     public Caterpillar() {
@@ -30,13 +33,15 @@ public class Caterpillar {
         this.levelMaxExp = 5;
         this.health = 50;
         this.levelMaxHealth = 50;
+        this.energy = 20;
 
         this.strength = 5;
         this.isDead = false;
-        this.lastAction = "";
+        this.lastAction = ">>>--------NEW LIFE!--------";
         this.winner = false;
         this.engagedEnemy = null;
         this.caterpillarImageIcon = Functions.readImage("caterpillar");
+        this.actionImageIcon = null;
     }
 
 
@@ -53,7 +58,8 @@ public class Caterpillar {
         if (this.health <= 0) {
             this.isDead = true;
             this.caterpillarImageIcon = Functions.readImage("caterpillar");
-            Game.caterpillar.setLastAction("Oh dear you have died.");
+            Game.caterpillar.setLastAction("You have died.");
+            actionImageIcon = Functions.readImage("fail");
             GameAudio.playAudio("Dead");
         }
     }
@@ -91,18 +97,18 @@ public class Caterpillar {
         return health;
     }
 
-    public void resetLastAction(){
-        this.lastAction = "";
-    }
-
     public void setHealth(int health) {
+        if (health >= this.health) {
+            AnimationTimer.healthIncreaseAnimationTimer.start();
+        }
+
         if (health <= 0) {
             this.health = 0;
         } else {
             this.health = Math.min(health, levelMaxHealth);
         }
-
     }
+
 
     public int getExperience() {
         return experience;
@@ -175,5 +181,14 @@ public class Caterpillar {
 
     public void setWinner(boolean winner) {
         this.winner = winner;
+    }
+
+
+    public void resetLastAction() {
+        this.lastAction = "";
+    }
+
+    public ImageIcon getActionImageIcon() {
+        return actionImageIcon;
     }
 }

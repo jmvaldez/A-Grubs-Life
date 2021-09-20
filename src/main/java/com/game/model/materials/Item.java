@@ -11,7 +11,6 @@ public class Item {
     private int exp;
     private int rarity;
     private int qty;
-    private boolean isActive;
     private ImageIcon itemImageIcon;
 
 
@@ -45,14 +44,6 @@ public class Item {
 
     public int getRarity() {
         return rarity;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     public ImageIcon getItemImageIcon() {
