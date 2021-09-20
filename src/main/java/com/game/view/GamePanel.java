@@ -1,4 +1,3 @@
-
 package com.game.view;
 
 import com.game.controller.Game;
@@ -7,9 +6,6 @@ import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 
-
-
-import javax.print.attribute.standard.Media;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -19,10 +15,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.*;
-import javax.swing.event.*;
-import javax.sound.sampled.Mixer.Info;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 public class GamePanel extends JPanel {
@@ -62,33 +56,18 @@ public class GamePanel extends JPanel {
     private String rickRoll;
     private String musicOnOff;
     private Music mu;
-    //////
-    private JSlider slider;
+/////////////
+private JSlider slider;
     private JPanel panel1;
     private JLabel status;
     private float val;
-    private ChangeListener ChangeListener;
+    private javax.swing.event.ChangeListener ChangeListener;
 
+
+    //////////////
 
     public void setUpGamePanel() {
 
-    public ViewWindow() {
-
-        this.window = new JFrame("A Grub's Life.");
-
-        this.window.setLayout(new BorderLayout());
-        this.window.setPreferredSize(new Dimension(1024, 768));
-        this.window.setVisible(true);
-        this.window.setResizable(true);
-//        this.window.setLocationRelativeTo(null);
-        this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.window.pack();
-        bHandler = new ButtonHandler();
-        mu = new Music();
-        /////
-
-
-        ////
         setUpSoundButton();
         setUpInputPanel();
         setUpDescriptionPanel();
@@ -96,13 +75,7 @@ public class GamePanel extends JPanel {
         setUpStatPanel();
         SliderSetup();
 
-
     }
-
-    }
-
-    /////////////////////////////////////////////////
-
     private void SliderSetup(){
         // Set the panel to add buttons
         JPanel panel1 = new JPanel();
@@ -112,7 +85,7 @@ public class GamePanel extends JPanel {
         panel1.setBorder(SliderBoarder);
         panel1.setPreferredSize(new Dimension(424, 70));
 
-      this.window.add(panel1, BorderLayout.BEFORE_FIRST_LINE);
+        Game.window.add(panel1, BorderLayout.BEFORE_FIRST_LINE);
 
 
         // Add status label to show the status of the slider
@@ -120,8 +93,8 @@ public class GamePanel extends JPanel {
         status.setVisible(true);
         status.setForeground(Color.GREEN);
         // Set the slider
-        JSlider slider = new JSlider(JSlider.HORIZONTAL,0,100,50);
-        slider.setMinorTickSpacing(10);
+        JSlider slider = new JSlider(JSlider.HORIZONTAL,-66,6,6);
+        slider.setMinorTickSpacing(6);
         slider.setPaintTicks(true);
         slider.setBackground(new Color(0,0,0));
         slider.setForeground(Color.GREEN);
@@ -131,34 +104,36 @@ public class GamePanel extends JPanel {
 
 
         // Add positions label in the slider
-       Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
-     //   Hashtable position = new Hashtable();
-        position.put(0, new JLabel("<html><font color='red'>Min</font></html>"));
-       position.put(25, new JLabel("<html><font color='red'>25</font></html>"));
-        position.put(50, new JLabel("<html><font color='red'>50</font></html>"));
-      position.put(75, new JLabel("<html><font color='red'>75</font></html>"));
-       position.put(100, new JLabel("<html><font color='red'>Max</font></html>"));
-       slider.setLabelTable(position);
+        Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
+        //   Hashtable position = new Hashtable();
+        position.put(-66, new JLabel("<html><font color='red'>Min</font></html>"));
+     //   position.put(-40, new JLabel("<html><font color='red'>25</font></html>"));
+   //    position.put(-20, new JLabel("<html><font color='red'>50</font></html>"));
+    //   position.put(0, new JLabel("<html><font color='red'>75</font></html>"));
+        position.put(6, new JLabel("<html><font color='red'>Max</font></html>"));
+        slider.setLabelTable(position);
 
 
 
 
         // Add change listener to the slider
         slider.addChangeListener(new ChangeListener() {
-          public void stateChanged(ChangeEvent e) {
-             status.setText("Volume is: " + ((JSlider)e.getSource()).getValue());
-               JSlider source = (JSlider)e.getSource();
-
-
-               val = source.getValue();
-
-           //     volumecontrol(val);
-
+            public void stateChanged(ChangeEvent e) {
+                int volume = slider.getValue();
+              //  status.setText(""+volume);
+                FloatControl newVolume = (FloatControl) mu.clip.getControl(FloatControl.Type.MASTER_GAIN);
+                newVolume.setValue(-10.0f);
+               newVolume.setValue((float) volume);
 
 
 
-       }
-       });
+                //     volumecontrol(val);
+
+
+
+
+            }
+        });
 
         // Add the slider to the panel
         panel1.add(slider);
@@ -166,6 +141,11 @@ public class GamePanel extends JPanel {
         panel1.add(status);
 
     }
+
+
+
+
+
 
     private void setUpInputPanel() {
         JPanel inputPanel = new JPanel();
@@ -793,7 +773,6 @@ public class GamePanel extends JPanel {
                         mu.loop();
                         musicOnOff = "on";
                         soundButton.setText("Hot Tunes Playing!!!");
-                        soundButton.addChangeListener(ChangeListener);
                     } else if (musicOnOff.equals("on")) {
                         mu.stop();
                         musicOnOff = "off";
