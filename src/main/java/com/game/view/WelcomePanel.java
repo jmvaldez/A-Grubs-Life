@@ -93,7 +93,7 @@ public class WelcomePanel extends JPanel implements KeyListener {
     }
 
     private void animationWelcomeLogo() {
-        if (6< welcomeCounter && welcomeCounter < 16) {
+        if (6 < welcomeCounter && welcomeCounter < 16) {
             switch (welcomeCounter % 6) {
                 case 0:
                     welcomeLogo.setIcon(Functions.readImage("welcomeLogo"));
@@ -102,9 +102,8 @@ public class WelcomePanel extends JPanel implements KeyListener {
                     welcomeLogo.setIcon(null);
                     break;
             }
-        }
-        else if(16 <= welcomeCounter && welcomeCounter <= 24){
-            switch (welcomeCounter % 3){
+        } else if (16 <= welcomeCounter && welcomeCounter <= 24) {
+            switch (welcomeCounter % 3) {
                 case 0:
                 case 1:
                     welcomeLogo.setIcon(Functions.readImage("welcomeLogo"));

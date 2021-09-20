@@ -26,11 +26,7 @@ public class LogicEngine {
             }
             commandProcessor.executeCommand(parsedInput);
 
-        } catch (LivePlayerInputException e) {
-            GameAudio.PlayICANTAudio();
-            System.out.println(
-                    "Exception: [LogicEngine/processCommand/textParser/parseInput], Message: " + e.getMessage());
-        } catch (DeadPlayerInputException e) {
+        } catch (LivePlayerInputException | DeadPlayerInputException e) {
             GameAudio.PlayICANTAudio();
             System.out.println(
                     "Exception: [LogicEngine/processCommand/textParser/parseInput], Message: " + e.getMessage());
