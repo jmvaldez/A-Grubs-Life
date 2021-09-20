@@ -3,7 +3,7 @@ package com.game.model.engine;
 import com.game.controller.Game;
 import com.game.exception.DeadPlayerInputException;
 import com.game.exception.LivePlayerInputException;
-import com.game.view.GameAudio;
+import com.game.util.GameAudio;
 
 import java.util.ArrayList;
 

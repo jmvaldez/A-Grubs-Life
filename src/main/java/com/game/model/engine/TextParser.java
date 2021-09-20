@@ -3,11 +3,9 @@ package com.game.model.engine;
 import com.game.controller.Game;
 import com.game.exception.DeadPlayerInputException;
 import com.game.exception.LivePlayerInputException;
+import com.game.model.materials.Enemy;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Locale;
+import java.util.*;
 
 public class TextParser {
     private HashSet<String> verbs;
@@ -140,8 +138,9 @@ public class TextParser {
 
     private void populateEnemy() {
         enemies = new HashSet<String>();
-        for (String str : Game.caterpillar.getCurrentLocation().getEnemies().keySet()) {
-            enemies.add(str.toUpperCase());
+        for (Map.Entry<String, Enemy> entry : Game.caterpillar.getCurrentLocation().getEnemies().entrySet()) {
+            if (!entry.getValue().isDead())
+                enemies.add(entry.getKey().toUpperCase());
         }
     }
 

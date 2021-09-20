@@ -1,0 +1,30 @@
+"<html>\n" +
+                "<style>\n" +
+                "table {\n" +
+                "color:green;\n" +
+                "font-size:15px;\n" +
+                "padding:15px;\n" +
+                "}\n" +
+                "</style>\n" +
+                "<table style=\"width:5%\">\n" +
+                "<tr>\n" +
+                "<td style=\"text-align: left;\">Strength: </td><td>" + Game.caterpillar.getStrength() +
+                "</td>\n" +
+                "</tr>\n" +
+                "<tr>\n" +
+                "<td style=\"text-align: left;\">Health: </td><td>" + Game.caterpillar.getHealth() +
+                "/" + Game.caterpillar.getLevelMaxHealth() +
+                "</td>\n" +
+                "</tr>\n" +
+                "<tr>\n" +
+                "<td style=\"text-align: left;\">Level: </td><td>" + Game.caterpillar.getLevel() +
+                "</td>\n" +
+                "</tr>\n" +
+                "<tr>\n" +
+                "<td style=\"text-align: left;\">Experience: </td><td>" + Game.caterpillar.getExperience() +
+                "/" + Game.caterpillar.getLevelMaxExp() +
+                "</td>\n" +
+                "</tr>\n" +
+                "</table>\n" +
+                "\n" +
+                "</html>");
