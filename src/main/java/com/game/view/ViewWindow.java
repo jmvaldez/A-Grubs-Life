@@ -1,3 +1,4 @@
+
 package com.game.view;
 
 import com.game.controller.Game;
@@ -5,18 +6,22 @@ import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 
+
+
+import javax.print.attribute.standard.Media;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import javax.swing.event.*;
+import javax.sound.sampled.Mixer.Info;
 
 public class ViewWindow {
 
@@ -67,12 +72,19 @@ public class ViewWindow {
     private String musicOnOff;
     private ButtonHandler bHandler;
     private Music mu;
+    //////
+    private JSlider slider;
+    private JPanel panel1;
+    private JLabel status;
+    private float val;
+    private ChangeListener ChangeListener;
 
 
 
     public ViewWindow() {
 
         this.window = new JFrame("A Grub's Life.");
+
         this.window.setLayout(new BorderLayout());
         this.window.setPreferredSize(new Dimension(1024, 768));
         this.window.setVisible(true);
@@ -82,9 +94,15 @@ public class ViewWindow {
         this.window.pack();
         bHandler = new ButtonHandler();
         mu = new Music();
+        /////
+
+
+        ////
         setUpSoundButton();
         setUpInputPanel();
         setUpDescriptionPanel();
+        SliderSetup();
+
 
     }
 
@@ -97,6 +115,72 @@ public class ViewWindow {
         soundButton.setActionCommand("buttonClick");
         rickRoll = "/audio/never.wav";
         musicOnOff = "off";
+    }
+
+    /////////////////////////////////////////////////
+
+    private void SliderSetup(){
+        // Set the panel to add buttons
+        JPanel panel1 = new JPanel();
+        panel1.setBackground(new Color(0,0,0));
+        TitledBorder SliderBoarder = new TitledBorder("Volume Control");
+        SliderBoarder.setTitleColor(Color.GREEN);
+        panel1.setBorder(SliderBoarder);
+        panel1.setPreferredSize(new Dimension(424, 70));
+
+      this.window.add(panel1, BorderLayout.BEFORE_FIRST_LINE);
+
+
+        // Add status label to show the status of the slider
+        JLabel status = new JLabel("Slide the Slider to Increase/Decrease Volume", JLabel.HORIZONTAL);
+        status.setVisible(true);
+        status.setForeground(Color.GREEN);
+        // Set the slider
+        JSlider slider = new JSlider(JSlider.HORIZONTAL,0,100,50);
+        slider.setMinorTickSpacing(10);
+        slider.setPaintTicks(true);
+        slider.setBackground(new Color(0,0,0));
+        slider.setForeground(Color.GREEN);
+
+        // Set the labels to be painted on the slider
+        slider.setPaintLabels(true);
+
+
+        // Add positions label in the slider
+       Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
+     //   Hashtable position = new Hashtable();
+        position.put(0, new JLabel("<html><font color='red'>Min</font></html>"));
+       position.put(25, new JLabel("<html><font color='red'>25</font></html>"));
+        position.put(50, new JLabel("<html><font color='red'>50</font></html>"));
+      position.put(75, new JLabel("<html><font color='red'>75</font></html>"));
+       position.put(100, new JLabel("<html><font color='red'>Max</font></html>"));
+       slider.setLabelTable(position);
+
+
+
+
+        // Add change listener to the slider
+        slider.addChangeListener(new ChangeListener() {
+          public void stateChanged(ChangeEvent e) {
+             status.setText("Volume is: " + ((JSlider)e.getSource()).getValue());
+               JSlider source = (JSlider)e.getSource();
+
+
+               val = source.getValue();
+
+           //     volumecontrol(val);
+
+
+
+
+       }
+       });
+
+        // Add the slider to the panel
+        panel1.add(slider);
+        panel1.setVisible(true);
+        panel1.add(status);
+
     }
 
     private void setUpInputPanel() {
@@ -728,6 +812,7 @@ public class ViewWindow {
                         mu.loop();
                         musicOnOff = "on";
                         soundButton.setText("Hot Tunes Playing!!!");
+                        soundButton.addChangeListener(ChangeListener);
                     } else if (musicOnOff.equals("on")) {
                         mu.stop();
                         musicOnOff = "off";
