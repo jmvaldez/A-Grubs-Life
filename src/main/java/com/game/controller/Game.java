@@ -5,6 +5,7 @@ package com.game.controller;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.game.model.engine.AnimationTimer;
 import com.game.model.engine.Functions;
 import com.game.model.engine.JsonReader;
 import com.game.model.engine.LogicEngine;
@@ -15,7 +16,6 @@ import com.game.model.materials.Location;
 import com.game.util.GameAudio;
 import com.game.view.GamePanel;
 import com.game.view.WelcomePanel;
-import com.game.view.testing;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,9 +38,10 @@ public class Game {
 
     public static Caterpillar caterpillar;
     public static JFrame window;
+    public static GamePanel gamePanel;
     private static LogicEngine processor;
-    private static GamePanel gamePanel;
     private static WelcomePanel welcomePanel;
+    private static AnimationTimer animationTimer;
     private static HashMap<String, Location> locations;
     private static HashMap<String, Enemy> enemies;
     private static HashMap<String, Item> items;
@@ -74,7 +75,8 @@ public class Game {
         Functions.setCurrentLocationElement("Genesis");
         processor = new LogicEngine();
         gamePanel = new GamePanel();
-
+        animationTimer = new AnimationTimer();
+        gamePanel.setUpGamePanel();
         window.repaint();
     }
 //    private static WelcomePanel welcomePanel;

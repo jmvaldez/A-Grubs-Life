@@ -12,13 +12,15 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class GamePanel extends JPanel {
 
+    public JLabel healthIncreaseLabel;
+    public JLabel actionImageLabel;
+    public JLabel cheatImageLabel;
 
     private JLabel lastMoveLabel;
     private JLabel caterpillarStatLabel;
@@ -30,7 +32,6 @@ public class GamePanel extends JPanel {
     private JPanel inputPanel;
     private JPanel statPanel;
     private JPanel locationPanel;
-    private KeyListener listener;
     private JLabel mapLabel;
     private JLabel northRoomLabel;
     private JLabel southRoomLabel;
@@ -52,22 +53,22 @@ public class GamePanel extends JPanel {
     private String rickRoll;
     private String musicOnOff;
     private Music mu;
-    private JLabel hintLabel;
 
 
-    public GamePanel() {
+    public void setUpGamePanel() {
+
         setUpSoundButton();
         setUpInputPanel();
         setUpDescriptionPanel();
         setUpLocationPanel();
         setUpStatPanel();
+
     }
 
     private void setUpInputPanel() {
         JPanel inputPanel = new JPanel();
         this.lastMoveLabel = new JLabel();
         this.inputField = new JTextField(50);
-        this.hintLabel = new JLabel();
         Color background = new Color(10, 80, 20, 158);
         inputPanel.setLayout(new BorderLayout());
         inputPanel.setBorder(BorderFactory.createLineBorder(new Color(110, 16, 5)));
@@ -79,9 +80,6 @@ public class GamePanel extends JPanel {
 
         setUpInputField(inputPanel);
         setUpLastMoveLabel();
-
-        setHintLabel();
-
         inputPanel.add(inputField, BorderLayout.CENTER);
         inputPanel.add(lastMoveLabel, BorderLayout.NORTH);
         inputPanel.add(soundButton, BorderLayout.SOUTH);
@@ -170,6 +168,9 @@ public class GamePanel extends JPanel {
         descriptionLabel = new JLabel();
         backgroundLabel = new JLabel();
         caterpillarImageLabel = new JLabel();
+        healthIncreaseLabel = new JLabel();
+        actionImageLabel = new JLabel();
+        cheatImageLabel = new JLabel();
 
 
         descriptionPanel.setBackground(new Color(0, 0, 0));
@@ -186,14 +187,18 @@ public class GamePanel extends JPanel {
         animationPanel.setBounds(0, 195, 550, 335);
         backgroundLabel.setBounds(5, 5, 540, 325);
         caterpillarImageLabel.setBounds(210, 190, 100, 100);
+        actionImageLabel.setBounds(130, 130, 300, 130);
+        cheatImageLabel.setBounds(130, 30, 300, 280);
 
-
+        animationPanel.add(cheatImageLabel);
+        animationPanel.add(actionImageLabel);
+        animationPanel.add(healthIncreaseLabel);
         for (int i = 0; i < Game.MAX_ENEMY_AND_ITEM_QTY_SETT_IN_ANIMATION_PANEL; i++) {
             int itemLabelXpos = 140 - i * 60;
             int itemQtyXpos = 180 - i * 60;
             // enemyLabel x, y : 1, (100, 80) | 2, (340, 80) | 3,(220, 50)
-            int enemyLabelXpos = 120 + 240 * i -  360 * (int)((i+1)/3);
-            int enemyLabelYpos = 80 - 30 * (int)((i+1)/3);
+            int enemyLabelXpos = 120 + 240 * i - 360 * ((i + 1) / 3);
+            int enemyLabelYpos = 80 - 30 * ((i + 1) / 3);
 
             itemLabelList[i] = new JLabel();
             itemQtyLabelList[i] = new JLabel();
@@ -215,7 +220,6 @@ public class GamePanel extends JPanel {
             animationPanel.add(enemyHPLabelList[i]);
 
         }
-
         animationPanel.add(caterpillarImageLabel);
         animationPanel.add(backgroundLabel);
 
@@ -311,10 +315,9 @@ public class GamePanel extends JPanel {
     }
 
     private void setImageLabels() {
-
-
         backgroundLabel.setIcon(Game.caterpillar.getCurrentLocation().getBackgroundImageIcon());
         caterpillarImageLabel.setIcon(Game.caterpillar.getCaterpillarImageIcon());
+        actionImageLabel.setIcon(Game.caterpillar.getActionImageIcon());
 
         HashMap<String, Item> currentItems = new HashMap<>(Game.caterpillar.getCurrentLocation().getItems());
         HashMap<String, Enemy> currentEnemies = new HashMap<>(Game.caterpillar.getCurrentLocation().getEnemies());
@@ -330,7 +333,7 @@ public class GamePanel extends JPanel {
                 itemLabelList[i].setIcon(currentItems.get(itemKeyList[i]).getItemImageIcon());
                 itemQtyLabelList[i].setForeground(Color.RED);
                 itemQtyLabelList[i].setFont(new Font("Serif", Font.BOLD, 15));
-                itemQtyLabelList[i].setText("x " + String.valueOf(currentItems.get(itemKeyList[i]).getQty()));
+                itemQtyLabelList[i].setText("x " + currentItems.get(itemKeyList[i]).getQty());
             } catch (IndexOutOfBoundsException exception) {
                 itemLabelList[i].setIcon(null);
                 itemQtyLabelList[i].setText(null);
@@ -354,35 +357,6 @@ public class GamePanel extends JPanel {
         }
     }
 
-    private void setInstructionLabel() {
-        descriptionLabel.setForeground(Color.red);
-        try {
-            //open the file
-            FileInputStream inMessage = new FileInputStream("/json/GameInstructions.txt");
-            // Get the object of DataInputStream
-            DataInputStream in = new DataInputStream(inMessage);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String strLine;
-            //Read File Line By Line
-            while ((strLine = br.readLine()) != null) {
-                // Print the content on the console
-                // System.out.println (strLine);
-                //br.append(strLine+"/n");
-                //       descriptionLabel.setText(strLine+"/n");
-                // descriptionLabel.setText( descriptionLabel.getText()+strLine+"/n");
-                descriptionLabel.setText(descriptionLabel.getText() + "<html> <br/> <html/>" + strLine);
-
-            }
-            //Close the input stream
-            br.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     private void setDiscriptionLabel() {
 
@@ -618,6 +592,7 @@ public class GamePanel extends JPanel {
     }
 
     public void updateLabels() {
+
         setUpLastMoveLabel();
         setCaterpillarStatLabel();
         setEnemyStatLabel();
@@ -626,44 +601,11 @@ public class GamePanel extends JPanel {
         setEnemyListLabel();
         setItemListLabel();
         setImageLabels();
+        Game.caterpillar.setLastAction("-----------------------");
         Game.window.repaint();
         Game.caterpillar.engagedEnemy = null;
     }
 
-    private void setHintLabel() {
-        hintLabel.setText(
-                "<html>\n" +
-                        "<style>\n" +
-                        "table {\n" +
-                        "color:green;\n" +
-                        "font-size:15px;\n" +
-                        "padding:15px;\n" +
-                        "}\n" +
-                        "</style>\n" +
-                        "<table style=\"width:5%\">\n" +
-                        "<tr>\n" +
-                        "<td style=\"text-align: left;\">Enemy: </td><td>" +
-                        "</td>\n" +
-                        "</tr>\n" +
-                        "<tr>\n" +
-                        "<td style=\"text-align: left;\">Strength: </td><td>" +
-                        "</td>\n" +
-                        "</tr>\n" +
-                        "<tr>\n" +
-                        "<td style=\"text-align: left;\">Health: </td><td>" +
-                        "</td>\n" +
-                        "</tr>\n" +
-                        "</table>\n" +
-                        "\n" +
-                        "</html>");
-
-        TitledBorder hb = new TitledBorder("Hint");
-        hb.setTitleColor(Color.GREEN);
-        hintLabel.setBorder(hb);
-        hintLabel.setPreferredSize(new Dimension(300, 220));
-        lastMoveLabel.add(hintLabel, BorderLayout.EAST);
-
-    }
 
     private void setUpSoundButton() {
         mu = new Music();
@@ -675,6 +617,36 @@ public class GamePanel extends JPanel {
         soundButton.setActionCommand("buttonClick");
         rickRoll = "/audio/never.wav";
         musicOnOff = "off";
+    }
+
+    private void setInstructionLabel() {
+        descriptionLabel.setForeground(Color.red);
+        try {
+            //open the file
+            FileInputStream inMessage = new FileInputStream("/json/GameInstructions.txt");
+            // Get the object of DataInputStream
+            DataInputStream in = new DataInputStream(inMessage);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String strLine;
+            //Read File Line By Line
+            while ((strLine = br.readLine()) != null) {
+                // Print the content on the console
+                // System.out.println (strLine);
+                //br.append(strLine+"/n");
+                //       descriptionLabel.setText(strLine+"/n");
+                // descriptionLabel.setText( descriptionLabel.getText()+strLine+"/n");
+                descriptionLabel.setText(descriptionLabel.getText() + "<html> <br/> <html/>" + strLine);
+
+            }
+            //Close the input stream
+            br.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private class Music {

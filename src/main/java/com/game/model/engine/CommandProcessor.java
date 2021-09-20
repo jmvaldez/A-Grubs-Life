@@ -77,6 +77,7 @@ public class CommandProcessor {
     private void processAttack(String focus) {
         GameAudio.PlayAttackAudio();
         Game.caterpillar.engagedEnemy = Game.caterpillar.getCurrentLocation().getEnemies().get(focus.toLowerCase());
+
         Enemy engagedEnemy = Game.caterpillar.engagedEnemy;
         Game.caterpillar.setHealth(Game.caterpillar.getHealth() - engagedEnemy.getStrength());
         engagedEnemy.setHealth(engagedEnemy.getHealth() - Game.caterpillar.getStrength() - damageAdjustment(engagedEnemy));
@@ -138,12 +139,8 @@ public class CommandProcessor {
     private void processDead(String focus) {
         switch (focus) {
             case "RESTART":
+                Game.initGame();
                 GameAudio.playAudio("Reborn");
-                Game.caterpillar = new Caterpillar();
-                Functions.setCurrentLocationElement("Genesis");
-                Game.caterpillar.resetLastAction();
-                Game.caterpillar.setLastAction("NEW LIFE!");
-                Game.getViewWindow().updateLabels();
                 break;
             case "QUIT":
                 System.exit(0);
@@ -166,6 +163,8 @@ public class CommandProcessor {
                 break;
             case "AMAZON":
                 Game.caterpillar.setHealth(0);
+                Game.gamePanel.cheatImageLabel.setIcon(Functions.readImage("cheatAmazon"));
+                AnimationTimer.cheatAmazonTimer.start();
                 Game.caterpillar.setLastAction("LOL, your Manager is behind you!");
                 break;
 

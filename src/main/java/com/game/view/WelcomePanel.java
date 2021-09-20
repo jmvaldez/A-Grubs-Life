@@ -11,78 +11,129 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+
 public class WelcomePanel extends JPanel implements KeyListener {
 
+
+    Timer welcomeImageTimer;
+    Timer welcomeLogoTimer;
+    Timer welcomeLogoDelayTimer;
+    Timer welcomeInstructionDelayTimer;
     JLabel welcomeImage = new JLabel();
+    JLabel welcomeLogo = new JLabel();
+    JLabel welcomeStartNote = new JLabel();
+
+
     private int welcomeImageStartXpos = 1024;
     private int welcomeImageStartYpos = 230;
+    private int welcomeLogoStartXpos = 180;
+    private int welcomeLogoStartYpos = 100;
+    private int welcomeCounter = 0;
 
     public WelcomePanel() {
 
         addKeyListener(this);
+        this.setLayout(null);
         this.setFocusable(true);
         this.setBackground(new Color(0, 0, 0));
+        this.add(welcomeImage);
+        this.add(welcomeLogo);
+        this.add(welcomeStartNote);
 
-        Timer welcomeImageTimer = new Timer(10, new ActionListener() {
+        welcomeImageTimer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                moveWelcomeImage();
+                setWelcomeImage();
+                animationWelcomeImage();
                 repaint();
             }
         });
 
 
-        Timer welcomeLogoTimer = new Timer(2500, e -> {
-            setWelcomeLogo();
-            repaint();
+        welcomeLogoDelayTimer = new Timer(2500, e -> {
+            welcomeLogoTimer = new Timer(50, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    setWelcomeLogo();
+                    animationWelcomeLogo();
+                    repaint();
+                }
+            });
+            welcomeLogoTimer.start();
         });
 
 
-        Timer welcomeInstructionTimer = new Timer(5000, e -> {
+        welcomeInstructionDelayTimer = new Timer(5500, e -> {
             setWelcomeInstruction();
             repaint();
         });
 
         welcomeImageTimer.start();
-        welcomeLogoTimer.start();
-        welcomeInstructionTimer.start();
+        welcomeLogoDelayTimer.start();
+        welcomeInstructionDelayTimer.start();
+
     }
 
-    protected void moveWelcomeImage() {
+
+    private void animationWelcomeImage() {
         if (welcomeImageStartXpos >= 410) {
-            welcomeImageStartXpos -= 5;
+            welcomeImageStartXpos -= 4;
+        } else {
+            welcomeImageTimer.stop();
         }
     }
 
-    private void setWelcomeLogo() {
+    private void setWelcomeImage() {
 
-        JLabel welcomeLogo = new JLabel();
-        welcomeLogo.setBounds(180, 100, 600, 250);
-        welcomeLogo.setIcon(Functions.readImage("welcomeLogo"));
-        this.add(welcomeLogo);
+        welcomeImage.setBounds(welcomeImageStartXpos, welcomeImageStartYpos, 500, 300);
+        welcomeImage.setIcon(Functions.readImage("welcomeImage"));
 
     }
 
+    private void animationWelcomeLogo() {
+        if (6< welcomeCounter && welcomeCounter < 16) {
+            switch (welcomeCounter % 6) {
+                case 0:
+                    welcomeLogo.setIcon(Functions.readImage("welcomeLogo"));
+                    break;
+                case 4:
+                    welcomeLogo.setIcon(null);
+                    break;
+            }
+        }
+        else if(16 <= welcomeCounter && welcomeCounter <= 24){
+            switch (welcomeCounter % 3){
+                case 0:
+                case 1:
+                    welcomeLogo.setIcon(Functions.readImage("welcomeLogo"));
+                    break;
+                case 2:
+                    welcomeLogo.setIcon(null);
+                    break;
+            }
+        }
+        welcomeCounter++;
+    }
+
+
+    private void setWelcomeLogo() {
+        welcomeLogo.setBounds(welcomeLogoStartXpos, welcomeLogoStartYpos, 600, 250);
+        welcomeLogo.setIcon(Functions.readImage("welcomeLogo"));
+        welcomeLogo.repaint();
+    }
+
+
     private void setWelcomeInstruction() {
 
-        JLabel welcomeStartNote = new JLabel();
-
         welcomeStartNote.setBounds(350, 620, 600, 50);
-
         welcomeStartNote.setForeground(Color.white);
         welcomeStartNote.setFont(new Font("SANS_SERIF", Font.PLAIN, 30));
         welcomeStartNote.setText("Press 'ENTER' to start...");
 
-        this.add(welcomeStartNote);
-    }
 
-
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Functions.readImage("welcomeImage").paintIcon(this, g, welcomeImageStartXpos, welcomeImageStartYpos);
-//        g.dispose();
+        welcomeInstructionDelayTimer.stop();
+        welcomeLogoTimer.stop();
+        welcomeLogoDelayTimer.stop();
     }
 
     @Override
