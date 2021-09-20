@@ -19,10 +19,11 @@ public class WelcomePanel extends JPanel implements KeyListener {
     Timer welcomeLogoTimer;
     Timer welcomeLogoDelayTimer;
     Timer welcomeInstructionDelayTimer;
-    JLabel welcomeImage = new JLabel();
-    JLabel welcomeLogo = new JLabel();
-    JLabel welcomeStartNote = new JLabel();
 
+
+    private JLabel welcomeImage = new JLabel();
+    private JLabel welcomeLogo = new JLabel();
+    private JLabel welcomeStartNote = new JLabel();
 
     private int welcomeImageStartXpos = 1024;
     private int welcomeImageStartYpos = 230;
@@ -74,7 +75,6 @@ public class WelcomePanel extends JPanel implements KeyListener {
 
     }
 
-
     private void animationWelcomeImage() {
         if (welcomeImageStartXpos >= 410) {
             welcomeImageStartXpos -= 4;
@@ -115,20 +115,18 @@ public class WelcomePanel extends JPanel implements KeyListener {
         welcomeCounter++;
     }
 
-
     private void setWelcomeLogo() {
         welcomeLogo.setBounds(welcomeLogoStartXpos, welcomeLogoStartYpos, 600, 250);
         welcomeLogo.setIcon(Functions.readImage("welcomeLogo"));
         welcomeLogo.repaint();
     }
 
-
     private void setWelcomeInstruction() {
 
         welcomeStartNote.setBounds(350, 620, 600, 50);
         welcomeStartNote.setForeground(Color.white);
         welcomeStartNote.setFont(new Font("SANS_SERIF", Font.PLAIN, 30));
-        welcomeStartNote.setText("Press 'ENTER' to start...");
+        welcomeStartNote.setText("Press 'ENTER' to continue...");
 
 
         welcomeInstructionDelayTimer.stop();
@@ -145,9 +143,9 @@ public class WelcomePanel extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_ENTER:
-                GameAudio.PlayWelcomeAudio();
                 this.setFocusable(false);
-                Game.initGame();
+                GameAudio.playAudio("Next");
+                Game.initGameStoryPanel();
                 break;
             case KeyEvent.VK_ESCAPE:
                 System.exit(0);

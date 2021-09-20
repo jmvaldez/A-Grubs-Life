@@ -163,7 +163,7 @@ public class CommandProcessor {
                 break;
             case "AMAZON":
                 Game.caterpillar.setHealth(0);
-                Game.gamePanel.cheatImageLabel.setIcon(Functions.readImage("cheatAmazon"));
+                Game.getGamePanel().cheatImageLabel.setIcon(Functions.readImage("cheatAmazon"));
                 AnimationTimer.cheatAmazonTimer.start();
                 Game.caterpillar.setLastAction("LOL, your Manager is behind you!");
                 break;

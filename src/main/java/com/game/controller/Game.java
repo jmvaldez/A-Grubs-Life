@@ -15,6 +15,7 @@ import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 import com.game.util.GameAudio;
 import com.game.view.GamePanel;
+import com.game.view.GameStoryPanel;
 import com.game.view.WelcomePanel;
 
 import javax.swing.*;
@@ -38,9 +39,10 @@ public class Game {
 
     public static Caterpillar caterpillar;
     public static JFrame window;
-    public static GamePanel gamePanel;
+    private static GamePanel gamePanel;
+//    public static GameStoryPane gameStoryPanel;
     private static LogicEngine processor;
-    private static WelcomePanel welcomePanel;
+//    private static WelcomePanel welcomePanel;
     private static AnimationTimer animationTimer;
     private static HashMap<String, Location> locations;
     private static HashMap<String, Enemy> enemies;
@@ -57,13 +59,26 @@ public class Game {
 //                }
                 creatWindow();
                 GameAudio.playAudio("welcomeScreen");
-
-                WelcomePanel welcomePanel = new WelcomePanel();
-                window.add(welcomePanel);
-                welcomePanel.requestFocusInWindow();
+                initWelcomePanel();
 
             }
         });
+    }
+
+    public static void initWelcomePanel(){
+        WelcomePanel welcomePanel = new WelcomePanel();
+        window.add(welcomePanel);
+        welcomePanel.requestFocusInWindow();
+    }
+
+    public static void initGameStoryPanel(){
+        window.getContentPane().removeAll();
+        GameStoryPanel gameStoryPanel = new GameStoryPanel();
+        window.add(gameStoryPanel);
+        gameStoryPanel.requestFocusInWindow();
+        gameStoryPanel.setUpGameStoryPanel();
+
+
     }
 
     public static void initGame() {
@@ -103,7 +118,7 @@ public class Game {
 //        return new String(data);
 //    }
 
-    public static GamePanel getViewWindow() {
+    public static GamePanel getGamePanel() {
         return gamePanel;
     }
 
@@ -222,5 +237,7 @@ public class Game {
 
 
     }
+
+
 
 }

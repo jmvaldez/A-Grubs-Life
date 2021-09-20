@@ -26,17 +26,17 @@ public class AnimationTimer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 moveIncreaseHealthLabel();
-                Game.gamePanel.healthIncreaseLabel.repaint();
+                Game.getGamePanel().healthIncreaseLabel.repaint();
             }
 
             private void moveIncreaseHealthLabel() {
                 if (startYpos >= 100) {
                     startYpos -= 5;
-                    Game.gamePanel.healthIncreaseLabel.setBounds(280, startYpos, 30, 25);
-                    Game.gamePanel.healthIncreaseLabel.setIcon(Functions.readImage("firstAid"));
+                    Game.getGamePanel().healthIncreaseLabel.setBounds(280, startYpos, 30, 25);
+                    Game.getGamePanel().healthIncreaseLabel.setIcon(Functions.readImage("firstAid"));
                 }else{
-                    Game.gamePanel.healthIncreaseLabel.setIcon(null);
-                    Game.gamePanel.repaint();
+                    Game.getGamePanel().healthIncreaseLabel.setIcon(null);
+                    Game.getGamePanel().repaint();
                     startYpos = 200;
                     healthIncreaseAnimationTimer.stop();
                 }
@@ -53,8 +53,8 @@ public class AnimationTimer {
     private void setCheatAmazonTimer(){
 
         cheatAmazonTimer = new Timer(3000, e -> {
-            Game.gamePanel.cheatImageLabel.setIcon(null);
-            Game.gamePanel.cheatImageLabel.repaint();
+            Game.getGamePanel().cheatImageLabel.setIcon(null);
+            Game.getGamePanel().cheatImageLabel.repaint();
             cheatAmazonTimer.stop();
         });
 

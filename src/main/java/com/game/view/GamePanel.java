@@ -357,7 +357,6 @@ public class GamePanel extends JPanel {
         }
     }
 
-
     private void setDiscriptionLabel() {
 
         TitledBorder description = new TitledBorder("Room Description");
