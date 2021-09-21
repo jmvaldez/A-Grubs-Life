@@ -141,10 +141,13 @@ public class Functions {
         if (Game.caterpillar.getCurrentLocation().isBossPresent()) {
             setBoss(getOddsOfTrue(Odds.HIGH));
         } else {
-            if (Game.caterpillar.getLevel() <= 6) {
+            if (Game.caterpillar.getLevel() <= 3) {
                 setBoss(getOddsOfTrue(Odds.LOW));
-            } else {
+            } else if(Game.caterpillar.getLevel() <= 6){
                 setBoss(getOddsOfTrue(Odds.EVENS));
+            }
+            else {
+                setBoss(getOddsOfTrue(Odds.HIGH));
             }
         }
     }
