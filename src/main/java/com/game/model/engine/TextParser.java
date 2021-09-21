@@ -60,6 +60,7 @@ public class TextParser {
                         throw new LivePlayerInputException();
                     }
                 case "ATTACK":
+                case "RECON":
                     if (enemies.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
                         result.add(0, str);
                         result.add(1, otherStr);
@@ -68,15 +69,7 @@ public class TextParser {
                         Game.caterpillar.setLastAction("Is " + otherStr + " a lived Enemy?! Check the enemy list!");
                         throw new LivePlayerInputException();
                     }
-                case "RECON":
-                    if (enemies.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
-                        result.add(0, str);
-                        result.add(1, otherStr);
-                        return result;
-                    } else {
-                        Game.caterpillar.setLastAction("How can you recon " + otherStr + "?! Situation awareness Guy!");
-                        throw new LivePlayerInputException();
-                    }
+
                 case "CHEAT":
                     if (cheatCode.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
                         result.add(0, str);
@@ -141,6 +134,9 @@ public class TextParser {
         for (Map.Entry<String, Enemy> entry : Game.caterpillar.getCurrentLocation().getEnemies().entrySet()) {
             if (!entry.getValue().isDead())
                 enemies.add(entry.getKey().toUpperCase());
+        }
+        if (Game.caterpillar.getCurrentLocation().isBossPresent()){
+            enemies.add(Game.boss.getName().toUpperCase());
         }
     }
 

@@ -1,0 +1,20 @@
+{
+  "GameStory": {
+    "story1": {
+      "name": "story1",
+      "story": "Good Day"
+    },
+    "story2": {
+      "name": "story2",
+      "story": "Good Dag again..."
+    },
+    "story3": {
+      "name": "story3",
+      "story": "Good Dag again and again..."
+    },
+    "story4": {
+      "name": "story4",
+      "story": "well, not a good day..."
+    }
+  }
+}

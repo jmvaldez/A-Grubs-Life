@@ -25,6 +25,8 @@ public class LogicEngine {
                 parsedInput = textParser.parserLiveInput(userInput);
             }
             commandProcessor.executeCommand(parsedInput);
+            Functions.lotteryBossPresent();
+
 
         } catch (LivePlayerInputException | DeadPlayerInputException e) {
             GameAudio.PlayICANTAudio();
