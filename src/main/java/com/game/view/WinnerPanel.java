@@ -39,7 +39,6 @@ public class WinnerPanel extends JPanel implements KeyListener {
         Game.window.repaint();
     }
 
-
     @Override
     public void keyTyped(KeyEvent e) {
 

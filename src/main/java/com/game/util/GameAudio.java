@@ -1,5 +1,7 @@
 package com.game.util;
 
+import com.game.exception.AudioImportException;
+
 import javax.sound.sampled.*;
 import java.io.IOException;
 
@@ -108,7 +110,7 @@ public class GameAudio {
         SetAudio("LEVEL2.wav");
     }
 
-    private static void SetAudio(String s) {
+    private static void SetAudio(String s){
 
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(GameAudio.class.getResource("/audio/" + s));
@@ -118,8 +120,9 @@ public class GameAudio {
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             gainControl.setValue(-10.0f);
             clip.start();
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Audio Import Error");
         }
+;
     }
 }

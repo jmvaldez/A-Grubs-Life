@@ -103,7 +103,6 @@ public class Functions {
     }
 
     public static boolean getOddsOfTrue(Odds odds) {
-        boolean result;
         int randomNumber = getRandomNumber(1, 4);
         switch (odds) {
             case HIGH:
@@ -139,20 +138,29 @@ public class Functions {
     }
 
     public static void lotteryBossPresent() {
-        if (Game.caterpillar.getLevel() <= 5 && getOddsOfTrue(Odds.LOW)) {
-            setBoss();
-        } else if (Game.caterpillar.getLevel() > 6 && getOddsOfTrue(Odds.HIGH)) {
-            setBoss();
-        } else if (Game.caterpillar.getCurrentLocation().isBossPresent() && getOddsOfTrue(Odds.EVENS)) {
+        if (Game.caterpillar.getCurrentLocation().isBossPresent()) {
+            setBoss(getOddsOfTrue(Odds.HIGH));
         } else {
-            Game.caterpillar.getCurrentLocation().setBossPresent(false);
+            if (Game.caterpillar.getLevel() <= 6) {
+                setBoss(getOddsOfTrue(Odds.LOW));
+            } else {
+                setBoss(getOddsOfTrue(Odds.EVENS));
+            }
         }
     }
 
-    private static void setBoss() {
-        Game.caterpillar.getCurrentLocation().setBossPresent(true);
-        AnimationTimer.bossHarassTimer.start();
-        Game.caterpillar.setLastAction("Watch OUT!!! Bird is chasing you!");
-        GameAudio.playAudio("birdWaring");
+
+    private static void setBoss(boolean isSet) {
+        if (isSet) {
+            if(!Game.caterpillar.getCurrentLocation().isBossPresent()){
+                GameAudio.playAudio("birdWaring");
+            }
+            Game.caterpillar.getCurrentLocation().setBossPresent(true);
+            AnimationTimer.bossHarassTimer.start();
+            Game.caterpillar.setLastAction("Watch OUT!!! Bird is chasing you!");
+        } else {
+            Game.caterpillar.getCurrentLocation().setBossPresent(false);
+        }
+
     }
 }

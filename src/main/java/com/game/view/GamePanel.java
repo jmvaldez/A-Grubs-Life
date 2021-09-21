@@ -21,9 +21,9 @@ import java.util.Map;
 
 public class GamePanel extends JPanel {
 
-    public JLabel healthIncreaseLabel;
+    public JLabel healthIncreaImageLabel;
     public JLabel actionImageLabel;
-    public JLabel cheatImageLabel;
+    public JLabel actionAnimationLabel;
 
     public JLabel lastMoveLabel;
     private JLabel caterpillarStatLabel;
@@ -45,7 +45,7 @@ public class GamePanel extends JPanel {
     private JLabel westEmptyLabel;
     private JLabel northEastLabel;
     private JLabel roomImageLabel;
-    private JLabel caterpillarImageLabel;
+    public JLabel caterpillarImageLabel;
     private JLabel backgroundLabel;
 
     private JLabel bossImageLabel;
@@ -255,9 +255,9 @@ public class GamePanel extends JPanel {
         descriptionLabel = new JLabel();
         backgroundLabel = new JLabel();
         caterpillarImageLabel = new JLabel();
-        healthIncreaseLabel = new JLabel();
+        healthIncreaImageLabel = new JLabel();
         actionImageLabel = new JLabel();
-        cheatImageLabel = new JLabel();
+        actionAnimationLabel = new JLabel();
         bossImageLabel = new JLabel();
         bossHPLabelList = new JLabel[10];
 
@@ -275,16 +275,16 @@ public class GamePanel extends JPanel {
         backgroundLabel.setBounds(5, 5, 540, 325);
         caterpillarImageLabel.setBounds(210, 190, 100, 100);
         actionImageLabel.setBounds(130, 130, 300, 130);
-        cheatImageLabel.setBounds(130, 30, 300, 280);
+        actionAnimationLabel.setBounds(130, 30, 300, 280);
         bossImageLabel.setBounds(10, 10 , 200 , 160);
 
 
 
 
 
-        animationPanel.add(cheatImageLabel);
+        animationPanel.add(actionAnimationLabel);
         animationPanel.add(actionImageLabel);
-        animationPanel.add(healthIncreaseLabel);
+        animationPanel.add(healthIncreaImageLabel);
 
 
         for (int enemyHPImagePixel = 0; enemyHPImagePixel < 10; enemyHPImagePixel ++){
@@ -304,6 +304,8 @@ public class GamePanel extends JPanel {
 //            int enemyLabelYpos = 80 - 30 * ((i + 1) / 3);
             int enemyLabelXpos = 460 - i*100;
             int enemyLabelYpos = 110 - i*30;
+
+
 
             itemLabelList[i] = new JLabel();
             itemQtyLabelList[i] = new JLabel();
@@ -449,6 +451,7 @@ public class GamePanel extends JPanel {
         for (int i = 0; i < Game.MAX_ENEMY_AND_ITEM_QTY_SETT_IN_ANIMATION_PANEL; i++) {
             try {
                 enemyLabelList[i].setIcon(currentEnemies.get(enemyKeyList[i]).getEnemyImageIcon());
+                currentEnemies.get(enemyKeyList[i]).setLocation(new int[]{enemyLabelList[i].getX(), enemyLabelList[i].getY()});
                 enemyHPLabelList[i].setIcon(currentEnemies.get(enemyKeyList[i]).getCurrentEnemyHPIcon());
                 loserLabelList[i].setIcon(null);
                 if (currentEnemies.get(enemyKeyList[i]).isDead()) {
@@ -723,9 +726,10 @@ public class GamePanel extends JPanel {
         setEnemyListLabel();
         setItemListLabel();
         setImageLabels();
+
         Game.caterpillar.setLastAction("-----------------------");
         Game.window.repaint();
-        Game.caterpillar.engagedEnemy = null;
+
     }
 
 

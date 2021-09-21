@@ -1,28 +1,40 @@
 package com.game.model.engine;
 
 import com.game.controller.Game;
+import com.game.model.materials.Enemy;
+import com.game.util.GameAudio;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.TimerTask;
 
 public class AnimationTimer {
 
     public static Timer healthIncreaseAnimationTimer;
-    public static Timer cheatAmazonTimer;
     public static Timer bossHarassTimer;
+
 
     public AnimationTimer() {
         setHealthAnimationTimer();
-        setAttackAnimationTimer();
-        setCheatAmazonTimer();
         setBossHarassTimer();
+    }
 
+    public static void startActionImageTimer(int delayTime) {
+
+        TimerTask startAttackAnimation = new TimerTask() {
+            @Override
+            public void run() {
+                Game.getGamePanel().actionAnimationLabel.setIcon(null);
+                Game.getGamePanel().actionAnimationLabel.repaint();
+            }
+        };
+        new java.util.Timer().schedule(startAttackAnimation,delayTime);
     }
 
     private void setBossHarassTimer() {
 
-        bossHarassTimer = new Timer(500, new ActionListener() {
+        bossHarassTimer = new Timer(10000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setHarassAction();
@@ -32,8 +44,8 @@ public class AnimationTimer {
 
             private void setHarassAction() {
                 if (Game.caterpillar.getCurrentLocation().isBossPresent() && !Game.caterpillar.isDead()) {
-                    Game.caterpillar.setHealth(Game.caterpillar.getHealth() - 1);
-                    Game.caterpillar.setLastAction("Bird took your 1 point health, you have "+ Game.caterpillar.getHealth() + " point health left, better RUN NOW!!!");
+                    Game.caterpillar.setHealth(Game.caterpillar.getHealth() - 2);
+                    Game.caterpillar.setLastAction("Bird took your 1 point health, you have " + Game.caterpillar.getHealth() + " point health left, better RUN NOW!!!");
                     Game.caterpillar.checkDeath();
 
                 } else {
@@ -51,38 +63,22 @@ public class AnimationTimer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 moveIncreaseHealthLabel();
-                Game.getGamePanel().healthIncreaseLabel.repaint();
+                Game.getGamePanel().healthIncreaImageLabel.repaint();
             }
 
             private void moveIncreaseHealthLabel() {
                 if (startYpos >= 100) {
                     startYpos -= 5;
-                    Game.getGamePanel().healthIncreaseLabel.setBounds(280, startYpos, 30, 25);
-                    Game.getGamePanel().healthIncreaseLabel.setIcon(Functions.readImage("firstAid"));
+                    Game.getGamePanel().healthIncreaImageLabel.setBounds(280, startYpos, 30, 25);
+                    Game.getGamePanel().healthIncreaImageLabel.setIcon(Functions.readImage("firstAid"));
                 } else {
-                    Game.getGamePanel().healthIncreaseLabel.setIcon(null);
+                    Game.getGamePanel().healthIncreaImageLabel.setIcon(null);
                     Game.getGamePanel().repaint();
                     startYpos = 200;
                     healthIncreaseAnimationTimer.stop();
                 }
             }
         });
-    }
-
-    //TODO:
-
-    private void setAttackAnimationTimer() {
-
-    }
-
-    private void setCheatAmazonTimer() {
-
-        cheatAmazonTimer = new Timer(3000, e -> {
-            Game.getGamePanel().cheatImageLabel.setIcon(null);
-            Game.getGamePanel().cheatImageLabel.repaint();
-            cheatAmazonTimer.stop();
-        });
-
     }
 
 
