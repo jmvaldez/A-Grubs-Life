@@ -6,6 +6,7 @@ import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 import com.game.util.GameAudio;
+import com.game.view.HelpWindow;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -23,8 +24,6 @@ public class CommandProcessor {
         String action = strings.get(0).toUpperCase(Locale.ROOT);
         String focus = strings.get(1).toUpperCase(Locale.ROOT);
         processCommand(action, focus);
-
-
     }
 
     private void processCommand(String action, String focus) {
@@ -65,6 +64,9 @@ public class CommandProcessor {
                 processCheat(focus);
                 GameAudio.playAudio("Cheat");
                 break;
+            case "GET":
+                HelpWindow.creatHelpWindow();
+                break;
 
         }
     }
@@ -75,7 +77,6 @@ public class CommandProcessor {
      * also based on chanceForAction in enemyCalcAttack
      */
 
-    //TODO:Have bug here, when go deadend, still have ramdom attack;
     private void enemyAttackFirst() {
         if (!Location.getEnemies().isEmpty()) {
             Map.Entry<String, Enemy> enemy = Location.getEnemies().entrySet()
@@ -83,10 +84,8 @@ public class CommandProcessor {
                     .findFirst()
                     .get();
             enemyAttackCalc(enemy);
-
-            //ADD_ON by HQ
+            //check player death for enemy attack
             Game.caterpillar.checkDeath();
-            //
 
         } else {
             Game.caterpillar.setLastAction("No enemies in this area.");
@@ -131,20 +130,26 @@ public class CommandProcessor {
         GameAudio.playAudio("GO");
         int destinationXpos;
         int destinationYpos;
+        int incrementXpos;
+        int incrementYpos;
+
         switch (Game.caterpillar.engagedEnemy.getName().toUpperCase()) {
             case "BIRD":
                 destinationXpos = 100;
                 destinationYpos = 100;
+                incrementXpos = (destinationXpos - 230) / 10;
+                incrementYpos = (destinationYpos - 190) / 10;
                 break;
             default:
                 destinationXpos = Game.caterpillar.engagedEnemy.getLocation()[0];
                 destinationYpos = Game.caterpillar.engagedEnemy.getLocation()[1];
+                incrementXpos = (destinationXpos - 230) / 10;
+                incrementYpos = (destinationYpos - 190) / 10;
                 break;
-
         }
-        int finalDestinationXpos = destinationXpos;
-        int incrementXpos = (destinationXpos - 210) / 10;
-        int incrementYpos = (destinationYpos - 190) / 10;
+
+        int finalDestinationYpos = destinationYpos;
+
 
 
         attackAnimationTimer = new Timer(100, new ActionListener() {
@@ -158,7 +163,7 @@ public class CommandProcessor {
             }
 
             private void moveCaterpillarImageLabel() {
-                if (startXpos <= finalDestinationXpos) {
+                if (startYpos >= finalDestinationYpos + 20) {
                     startXpos += incrementXpos;
                     startYpos += incrementYpos;
                     Game.getGamePanel().caterpillarImageLabel.setBounds(startXpos, startYpos, 100, 100);

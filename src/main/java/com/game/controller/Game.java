@@ -40,6 +40,7 @@ public class Game {
 
     public static Caterpillar caterpillar;
     public static JFrame window;
+    public static JFrame helpWindow;
     public static Enemy boss;
     private static GamePanel gamePanel;
     //    public static GameStoryPane gameStoryPanel;
@@ -63,7 +64,6 @@ public class Game {
                 creatWindow();
                 GameAudio.playAudio("welcomeScreen");
                 initWelcomePanel();
-
             }
         });
     }
@@ -92,8 +92,8 @@ public class Game {
 
     }
 
-
     public static void initGame() {
+        Game.helpWindow = new JFrame("HELPER");
         window.getContentPane().removeAll();
         populateEnemies();
         populateItems();
@@ -109,7 +109,6 @@ public class Game {
 
     }
 //    private static WelcomePanel welcomePanel;
-
 
     //This should be called by the client to start a new game.
 
