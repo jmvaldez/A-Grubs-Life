@@ -106,6 +106,7 @@ public class Game {
         animationTimer = new AnimationTimer();
         gamePanel.setUpGamePanel();
         window.repaint();
+
     }
 //    private static WelcomePanel welcomePanel;
 

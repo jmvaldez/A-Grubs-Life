@@ -9,11 +9,14 @@ import com.game.model.materials.Location;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 public class GamePanel extends JPanel {
@@ -22,7 +25,7 @@ public class GamePanel extends JPanel {
     public JLabel actionImageLabel;
     public JLabel cheatImageLabel;
 
-    private JLabel lastMoveLabel;
+    public JLabel lastMoveLabel;
     private JLabel caterpillarStatLabel;
     private JLabel enemyStatLabel;
     private JLabel descriptionLabel;
@@ -56,6 +59,13 @@ public class GamePanel extends JPanel {
     private String rickRoll;
     private String musicOnOff;
     private Music mu;
+/////////////
+    private JSlider slider;
+    private JPanel panel1;
+    private JLabel status;
+    private float val;
+    private javax.swing.event.ChangeListener ChangeListener;
+//////////////
 
 
 
@@ -66,11 +76,84 @@ public class GamePanel extends JPanel {
         setUpDescriptionPanel();
         setUpLocationPanel();
         setUpStatPanel();
+        SliderSetup();
+
+    }
+    private void SliderSetup(){
+        // Set the panel to add buttons
+        panel1 = new JPanel();
+        panel1.setBackground(new Color(0,0,0));
+        TitledBorder SliderBoarder = new TitledBorder("Volume Control");
+        SliderBoarder.setTitleColor(Color.GREEN);
+        panel1.setBorder(SliderBoarder);
+        panel1.setPreferredSize(new Dimension(424, 70));
+        inputPanel.add(panel1, BorderLayout.EAST);
+
+
+//        Game.window.add(panel1, BorderLayout.BEFORE_FIRST_LINE);
+
+
+        // Add status label to show the status of the slider
+        JLabel status = new JLabel("Slide the Slider to Increase/Decrease Volume", JLabel.HORIZONTAL);
+        status.setVisible(true);
+        status.setForeground(Color.GREEN);
+        // Set the slider
+        JSlider slider = new JSlider(JSlider.HORIZONTAL,-66,6,6);
+        slider.setMinorTickSpacing(6);
+        slider.setPaintTicks(true);
+        slider.setBackground(new Color(0,0,0));
+        slider.setForeground(Color.GREEN);
+
+        // Set the labels to be painted on the slider
+        slider.setPaintLabels(true);
+
+
+        // Add positions label in the slider
+        Hashtable<Integer, JLabel> position = new Hashtable<Integer, JLabel>();
+        //   Hashtable position = new Hashtable();
+        position.put(-66, new JLabel("<html><font color='red'>Min</font></html>"));
+     //   position.put(-40, new JLabel("<html><font color='red'>25</font></html>"));
+   //    position.put(-20, new JLabel("<html><font color='red'>50</font></html>"));
+    //   position.put(0, new JLabel("<html><font color='red'>75</font></html>"));
+        position.put(6, new JLabel("<html><font color='red'>Max</font></html>"));
+        slider.setLabelTable(position);
+
+
+
+
+        // Add change listener to the slider
+        slider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                int volume = slider.getValue();
+              //  status.setText(""+volume);
+                FloatControl newVolume = (FloatControl) mu.clip.getControl(FloatControl.Type.MASTER_GAIN);
+                newVolume.setValue(-10.0f);
+               newVolume.setValue((float) volume);
+
+
+
+                //     volumecontrol(val);
+
+
+
+
+            }
+        });
+
+        // Add the slider to the panel
+        panel1.add(slider);
+        panel1.setVisible(true);
+        panel1.add(status);
 
     }
 
+
+
+
+
+
     private void setUpInputPanel() {
-        JPanel inputPanel = new JPanel();
+        inputPanel = new JPanel();
         this.lastMoveLabel = new JLabel();
         this.inputField = new JTextField(50);
         Color background = new Color(10, 80, 20, 158);
@@ -79,7 +162,7 @@ public class GamePanel extends JPanel {
         inputPanel.setBackground(background);
         inputPanel.setPreferredSize(new Dimension(1000, 200));
         lastMoveLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-        lastMoveLabel.setPreferredSize(new Dimension(1024, 135));
+        lastMoveLabel.setPreferredSize(new Dimension(1024, 120)); //135
 
 
         setUpInputField(inputPanel);
