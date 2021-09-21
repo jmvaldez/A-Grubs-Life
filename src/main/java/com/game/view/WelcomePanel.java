@@ -32,7 +32,6 @@ public class WelcomePanel extends JPanel implements KeyListener {
     private int welcomeCounter = 0;
 
 
-
     public WelcomePanel() {
 
         addKeyListener(this);

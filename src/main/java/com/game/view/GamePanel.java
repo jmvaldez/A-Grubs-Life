@@ -14,9 +14,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 public class GamePanel extends JPanel {
@@ -66,7 +65,6 @@ public class GamePanel extends JPanel {
     private float val;
     private javax.swing.event.ChangeListener ChangeListener;
     /////////////////////////////////////////////
-
 
 
     public void setUpGamePanel() {
@@ -198,10 +196,7 @@ public class GamePanel extends JPanel {
         caterpillarImageLabel.setBounds(210, 190, 100, 100);
         actionImageLabel.setBounds(130, 130, 300, 130);
         actionAnimationLabel.setBounds(130, 30, 300, 280);
-        bossImageLabel.setBounds(10, 10 , 200 , 160);
-
-
-
+        bossImageLabel.setBounds(10, 10, 200, 160);
 
 
         animationPanel.add(actionAnimationLabel);
@@ -209,9 +204,9 @@ public class GamePanel extends JPanel {
         animationPanel.add(healthIncreaImageLabel);
 
 
-        for (int enemyHPImagePixel = 0; enemyHPImagePixel < 10; enemyHPImagePixel ++){
+        for (int enemyHPImagePixel = 0; enemyHPImagePixel < 10; enemyHPImagePixel++) {
             bossHPLabelList[enemyHPImagePixel] = new JLabel();
-            bossHPLabelList[enemyHPImagePixel].setBounds(10 + 20 * enemyHPImagePixel, 10 , 20, 20);
+            bossHPLabelList[enemyHPImagePixel].setBounds(10 + 20 * enemyHPImagePixel, 10, 20, 20);
             animationPanel.add(bossHPLabelList[enemyHPImagePixel]);
 
         }
@@ -224,9 +219,8 @@ public class GamePanel extends JPanel {
             //240, 50     340, 80       460, 110
 //            int enemyLabelXpos = 120 + 240 * i - 360 * ((i + 1) / 3);
 //            int enemyLabelYpos = 80 - 30 * ((i + 1) / 3);
-            int enemyLabelXpos = 460 - i*100;
-            int enemyLabelYpos = 110 - i*30;
-
+            int enemyLabelXpos = 460 - i * 100;
+            int enemyLabelYpos = 110 - i * 30;
 
 
             itemLabelList[i] = new JLabel();
@@ -389,17 +383,17 @@ public class GamePanel extends JPanel {
     }
 
     private void setBossImageLabel() {
-        if (Game.caterpillar.getCurrentLocation().isBossPresent()){
+        if (Game.caterpillar.getCurrentLocation().isBossPresent()) {
             bossImageLabel.setIcon(Functions.readImage("bird"));
-            for (JLabel hp: bossHPLabelList){
+            for (JLabel hp : bossHPLabelList) {
                 hp.setIcon(null);
             }
-            for (int i = 0; i < 10*Game.boss.getHealth()/Game.boss.getMaxHealth(); i++){
+            for (int i = 0; i < 10 * Game.boss.getHealth() / Game.boss.getMaxHealth(); i++) {
                 bossHPLabelList[i].setIcon(Functions.readImage("hpTile"));
             }
-        }else{
+        } else {
             bossImageLabel.setIcon(null);
-            for (JLabel hp: bossHPLabelList){
+            for (JLabel hp : bossHPLabelList) {
                 hp.setIcon(null);
             }
         }
@@ -658,10 +652,10 @@ public class GamePanel extends JPanel {
         SliderSetup();
         soundPanel = new JPanel(new BorderLayout());
         soundPanel.add(slider, BorderLayout.SOUTH);
-        soundPanel.add(soundButton,BorderLayout.NORTH);
+        soundPanel.add(soundButton, BorderLayout.NORTH);
     }
 
-    private void SliderSetup(){
+    private void SliderSetup() {
         // Set the panel to add buttons
 //        panel1 = new JPanel();
 //        panel1.setBackground(new Color(0,0,0));
@@ -669,7 +663,6 @@ public class GamePanel extends JPanel {
 //        SliderBoarder.setTitleColor(Color.GREEN);
 //        panel1.setBorder(SliderBoarder);
 //        panel1.setPreferredSize(new Dimension(424, 70));
-
 
 
 //        Game.window.add(panel1, BorderLayout.BEFORE_FIRST_LINE);
@@ -680,7 +673,7 @@ public class GamePanel extends JPanel {
 //        status.setVisible(true);
 //        status.setForeground(Color.GREEN);
         // Set the slider
-        slider = new JSlider(JSlider.HORIZONTAL,-66,6,6);
+        slider = new JSlider(JSlider.HORIZONTAL, -66, 6, 6);
         slider.setMinorTickSpacing(6);
         slider.setPaintTicks(true);
 //        slider.setBackground(new Color(0,0,0));
@@ -688,7 +681,6 @@ public class GamePanel extends JPanel {
 
         // Set the labels to be painted on the slider
         slider.setPaintLabels(true);
-
 
 
         slider.addChangeListener(new ChangeListener() {
