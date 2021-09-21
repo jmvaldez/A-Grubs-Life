@@ -1,9 +1,11 @@
 package com.game.model.engine;
 
 import com.game.controller.Game;
+import com.game.exception.OddsFunctionException;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.util.GameAudio;
+import com.game.util.Odds;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -66,6 +68,7 @@ public class Functions {
         return result;
     }
 
+
     public static void setCurrentLocationElement(String location) {
 
         switch (location) {
@@ -99,4 +102,65 @@ public class Functions {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
+    public static boolean getOddsOfTrue(Odds odds) {
+        int randomNumber = getRandomNumber(1, 4);
+        switch (odds) {
+            case HIGH:
+                switch (randomNumber) {
+                    case 1:
+                    case 2:
+                    case 3:
+                        return true;
+                    case 4:
+                        return false;
+                }
+            case LOW:
+                switch (randomNumber) {
+                    case 1:
+                        return true;
+                    case 2:
+                    case 3:
+                    case 4:
+                        return false;
+                }
+            case EVENS:
+                switch (randomNumber) {
+                    case 1:
+                    case 2:
+                        return true;
+                    case 3:
+                    case 4:
+                        return false;
+                }
+            default:
+                throw new OddsFunctionException();
+        }
+    }
+
+    public static void lotteryBossPresent() {
+        if (Game.caterpillar.getCurrentLocation().isBossPresent()) {
+            setBoss(getOddsOfTrue(Odds.HIGH));
+        } else {
+            if (Game.caterpillar.getLevel() <= 6) {
+                setBoss(getOddsOfTrue(Odds.LOW));
+            } else {
+                setBoss(getOddsOfTrue(Odds.EVENS));
+            }
+        }
+    }
+
+
+    private static void setBoss(boolean isSet) {
+        if (isSet) {
+            if(!Game.caterpillar.getCurrentLocation().isBossPresent()){
+                GameAudio.playAudio("birdWaring");
+            }
+            Game.caterpillar.getCurrentLocation().setBossPresent(true);
+            AnimationTimer.bossHarassTimer.start();
+            Game.caterpillar.setLastAction("Watch OUT!!! Bird is chasing you!");
+        } else {
+            Game.caterpillar.getCurrentLocation().setBossPresent(false);
+        }
+
+    }
 }

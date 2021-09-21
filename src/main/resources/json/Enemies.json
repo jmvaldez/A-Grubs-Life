@@ -20,5 +20,12 @@
       "strength": 1,
       "exp": 1
     }
+  },
+  "Boss": {
+    "bird": {
+      "health": 100,
+      "strength": 30,
+      "exp": 5
+    }
   }
 }

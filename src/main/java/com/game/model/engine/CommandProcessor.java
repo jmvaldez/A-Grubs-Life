@@ -7,34 +7,52 @@ import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 import com.game.util.GameAudio;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimerTask;
 
 public class CommandProcessor {
+
+    private static Timer attackAnimationTimer;
 
     public void executeCommand(ArrayList<String> strings) {
         String action = strings.get(0).toUpperCase(Locale.ROOT);
         String focus = strings.get(1).toUpperCase(Locale.ROOT);
         processCommand(action, focus);
-        Game.caterpillar.checkDeath();
+
 
     }
 
     private void processCommand(String action, String focus) {
         switch (action.toUpperCase(Locale.ROOT)) {
             case "ATTACK":
-                processAttack(focus);
+                if (focus.equalsIgnoreCase(Game.boss.getName())) {
+                    Game.caterpillar.engagedEnemy = Game.boss;
+                } else {
+                    Game.caterpillar.engagedEnemy = Location.getEnemies().get(focus.toLowerCase());
+                }
+                startAttackAnimation();
                 break;
             case "RECON":
-                Game.caterpillar.engagedEnemy = Location.getEnemies().get(focus.toLowerCase());
+                if (focus.equalsIgnoreCase(Game.boss.getName())) {
+                    Game.caterpillar.engagedEnemy = Game.boss;
+                } else {
+                    Game.caterpillar.engagedEnemy = Location.getEnemies().get(focus.toLowerCase());
+                }
                 Game.caterpillar.setLastAction("ARMY lead the way!");
+                Game.getGamePanel().actionAnimationLabel.setIcon(Functions.readImage("recon"));
+                AnimationTimer.startActionImageTimer(3000);
                 GameAudio.playAudio("Recon");
                 break;
             case "GO":
-                    processNavigation(focus);
-                    enemyAttackFirst();
-                    GameAudio.PlayGOAudio();
+                Game.caterpillar.engagedEnemy = null;
+                processNavigation(focus);
+                enemyAttackFirst();
+                GameAudio.PlayGOAudio();
                 break;
             case "EAT":
                 processEating(focus);
@@ -47,8 +65,10 @@ public class CommandProcessor {
                 processCheat(focus);
                 GameAudio.playAudio("Cheat");
                 break;
+
         }
     }
+
 
 
     /*
@@ -62,6 +82,11 @@ public class CommandProcessor {
                     .findFirst()
                     .get();
             enemyAttackCalc(enemy);
+
+            //ADD_ON by HQ
+            Game.caterpillar.checkDeath();
+            //
+
         } else {
             Game.caterpillar.setLastAction("No enemies in this area.");
         }
@@ -89,21 +114,82 @@ public class CommandProcessor {
     }
 
     private void processAttack(String focus) {
-        GameAudio.PlayAttackAudio();
-        Game.caterpillar.engagedEnemy = Location.getEnemies().get(focus.toLowerCase());
+    private void startAttackAnimation(){
+        setAttackAnimationTimer();
+        TimerTask startAttackAnimation = new TimerTask() {
+            @Override
+            public void run() {
+                attackAnimationTimer.start();
+            }
+        };
+        new java.util.Timer().schedule(startAttackAnimation,500);
 
+    }
+
+    private void setAttackAnimationTimer() {
+
+        GameAudio.playAudio("GO");
+        int destinationXpos;
+        int destinationYpos;
+        switch (Game.caterpillar.engagedEnemy.getName().toUpperCase()) {
+            case "BIRD":
+                destinationXpos = 100;
+                destinationYpos = 100;
+                break;
+            default:
+                destinationXpos = Game.caterpillar.engagedEnemy.getLocation()[0];
+                destinationYpos = Game.caterpillar.engagedEnemy.getLocation()[1];
+                break;
+
+        }
+        int finalDestinationXpos = destinationXpos;
+        int incrementXpos = (destinationXpos - 210) / 10;
+        int incrementYpos = (destinationYpos - 190) / 10;
+
+
+        attackAnimationTimer = new Timer(100, new ActionListener() {
+            int startXpos = 210;
+            int startYpos = 190;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moveCaterpillarImageLabel();
+                Game.getGamePanel().repaint();
+            }
+
+            private void moveCaterpillarImageLabel() {
+                if (startXpos <= finalDestinationXpos) {
+                    startXpos += incrementXpos;
+                    startYpos += incrementYpos;
+                    Game.getGamePanel().caterpillarImageLabel.setBounds(startXpos, startYpos, 100, 100);
+                } else {
+                    processAttack();
+                    Game.getGamePanel().caterpillarImageLabel.setBounds(210, 190, 100, 100);
+                    Game.getGamePanel().updateLabels();
+                    attackAnimationTimer.stop();
+                }
+            }
+        });
+    }
+
+    private void processAttack() {
+
+        GameAudio.PlayAttackAudio();
         Enemy engagedEnemy = Game.caterpillar.engagedEnemy;
         Game.caterpillar.setHealth(Game.caterpillar.getHealth() - engagedEnemy.getStrength());
         engagedEnemy.setHealth(engagedEnemy.getHealth() - Game.caterpillar.getStrength() - damageAdjustment(engagedEnemy));
         Game.caterpillar.setLastAction("You attacked the " + engagedEnemy.getName() + " " + Game.caterpillar.getStrength() + " points " + "you received " + engagedEnemy.getStrength() + " point damage!");
 
-        if (engagedEnemy.getHealth() == 0) {
+        if (engagedEnemy.getHealth() == 0 ) {
 
             Game.caterpillar.setLastAction(Game.caterpillar.engagedEnemy.getName() + " defeated!!" + " you received " + Game.caterpillar.engagedEnemy.getExp() + " experience points");
             Game.caterpillar.setExperience(Game.caterpillar.getExperience() + Game.caterpillar.engagedEnemy.getExp());
             Game.caterpillar.engagedEnemy.setDead();
 
         }
+
+        Game.caterpillar.checkWin();
+        Game.caterpillar.checkDeath();
 
     }
 
@@ -172,13 +258,13 @@ public class CommandProcessor {
                 Game.caterpillar.setLastAction("<br>Who is your Mom");
                 break;
             case "STRENGTH":
-                Game.caterpillar.setStrength(10);
+                Game.caterpillar.setStrength(Game.caterpillar.getStrength() + 10);
                 Game.caterpillar.setLastAction("Who is your Grandpa");
                 break;
             case "AMAZON":
                 Game.caterpillar.setHealth(0);
-                Game.gamePanel.cheatImageLabel.setIcon(Functions.readImage("cheatAmazon"));
-                AnimationTimer.cheatAmazonTimer.start();
+                Game.getGamePanel().actionAnimationLabel.setIcon(Functions.readImage("cheatAmazon"));
+                AnimationTimer.startActionImageTimer(3000);
                 Game.caterpillar.setLastAction("LOL, your Manager is behind you!");
                 break;
 
