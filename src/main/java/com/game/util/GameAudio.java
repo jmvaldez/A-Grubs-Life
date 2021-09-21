@@ -4,7 +4,7 @@ import javax.sound.sampled.*;
 import java.io.IOException;
 
 public class GameAudio {
-    public static void playAudio(String name){
+    public static void playAudio(String name) {
         SetAudio(name + ".wav");
     }
 

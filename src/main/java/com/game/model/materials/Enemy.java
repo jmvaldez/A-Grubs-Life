@@ -38,7 +38,6 @@ public class Enemy {
     }
 
 
-
     public int getExp() {
         return exp;
     }
@@ -77,13 +76,13 @@ public class Enemy {
     }
 
     public void setDead() {
-        if(this.health <= 0){
+        if (this.health <= 0) {
             isDead = true;
 
         }
     }
 
-    public void setAlive(){
+    public void setAlive() {
         isDead = false;
     }
 }

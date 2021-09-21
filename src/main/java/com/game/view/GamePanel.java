@@ -44,6 +44,9 @@ public class GamePanel extends JPanel {
     private JLabel roomImageLabel;
     private JLabel caterpillarImageLabel;
     private JLabel backgroundLabel;
+
+    private JLabel bossImageLabel;
+    private JLabel[] bossHPLabelList;
     private JLabel[] itemLabelList;
     private JLabel[] enemyLabelList;
     private JLabel[] itemQtyLabelList;
@@ -53,6 +56,7 @@ public class GamePanel extends JPanel {
     private String rickRoll;
     private String musicOnOff;
     private Music mu;
+
 
 
     public void setUpGamePanel() {
@@ -171,11 +175,11 @@ public class GamePanel extends JPanel {
         healthIncreaseLabel = new JLabel();
         actionImageLabel = new JLabel();
         cheatImageLabel = new JLabel();
-
+        bossImageLabel = new JLabel();
+        bossHPLabelList = new JLabel[10];
 
         descriptionPanel.setBackground(new Color(0, 0, 0));
         animationPanel.setBackground(new Color(0, 0, 0));
-
         descriptionPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
         animationPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
 
@@ -189,16 +193,34 @@ public class GamePanel extends JPanel {
         caterpillarImageLabel.setBounds(210, 190, 100, 100);
         actionImageLabel.setBounds(130, 130, 300, 130);
         cheatImageLabel.setBounds(130, 30, 300, 280);
+        bossImageLabel.setBounds(10, 10 , 200 , 160);
+
+
+
+
 
         animationPanel.add(cheatImageLabel);
         animationPanel.add(actionImageLabel);
         animationPanel.add(healthIncreaseLabel);
+
+
+        for (int enemyHPImagePixel = 0; enemyHPImagePixel < 10; enemyHPImagePixel ++){
+            bossHPLabelList[enemyHPImagePixel] = new JLabel();
+            bossHPLabelList[enemyHPImagePixel].setBounds(10 + 20 * enemyHPImagePixel, 10 , 20, 20);
+            animationPanel.add(bossHPLabelList[enemyHPImagePixel]);
+
+        }
+        animationPanel.add(bossImageLabel);
+
         for (int i = 0; i < Game.MAX_ENEMY_AND_ITEM_QTY_SETT_IN_ANIMATION_PANEL; i++) {
             int itemLabelXpos = 140 - i * 60;
             int itemQtyXpos = 180 - i * 60;
-            // enemyLabel x, y : 1, (100, 80) | 2, (340, 80) | 3,(220, 50)
-            int enemyLabelXpos = 120 + 240 * i - 360 * ((i + 1) / 3);
-            int enemyLabelYpos = 80 - 30 * ((i + 1) / 3);
+            // enemyLabel x, y : 1, (120, 80) | 2, (360, 80) | 3,(240, 50)
+            //240, 50     340, 80       460, 110
+//            int enemyLabelXpos = 120 + 240 * i - 360 * ((i + 1) / 3);
+//            int enemyLabelYpos = 80 - 30 * ((i + 1) / 3);
+            int enemyLabelXpos = 460 - i*100;
+            int enemyLabelYpos = 110 - i*30;
 
             itemLabelList[i] = new JLabel();
             itemQtyLabelList[i] = new JLabel();
@@ -315,6 +337,7 @@ public class GamePanel extends JPanel {
     }
 
     private void setImageLabels() {
+        setBossImageLabel();
         backgroundLabel.setIcon(Game.caterpillar.getCurrentLocation().getBackgroundImageIcon());
         caterpillarImageLabel.setIcon(Game.caterpillar.getCaterpillarImageIcon());
         actionImageLabel.setIcon(Game.caterpillar.getActionImageIcon());
@@ -353,6 +376,23 @@ public class GamePanel extends JPanel {
                 enemyLabelList[i].setIcon(null);
                 enemyHPLabelList[i].setIcon(null);
                 loserLabelList[i].setIcon(null);
+            }
+        }
+    }
+
+    private void setBossImageLabel() {
+        if (Game.caterpillar.getCurrentLocation().isBossPresent()){
+            bossImageLabel.setIcon(Functions.readImage("bird"));
+            for (JLabel hp: bossHPLabelList){
+                hp.setIcon(null);
+            }
+            for (int i = 0; i < 10*Game.boss.getHealth()/Game.boss.getMaxHealth(); i++){
+                bossHPLabelList[i].setIcon(Functions.readImage("hpTile"));
+            }
+        }else{
+            bossImageLabel.setIcon(null);
+            for (JLabel hp: bossHPLabelList){
+                hp.setIcon(null);
             }
         }
     }

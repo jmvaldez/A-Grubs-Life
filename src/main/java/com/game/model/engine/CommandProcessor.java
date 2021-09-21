@@ -2,24 +2,22 @@ package com.game.model.engine;
 
 
 import com.game.controller.Game;
-import com.game.model.materials.Caterpillar;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 import com.game.util.GameAudio;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class CommandProcessor {
-
-    private final HashMap<String, Location> locations = Game.getLocations();
 
     public void executeCommand(ArrayList<String> strings) {
         String action = strings.get(0).toUpperCase(Locale.ROOT);
         String focus = strings.get(1).toUpperCase(Locale.ROOT);
         processCommand(action, focus);
+        Game.caterpillar.checkWin();
         Game.caterpillar.checkDeath();
 
     }
@@ -27,15 +25,26 @@ public class CommandProcessor {
     private void processCommand(String action, String focus) {
         switch (action.toUpperCase(Locale.ROOT)) {
             case "ATTACK":
-                processAttack(focus);
+                if (focus.equalsIgnoreCase(Game.boss.getName())) {
+                    Game.caterpillar.engagedEnemy = Game.boss;
+                } else {
+                    Game.caterpillar.engagedEnemy = Location.getEnemies().get(focus.toLowerCase());
+                }
+                processAttack();
                 break;
             case "RECON":
-                Game.caterpillar.engagedEnemy = Game.caterpillar.getCurrentLocation().getEnemies().get(focus.toLowerCase());
+                if (focus.equalsIgnoreCase(Game.boss.getName())) {
+                    Game.caterpillar.engagedEnemy = Game.boss;
+                } else {
+                    Game.caterpillar.engagedEnemy = Location.getEnemies().get(focus.toLowerCase());
+                }
                 Game.caterpillar.setLastAction("ARMY lead the way!");
                 GameAudio.playAudio("Recon");
                 break;
             case "GO":
                 processNavigation(focus);
+                enemyAttackFirst();
+                GameAudio.PlayGOAudio();
                 break;
             case "EAT":
                 processEating(focus);
@@ -48,42 +57,58 @@ public class CommandProcessor {
                 processCheat(focus);
                 GameAudio.playAudio("Cheat");
                 break;
+
+        }
+    }
+
+    /*
+     * enemyAttackFirst() executes the enemy attack if there is an enemy in the current area
+     * also based on chanceForAction in enemyCalcAttack
+     */
+
+    //TODO:Have bug here, when go deadend, still have ramdom attack;
+    private void enemyAttackFirst() {
+        if (!Location.getEnemies().isEmpty()) {
+            Map.Entry<String, Enemy> enemy = Location.getEnemies().entrySet()
+                    .stream()
+                    .findFirst()
+                    .get();
+            enemyAttackCalc(enemy);
+        } else {
+            Game.caterpillar.setLastAction("No enemies in this area.");
+        }
+    }
+
+    /*
+     * enemyAttackCalc() does the damage calculation if the enemy succeeded in attacking first
+     * if chance for action is true then we subtract player health based on enemy strength plus a surprise hit bonus
+     * if chance for action is false then the enemy fails to attack and a message is displayed
+     */
+    private void enemyAttackCalc(Map.Entry<String, Enemy> enemy) {
+        if (Functions.chanceForAction(1, 10, 5)) {
+            int surpriseHitBonus = 5;
+            GameAudio.PlayAttackAudio();
+            Game.caterpillar.setHealth(Game.caterpillar.getHealth() - (enemy.getValue().getStrength() + surpriseHitBonus));
+            String enemyAttackBuilder = "You were spotted by the " +
+                    enemy.getValue().getName() +
+                    "！ They attack you for " +
+                    enemy.getValue().getStrength() +
+                    " point damage";
+            Game.caterpillar.setLastAction(enemyAttackBuilder);
+        } else {
+            Game.caterpillar.setLastAction("The Enemy didn't see you");
         }
     }
 
 
-//    private void enemyDefeated(Enemy enemy) {
-//        enemy.setHidden(true);
-//        enemy.setInCombat(false);
-//        caterpillar.setExperience(enemy.getExp());
-//
-//        //checks if enemy defeated is the squirrel to set end game criteria
-//        winnerWinnerSquirrelDinner(enemy);
-//
-////        caterpillar.levelUp();
-//
-//        caterpillar.setLastAction("You have defeated the mighty " + enemy.getName() + " \n " + caterpillar.getLastAction());
-//        GameAudio.PlayDefeatedAudio();
-//
-//    }
-//
-//    private void winnerWinnerSquirrelDinner(Enemy enemy) {
-//        if (enemy.getName().equalsIgnoreCase("squirrel")) {
-//            caterpillar.setWinner(true);
-//            caterpillar.setLastAction("You have defeated the mighty " + enemy.getName() + " \n" + "After beating the boss you find your mate! Together you can find the tree and live happily ever after \n ending the game");
-//        }
-//    }
-
-    private void processAttack(String focus) {
+    private void processAttack() {
         GameAudio.PlayAttackAudio();
-        Game.caterpillar.engagedEnemy = Game.caterpillar.getCurrentLocation().getEnemies().get(focus.toLowerCase());
-
         Enemy engagedEnemy = Game.caterpillar.engagedEnemy;
         Game.caterpillar.setHealth(Game.caterpillar.getHealth() - engagedEnemy.getStrength());
         engagedEnemy.setHealth(engagedEnemy.getHealth() - Game.caterpillar.getStrength() - damageAdjustment(engagedEnemy));
         Game.caterpillar.setLastAction("You attacked the " + engagedEnemy.getName() + " " + Game.caterpillar.getStrength() + " points " + "you received " + engagedEnemy.getStrength() + " point damage!");
 
-        if (engagedEnemy.getHealth() == 0) {
+        if (engagedEnemy.getHealth() == 0 ) {
 
             Game.caterpillar.setLastAction(Game.caterpillar.engagedEnemy.getName() + " defeated!!" + " you received " + Game.caterpillar.engagedEnemy.getExp() + " experience points");
             Game.caterpillar.setExperience(Game.caterpillar.getExperience() + Game.caterpillar.engagedEnemy.getExp());
@@ -158,7 +183,7 @@ public class CommandProcessor {
                 Game.caterpillar.setLastAction("<br>Who is your Mom");
                 break;
             case "STRENGTH":
-                Game.caterpillar.setStrength(10);
+                Game.caterpillar.setStrength(Game.caterpillar.getStrength() + 10);
                 Game.caterpillar.setLastAction("Who is your Grandpa");
                 break;
             case "AMAZON":
@@ -171,6 +196,7 @@ public class CommandProcessor {
         }
 
     }
+
 
     // adjusts damage output for combat
     private int damageAdjustment(Enemy enemy) {
@@ -185,8 +211,8 @@ public class CommandProcessor {
             adjustDamageBy = -5;
         }
 
-        int levelAdajust = Functions.getRandomNumber(1, Game.caterpillar.getLevel()) * caterpillarStrength;
-        adjustDamageBy += levelAdajust;
+        int levelAdjust = Functions.getRandomNumber(1, Game.caterpillar.getLevel()) * caterpillarStrength;
+        adjustDamageBy += levelAdjust;
         return adjustDamageBy;
     }
 

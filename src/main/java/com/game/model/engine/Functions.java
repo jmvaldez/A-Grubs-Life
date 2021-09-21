@@ -1,9 +1,11 @@
 package com.game.model.engine;
 
 import com.game.controller.Game;
+import com.game.exception.OddsFunctionException;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.util.GameAudio;
+import com.game.util.Odds;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -12,13 +14,11 @@ import java.util.HashMap;
 public class Functions {
 
 
-
     public static ImageIcon readImage(String name) {
         ImageIcon image = null;
         try {
             image = new ImageIcon(Functions.class.getResource(Game.IMAGE_PATH + name + ".png"));
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
         return image;
@@ -68,9 +68,10 @@ public class Functions {
         return result;
     }
 
-    public static void setCurrentLocationElement(String location){
 
-        switch (location){
+    public static void setCurrentLocationElement(String location) {
+
+        switch (location) {
             case "DEAD_END":
                 Game.caterpillar.setLastAction("Dead End, find another direction, check MAP!");
                 GameAudio.playAudio("Leave");
@@ -91,8 +92,67 @@ public class Functions {
 
     }
 
+    // method for random chance to execute an action.
+    public static boolean chanceForAction(int min, int max, int chance) {
+        int rand = Functions.getRandomNumber(min, max);
+        return rand > chance;
+    }
+
     public static int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
+    public static boolean getOddsOfTrue(Odds odds) {
+        boolean result;
+        int randomNumber = getRandomNumber(1, 4);
+        switch (odds) {
+            case HIGH:
+                switch (randomNumber) {
+                    case 1:
+                    case 2:
+                    case 3:
+                        return true;
+                    case 4:
+                        return false;
+                }
+            case LOW:
+                switch (randomNumber) {
+                    case 1:
+                        return true;
+                    case 2:
+                    case 3:
+                    case 4:
+                        return false;
+                }
+            case EVENS:
+                switch (randomNumber) {
+                    case 1:
+                    case 2:
+                        return true;
+                    case 3:
+                    case 4:
+                        return false;
+                }
+            default:
+                throw new OddsFunctionException();
+        }
+    }
+
+    public static void lotteryBossPresent() {
+        if (Game.caterpillar.getLevel() <= 5 && getOddsOfTrue(Odds.LOW)) {
+            setBoss();
+        } else if (Game.caterpillar.getLevel() > 6 && getOddsOfTrue(Odds.HIGH)) {
+            setBoss();
+        } else if (Game.caterpillar.getCurrentLocation().isBossPresent() && getOddsOfTrue(Odds.EVENS)) {
+        } else {
+            Game.caterpillar.getCurrentLocation().setBossPresent(false);
+        }
+    }
+
+    private static void setBoss() {
+        Game.caterpillar.getCurrentLocation().setBossPresent(true);
+        AnimationTimer.bossHarassTimer.start();
+        Game.caterpillar.setLastAction("Watch OUT!!! Bird is chasing you!");
+        GameAudio.playAudio("birdWaring");
+    }
 }

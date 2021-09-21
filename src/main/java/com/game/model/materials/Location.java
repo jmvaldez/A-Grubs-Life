@@ -15,8 +15,9 @@ public class Location {
     private String south;
     private String east;
     private String west;
-    private HashMap<String, Enemy> enemies;
+    private static HashMap<String, Enemy> enemies;
     private HashMap<String, Item> items;
+    private boolean isBossPresent;
     private ImageIcon backgroundImageIcon;
 
     public Location(String name, String description, String north, String south, String east, String west) {
@@ -27,6 +28,7 @@ public class Location {
         this.east = east;
         this.west = west;
         this.backgroundImageIcon = Functions.readImage(name.toLowerCase());
+        this.isBossPresent = false;
 
     }
 
@@ -54,7 +56,7 @@ public class Location {
         return this.west;
     }
 
-    public HashMap<String, Enemy> getEnemies() {
+    public static HashMap<String, Enemy> getEnemies() {
         return enemies;
     }
 
@@ -72,5 +74,13 @@ public class Location {
 
     public ImageIcon getBackgroundImageIcon() {
         return backgroundImageIcon;
+    }
+
+    public boolean isBossPresent() {
+        return isBossPresent;
+    }
+
+    public void setBossPresent(boolean bossPresent) {
+        isBossPresent = bossPresent;
     }
 }
