@@ -72,7 +72,6 @@ public class CommandProcessor {
     }
 
 
-
     /*
      * enemyAttackFirst() executes the enemy attack if there is an enemy in the current area
      * also based on chanceForAction in enemyCalcAttack
@@ -114,7 +113,7 @@ public class CommandProcessor {
     }
 
 
-    private void startAttackAnimation(){
+    private void startAttackAnimation() {
         setAttackAnimationTimer();
         TimerTask startAttackAnimation = new TimerTask() {
             @Override
@@ -122,7 +121,7 @@ public class CommandProcessor {
                 attackAnimationTimer.start();
             }
         };
-        new java.util.Timer().schedule(startAttackAnimation,500);
+        new java.util.Timer().schedule(startAttackAnimation, 500);
 
     }
 
@@ -150,7 +149,6 @@ public class CommandProcessor {
         }
 
         int finalDestinationYpos = destinationYpos;
-
 
 
         attackAnimationTimer = new Timer(100, new ActionListener() {
@@ -186,7 +184,7 @@ public class CommandProcessor {
         engagedEnemy.setHealth(engagedEnemy.getHealth() - Game.caterpillar.getStrength() - damageAdjustment(engagedEnemy));
         Game.caterpillar.setLastAction("You attacked the " + engagedEnemy.getName() + " " + Game.caterpillar.getStrength() + " points " + "you received " + engagedEnemy.getStrength() + " point damage!");
 
-        if (engagedEnemy.getHealth() == 0 ) {
+        if (engagedEnemy.getHealth() == 0) {
 
             Game.caterpillar.setLastAction(Game.caterpillar.engagedEnemy.getName() + " defeated!!" + " you received " + Game.caterpillar.engagedEnemy.getExp() + " experience points");
             Game.caterpillar.setExperience(Game.caterpillar.getExperience() + Game.caterpillar.engagedEnemy.getExp());
@@ -214,8 +212,8 @@ public class CommandProcessor {
     private void processNavigation(String focus) {
         switch (focus.toLowerCase()) {
             case "north":
-                    Game.caterpillar.setLastAction("You travel north.");
-                    Functions.setCurrentLocationElement(Game.caterpillar.getCurrentLocation().getNorth().trim());
+                Game.caterpillar.setLastAction("You travel north.");
+                Functions.setCurrentLocationElement(Game.caterpillar.getCurrentLocation().getNorth().trim());
                 break;
 
             case "south":

@@ -1,8 +1,6 @@
 package com.game.model.engine;
 
 import com.game.controller.Game;
-import com.game.model.materials.Enemy;
-import com.game.util.GameAudio;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -29,7 +27,7 @@ public class AnimationTimer {
                 Game.getGamePanel().actionAnimationLabel.repaint();
             }
         };
-        new java.util.Timer().schedule(startAttackAnimation,delayTime);
+        new java.util.Timer().schedule(startAttackAnimation, delayTime);
     }
 
     private void setBossHarassTimer() {
@@ -41,7 +39,9 @@ public class AnimationTimer {
                 Game.getGamePanel().updateLabels();
 
             }
+
             int birdHarass = 3;
+
             private void setHarassAction() {
                 if (Game.caterpillar.getCurrentLocation().isBossPresent() && !Game.caterpillar.isDead()) {
                     Game.caterpillar.setHealth(Game.caterpillar.getHealth() - birdHarass);

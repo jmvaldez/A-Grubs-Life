@@ -1,9 +1,9 @@
 package com.game.util;
 
-import com.game.exception.AudioImportException;
-
-import javax.sound.sampled.*;
-import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class GameAudio {
     public static void playAudio(String name) {
@@ -110,7 +110,7 @@ public class GameAudio {
         SetAudio("LEVEL2.wav");
     }
 
-    private static void SetAudio(String s){
+    private static void SetAudio(String s) {
 
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(GameAudio.class.getResource("/audio/" + s));
@@ -123,6 +123,6 @@ public class GameAudio {
         } catch (Exception e) {
             System.out.println("Audio Import Error");
         }
-;
+        ;
     }
 }

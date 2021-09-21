@@ -143,10 +143,9 @@ public class Functions {
         } else {
             if (Game.caterpillar.getLevel() <= 3) {
                 setBoss(getOddsOfTrue(Odds.LOW));
-            } else if(Game.caterpillar.getLevel() <= 6){
+            } else if (Game.caterpillar.getLevel() <= 6) {
                 setBoss(getOddsOfTrue(Odds.EVENS));
-            }
-            else {
+            } else {
                 setBoss(getOddsOfTrue(Odds.HIGH));
             }
         }
@@ -155,7 +154,7 @@ public class Functions {
 
     private static void setBoss(boolean isSet) {
         if (isSet) {
-            if(!Game.caterpillar.getCurrentLocation().isBossPresent()){
+            if (!Game.caterpillar.getCurrentLocation().isBossPresent()) {
                 GameAudio.playAudio("birdWaring");
             }
             Game.caterpillar.getCurrentLocation().setBossPresent(true);
