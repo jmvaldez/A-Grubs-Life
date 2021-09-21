@@ -13,6 +13,7 @@ public class Enemy {
     private int maxHealth;
     private boolean isDead;
     private ImageIcon enemyImageIcon;
+    private int[] location;
 
 
     public Enemy(String name, int maxHealth, int strength, int exp) {
@@ -84,6 +85,14 @@ public class Enemy {
 
     public void setAlive() {
         isDead = false;
+    }
+
+    public int[] getLocation() {
+        return location;
+    }
+
+    public void setLocation(int[] location) {
+        this.location = location;
     }
 }
 

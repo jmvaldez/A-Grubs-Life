@@ -21,11 +21,11 @@ import java.util.Map;
 
 public class GamePanel extends JPanel {
 
-    public JLabel healthIncreaseLabel;
+    public JLabel healthIncreaImageLabel;
     public JLabel actionImageLabel;
-    public JLabel cheatImageLabel;
+    public JLabel actionAnimationLabel;
 
-    private JLabel lastMoveLabel;
+    public JLabel lastMoveLabel;
     private JLabel caterpillarStatLabel;
     private JLabel enemyStatLabel;
     private JLabel descriptionLabel;
@@ -45,8 +45,11 @@ public class GamePanel extends JPanel {
     private JLabel westEmptyLabel;
     private JLabel northEastLabel;
     private JLabel roomImageLabel;
-    private JLabel caterpillarImageLabel;
+    public JLabel caterpillarImageLabel;
     private JLabel backgroundLabel;
+
+    private JLabel bossImageLabel;
+    private JLabel[] bossHPLabelList;
     private JLabel[] itemLabelList;
     private JLabel[] enemyLabelList;
     private JLabel[] itemQtyLabelList;
@@ -56,15 +59,15 @@ public class GamePanel extends JPanel {
     private String rickRoll;
     private String musicOnOff;
     private Music mu;
-    /////////////
+/////////////
     private JSlider slider;
     private JPanel panel1;
     private JLabel status;
     private float val;
     private javax.swing.event.ChangeListener ChangeListener;
+//////////////
 
 
-    //////////////
 
     public void setUpGamePanel() {
 
@@ -76,20 +79,18 @@ public class GamePanel extends JPanel {
         SliderSetup();
 
     }
+    private void SliderSetup(){
+        // Set the panel to add buttons
+        panel1 = new JPanel();
+        panel1.setBackground(new Color(0,0,0));
+        TitledBorder SliderBoarder = new TitledBorder("Volume Control");
+        SliderBoarder.setTitleColor(Color.GREEN);
+        panel1.setBorder(SliderBoarder);
+        panel1.setPreferredSize(new Dimension(424, 70));
+        inputPanel.add(panel1, BorderLayout.EAST);
 
-    private void SliderSetup() {
 
-
-
-            // Set the panel to add buttons
-            JPanel panel1 = new JPanel();
-            panel1.setBackground(new Color(0, 0, 0));
-            TitledBorder SliderBoarder = new TitledBorder("Volume Control");
-            SliderBoarder.setTitleColor(Color.GREEN);
-            panel1.setBorder(SliderBoarder);
-            panel1.setPreferredSize(new Dimension(424, 70));
-
-            Game.window.add(panel1, BorderLayout.BEFORE_FIRST_LINE);
+//        Game.window.add(panel1, BorderLayout.BEFORE_FIRST_LINE);
 
 
             // Add status label to show the status of the slider
@@ -144,8 +145,7 @@ public class GamePanel extends JPanel {
 
 
     private void setUpInputPanel() {
-
-        JPanel inputPanel = new JPanel();
+        inputPanel = new JPanel();
         this.lastMoveLabel = new JLabel();
         this.inputField = new JTextField(50);
         Color background = new Color(10, 80, 20, 158);
@@ -154,7 +154,7 @@ public class GamePanel extends JPanel {
         inputPanel.setBackground(background);
         inputPanel.setPreferredSize(new Dimension(1000, 200));
         lastMoveLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-        lastMoveLabel.setPreferredSize(new Dimension(1024, 135));
+        lastMoveLabel.setPreferredSize(new Dimension(1024, 120)); //135
 
 
         setUpInputField(inputPanel);
@@ -247,14 +247,14 @@ public class GamePanel extends JPanel {
         descriptionLabel = new JLabel();
         backgroundLabel = new JLabel();
         caterpillarImageLabel = new JLabel();
-        healthIncreaseLabel = new JLabel();
+        healthIncreaImageLabel = new JLabel();
         actionImageLabel = new JLabel();
-        cheatImageLabel = new JLabel();
-
+        actionAnimationLabel = new JLabel();
+        bossImageLabel = new JLabel();
+        bossHPLabelList = new JLabel[10];
 
         descriptionPanel.setBackground(new Color(0, 0, 0));
         animationPanel.setBackground(new Color(0, 0, 0));
-
         descriptionPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
         animationPanel.setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255)));
 
@@ -267,17 +267,37 @@ public class GamePanel extends JPanel {
         backgroundLabel.setBounds(5, 5, 540, 325);
         caterpillarImageLabel.setBounds(210, 190, 100, 100);
         actionImageLabel.setBounds(130, 130, 300, 130);
-        cheatImageLabel.setBounds(130, 30, 300, 280);
+        actionAnimationLabel.setBounds(130, 30, 300, 280);
+        bossImageLabel.setBounds(10, 10 , 200 , 160);
 
-        animationPanel.add(cheatImageLabel);
+
+
+
+
+        animationPanel.add(actionAnimationLabel);
         animationPanel.add(actionImageLabel);
-        animationPanel.add(healthIncreaseLabel);
+        animationPanel.add(healthIncreaImageLabel);
+
+
+        for (int enemyHPImagePixel = 0; enemyHPImagePixel < 10; enemyHPImagePixel ++){
+            bossHPLabelList[enemyHPImagePixel] = new JLabel();
+            bossHPLabelList[enemyHPImagePixel].setBounds(10 + 20 * enemyHPImagePixel, 10 , 20, 20);
+            animationPanel.add(bossHPLabelList[enemyHPImagePixel]);
+
+        }
+        animationPanel.add(bossImageLabel);
+
         for (int i = 0; i < Game.MAX_ENEMY_AND_ITEM_QTY_SETT_IN_ANIMATION_PANEL; i++) {
             int itemLabelXpos = 140 - i * 60;
             int itemQtyXpos = 180 - i * 60;
-            // enemyLabel x, y : 1, (100, 80) | 2, (340, 80) | 3,(220, 50)
-            int enemyLabelXpos = 120 + 240 * i - 360 * ((i + 1) / 3);
-            int enemyLabelYpos = 80 - 30 * ((i + 1) / 3);
+            // enemyLabel x, y : 1, (120, 80) | 2, (360, 80) | 3,(240, 50)
+            //240, 50     340, 80       460, 110
+//            int enemyLabelXpos = 120 + 240 * i - 360 * ((i + 1) / 3);
+//            int enemyLabelYpos = 80 - 30 * ((i + 1) / 3);
+            int enemyLabelXpos = 460 - i*100;
+            int enemyLabelYpos = 110 - i*30;
+
+
 
             itemLabelList[i] = new JLabel();
             itemQtyLabelList[i] = new JLabel();
@@ -394,6 +414,7 @@ public class GamePanel extends JPanel {
     }
 
     private void setImageLabels() {
+        setBossImageLabel();
         backgroundLabel.setIcon(Game.caterpillar.getCurrentLocation().getBackgroundImageIcon());
         caterpillarImageLabel.setIcon(Game.caterpillar.getCaterpillarImageIcon());
         actionImageLabel.setIcon(Game.caterpillar.getActionImageIcon());
@@ -422,6 +443,7 @@ public class GamePanel extends JPanel {
         for (int i = 0; i < Game.MAX_ENEMY_AND_ITEM_QTY_SETT_IN_ANIMATION_PANEL; i++) {
             try {
                 enemyLabelList[i].setIcon(currentEnemies.get(enemyKeyList[i]).getEnemyImageIcon());
+                currentEnemies.get(enemyKeyList[i]).setLocation(new int[]{enemyLabelList[i].getX(), enemyLabelList[i].getY()});
                 enemyHPLabelList[i].setIcon(currentEnemies.get(enemyKeyList[i]).getCurrentEnemyHPIcon());
                 loserLabelList[i].setIcon(null);
                 if (currentEnemies.get(enemyKeyList[i]).isDead()) {
@@ -436,6 +458,22 @@ public class GamePanel extends JPanel {
         }
     }
 
+    private void setBossImageLabel() {
+        if (Game.caterpillar.getCurrentLocation().isBossPresent()){
+            bossImageLabel.setIcon(Functions.readImage("bird"));
+            for (JLabel hp: bossHPLabelList){
+                hp.setIcon(null);
+            }
+            for (int i = 0; i < 10*Game.boss.getHealth()/Game.boss.getMaxHealth(); i++){
+                bossHPLabelList[i].setIcon(Functions.readImage("hpTile"));
+            }
+        }else{
+            bossImageLabel.setIcon(null);
+            for (JLabel hp: bossHPLabelList){
+                hp.setIcon(null);
+            }
+        }
+    }
 
     private void setDiscriptionLabel() {
 
@@ -680,9 +718,10 @@ public class GamePanel extends JPanel {
         setEnemyListLabel();
         setItemListLabel();
         setImageLabels();
+
         Game.caterpillar.setLastAction("-----------------------");
         Game.window.repaint();
-        Game.caterpillar.engagedEnemy = null;
+
     }
 
 

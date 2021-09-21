@@ -97,6 +97,8 @@ public class Caterpillar {
         return health;
     }
 
+
+
     public void setHealth(int health) {
         if (health >= this.health) {
             AnimationTimer.healthIncreaseAnimationTimer.start();
@@ -190,5 +192,11 @@ public class Caterpillar {
 
     public ImageIcon getActionImageIcon() {
         return actionImageIcon;
+    }
+
+    public void checkWin(){
+        if(Game.boss.isDead()){
+            Game.initWinnerPanel();
+        }
     }
 }
