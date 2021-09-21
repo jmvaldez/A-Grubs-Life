@@ -113,7 +113,7 @@ public class CommandProcessor {
         }
     }
 
-    private void processAttack(String focus) {
+
     private void startAttackAnimation(){
         setAttackAnimationTimer();
         TimerTask startAttackAnimation = new TimerTask() {
