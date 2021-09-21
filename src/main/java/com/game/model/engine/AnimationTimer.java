@@ -34,18 +34,18 @@ public class AnimationTimer {
 
     private void setBossHarassTimer() {
 
-        bossHarassTimer = new Timer(10000, new ActionListener() {
+        bossHarassTimer = new Timer(5000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setHarassAction();
                 Game.getGamePanel().updateLabels();
 
             }
-
+            int birdHarass = 3;
             private void setHarassAction() {
                 if (Game.caterpillar.getCurrentLocation().isBossPresent() && !Game.caterpillar.isDead()) {
-                    Game.caterpillar.setHealth(Game.caterpillar.getHealth() - 2);
-                    Game.caterpillar.setLastAction("Bird took your 1 point health, you have " + Game.caterpillar.getHealth() + " point health left, better RUN NOW!!!");
+                    Game.caterpillar.setHealth(Game.caterpillar.getHealth() - birdHarass);
+                    Game.caterpillar.setLastAction("Bird took your " + birdHarass + " point health, you have " + Game.caterpillar.getHealth() + " point health left, better RUN NOW!!!");
                     Game.caterpillar.checkDeath();
 
                 } else {
