@@ -33,55 +33,66 @@ public class TextParser {
         ArrayList<String> result = new ArrayList<>();
         inputArray = input.toUpperCase(Locale.ROOT).split(" ");
 
-        if (inputArray.length != 2) {
+        if (inputArray[0].equalsIgnoreCase("HELP") && inputArray.length == 1) {
+            result.add(0, "get");
+            result.add(1, "help");
+        } else if (inputArray.length != 2) {
             Game.caterpillar.setLastAction("TWO words Command ONLY!");
             throw new LivePlayerInputException();
-        }
+        } else {
+            for (String str : inputArray) {
+                String otherStr = theOtherString(str);
+                switch (str.toUpperCase()) {
+                    case "GO":
+                        if (directions.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
+                            result.add(0, str);
+                            result.add(1, otherStr);
+                            return result;
+                        } else {
+                            Game.caterpillar.setLastAction("You can not go " + otherStr + "!! Go North/South/East/West wherever is showing on the MAP!");
+                            throw new LivePlayerInputException();
+                        }
+                    case "EAT":
+                        if (items.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
+                            result.add(0, str);
+                            result.add(1, otherStr);
+                            return result;
+                        } else {
+                            Game.caterpillar.setLastAction("Can you eat " + otherStr + "?! Check the item list!");
+                            throw new LivePlayerInputException();
+                        }
+                    case "ATTACK":
+                        if (enemies.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
+                            result.add(0, str);
+                            result.add(1, otherStr);
+                            return result;
+                        } else {
+                            Game.caterpillar.setLastAction("Is " + otherStr + " a valid Enemy?! Check the enemy list!");
+                            throw new LivePlayerInputException();
+                        }
+                    case "RECON":
+                        if (enemies.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
+                            result.add(0, str);
+                            result.add(1, otherStr);
+                            return result;
+                        } else {
+                            Game.caterpillar.setLastAction("Is " + otherStr + " a lived Enemy?! Check the enemy list!");
+                            throw new LivePlayerInputException();
+                        }
 
-        for (String str : inputArray) {
-            String otherStr = theOtherString(str);
-            switch (str.toUpperCase()) {
-                case "GO":
-                    if (directions.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
-                        result.add(0, str);
-                        result.add(1, otherStr);
-                        return result;
-                    } else {
-                        Game.caterpillar.setLastAction("You can not go " + otherStr + "!! Go North/South/East/West wherever is showing on the MAP!");
-                        throw new LivePlayerInputException();
-                    }
-                case "EAT":
-                    if (items.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
-                        result.add(0, str);
-                        result.add(1, otherStr);
-                        return result;
-                    } else {
-                        Game.caterpillar.setLastAction("Can you eat " + otherStr + "?! Check the item list!");
-                        throw new LivePlayerInputException();
-                    }
-                case "ATTACK":
-                case "RECON":
-                    if (enemies.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
-                        result.add(0, str);
-                        result.add(1, otherStr);
-                        return result;
-                    } else {
-                        Game.caterpillar.setLastAction("Is " + otherStr + " a lived Enemy?! Check the enemy list!");
-                        throw new LivePlayerInputException();
-                    }
+                    case "CHEAT":
+                        if (cheatCode.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
+                            result.add(0, str);
+                            result.add(1, otherStr);
+                            return result;
+                        } else {
+                            Game.caterpillar.setLastAction("Nice Try, Your Cheating Code is not Valid");
+                            throw new LivePlayerInputException();
+                        }
+                    default:
+                        Game.caterpillar.setLastAction("[ " + str + " " + otherStr + " ]" + " is not a valid command!");
 
-                case "CHEAT":
-                    if (cheatCode.contains(otherStr) && !str.equalsIgnoreCase(otherStr)) {
-                        result.add(0, str);
-                        result.add(1, otherStr);
-                        return result;
-                    } else {
-                        Game.caterpillar.setLastAction("Nice Try, Your Cheating Code is not Valid");
-                        throw new LivePlayerInputException();
-                    }
-                default:
-                    Game.caterpillar.setLastAction("[ " + str + " " + otherStr + " ]" + " is not a valid command!");
-
+                }
             }
         }
         return result;
@@ -135,7 +146,7 @@ public class TextParser {
             if (!entry.getValue().isDead())
                 enemies.add(entry.getKey().toUpperCase());
         }
-        if (Game.caterpillar.getCurrentLocation().isBossPresent()){
+        if (Game.caterpillar.getCurrentLocation().isBossPresent()) {
             enemies.add(Game.boss.getName().toUpperCase());
         }
     }

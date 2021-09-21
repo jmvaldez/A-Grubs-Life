@@ -1,8 +1,6 @@
 package com.game.model.engine;
 
 import com.game.controller.Game;
-import com.game.model.materials.Enemy;
-import com.game.util.GameAudio;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -29,12 +27,12 @@ public class AnimationTimer {
                 Game.getGamePanel().actionAnimationLabel.repaint();
             }
         };
-        new java.util.Timer().schedule(startAttackAnimation,delayTime);
+        new java.util.Timer().schedule(startAttackAnimation, delayTime);
     }
 
     private void setBossHarassTimer() {
 
-        bossHarassTimer = new Timer(10000, new ActionListener() {
+        bossHarassTimer = new Timer(5000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setHarassAction();
@@ -42,10 +40,12 @@ public class AnimationTimer {
 
             }
 
+            int birdHarass = 3;
+
             private void setHarassAction() {
                 if (Game.caterpillar.getCurrentLocation().isBossPresent() && !Game.caterpillar.isDead()) {
-                    Game.caterpillar.setHealth(Game.caterpillar.getHealth() - 2);
-                    Game.caterpillar.setLastAction("Bird took your 1 point health, you have " + Game.caterpillar.getHealth() + " point health left, better RUN NOW!!!");
+                    Game.caterpillar.setHealth(Game.caterpillar.getHealth() - birdHarass);
+                    Game.caterpillar.setLastAction("Bird took your " + birdHarass + " point health, you have " + Game.caterpillar.getHealth() + " point health left, better RUN NOW!!!");
                     Game.caterpillar.checkDeath();
 
                 } else {

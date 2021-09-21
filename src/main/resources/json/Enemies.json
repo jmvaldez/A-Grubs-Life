@@ -2,23 +2,23 @@
   "Enemies": {
     "ant": {
       "health": 50,
-      "strength": 1,
-      "exp": 5
-    },
-    "spider": {
-      "health": 40,
-      "strength": 100,
-      "exp": 4
-    },
-    "bee": {
-      "health": 30,
-      "strength": 1,
+      "strength": 3,
       "exp": 3
     },
+    "spider": {
+      "health": 70,
+      "strength": 15,
+      "exp": 8
+    },
+    "bee": {
+      "health": 45,
+      "strength": 8,
+      "exp": 5
+    },
     "flies": {
-      "health": 20,
+      "health": 10,
       "strength": 1,
-      "exp": 2
+      "exp": 1
     }
   },
   "Boss": {

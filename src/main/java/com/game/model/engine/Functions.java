@@ -73,7 +73,7 @@ public class Functions {
 
         switch (location) {
             case "DEAD_END":
-                Game.caterpillar.setLastAction("Dead End, find another direction, check MAP!");
+                Game.caterpillar.setLastAction("Dead End, You're trapped! Go another direction.");
                 GameAudio.playAudio("Leave");
                 break;
             case "Genesis":
@@ -141,10 +141,12 @@ public class Functions {
         if (Game.caterpillar.getCurrentLocation().isBossPresent()) {
             setBoss(getOddsOfTrue(Odds.HIGH));
         } else {
-            if (Game.caterpillar.getLevel() <= 6) {
+            if (Game.caterpillar.getLevel() <= 3) {
                 setBoss(getOddsOfTrue(Odds.LOW));
-            } else {
+            } else if (Game.caterpillar.getLevel() <= 6) {
                 setBoss(getOddsOfTrue(Odds.EVENS));
+            } else {
+                setBoss(getOddsOfTrue(Odds.HIGH));
             }
         }
     }
@@ -152,7 +154,7 @@ public class Functions {
 
     private static void setBoss(boolean isSet) {
         if (isSet) {
-            if(!Game.caterpillar.getCurrentLocation().isBossPresent()){
+            if (!Game.caterpillar.getCurrentLocation().isBossPresent()) {
                 GameAudio.playAudio("birdWaring");
             }
             Game.caterpillar.getCurrentLocation().setBossPresent(true);
