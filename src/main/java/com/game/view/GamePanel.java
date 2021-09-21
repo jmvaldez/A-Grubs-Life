@@ -86,7 +86,7 @@ public class GamePanel extends JPanel {
         TitledBorder SliderBoarder = new TitledBorder("Volume Control");
         SliderBoarder.setTitleColor(Color.GREEN);
         panel1.setBorder(SliderBoarder);
-        panel1.setPreferredSize(new Dimension(424, 70));
+        panel1.setPreferredSize(new Dimension(424, 100));
         inputPanel.add(panel1, BorderLayout.EAST);
 
 
@@ -154,7 +154,7 @@ public class GamePanel extends JPanel {
         inputPanel.setBackground(background);
         inputPanel.setPreferredSize(new Dimension(1000, 200));
         lastMoveLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-        lastMoveLabel.setPreferredSize(new Dimension(1024, 120)); //135
+        lastMoveLabel.setPreferredSize(new Dimension(1024, 125)); //135
 
 
         setUpInputField(inputPanel);
