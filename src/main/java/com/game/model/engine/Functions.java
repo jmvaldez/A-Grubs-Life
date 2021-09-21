@@ -70,7 +70,7 @@ public class Functions {
 
         switch (location) {
             case "DEAD_END":
-                Game.caterpillar.setLastAction("Dead End, find another direction, check MAP!");
+                Game.caterpillar.setLastAction("Dead End, You're trapped! Go another direction.");
                 GameAudio.playAudio("Leave");
                 break;
             case "Genesis":

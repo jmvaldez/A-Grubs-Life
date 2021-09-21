@@ -32,9 +32,9 @@ public class CommandProcessor {
                 GameAudio.playAudio("Recon");
                 break;
             case "GO":
-                processNavigation(focus);
-                enemyAttackFirst();
-                GameAudio.PlayGOAudio();
+                    processNavigation(focus);
+                    enemyAttackFirst();
+                    GameAudio.PlayGOAudio();
                 break;
             case "EAT":
                 processEating(focus);
@@ -49,6 +49,7 @@ public class CommandProcessor {
                 break;
         }
     }
+
 
     /*
      * enemyAttackFirst() executes the enemy attack if there is an enemy in the current area
@@ -76,39 +77,16 @@ public class CommandProcessor {
             int surpriseHitBonus = 5;
             GameAudio.PlayAttackAudio();
             Game.caterpillar.setHealth(Game.caterpillar.getHealth() - (enemy.getValue().getStrength() + surpriseHitBonus));
-            String enemyAttackBuilder = "You were spotted by the" +
+            String enemyAttackBuilder = "You were spotted by the " +
                     enemy.getValue().getName() +
-                    "They attack you for" +
+                    ". They attack you for " +
                     enemy.getValue().getStrength() +
-                    "damage";
+                    " damage";
             Game.caterpillar.setLastAction(enemyAttackBuilder);
         } else {
             Game.caterpillar.setLastAction("The Enemy didn't see you");
         }
     }
-
-
-//    private void enemyDefeated(Enemy enemy) {
-//        enemy.setHidden(true);
-//        enemy.setInCombat(false);
-//        caterpillar.setExperience(enemy.getExp());
-//
-//        //checks if enemy defeated is the squirrel to set end game criteria
-//        winnerWinnerSquirrelDinner(enemy);
-//
-////        caterpillar.levelUp();
-//
-//        caterpillar.setLastAction("You have defeated the mighty " + enemy.getName() + " \n " + caterpillar.getLastAction());
-//        GameAudio.PlayDefeatedAudio();
-//
-//    }
-//
-//    private void winnerWinnerSquirrelDinner(Enemy enemy) {
-//        if (enemy.getName().equalsIgnoreCase("squirrel")) {
-//            caterpillar.setWinner(true);
-//            caterpillar.setLastAction("You have defeated the mighty " + enemy.getName() + " \n" + "After beating the boss you find your mate! Together you can find the tree and live happily ever after \n ending the game");
-//        }
-//    }
 
     private void processAttack(String focus) {
         GameAudio.PlayAttackAudio();
@@ -144,9 +122,8 @@ public class CommandProcessor {
     private void processNavigation(String focus) {
         switch (focus.toLowerCase()) {
             case "north":
-                Game.caterpillar.setLastAction("You travel north.");
-                Functions.setCurrentLocationElement(Game.caterpillar.getCurrentLocation().getNorth().trim());
-
+                    Game.caterpillar.setLastAction("You travel north.");
+                    Functions.setCurrentLocationElement(Game.caterpillar.getCurrentLocation().getNorth().trim());
                 break;
 
             case "south":
@@ -171,6 +148,7 @@ public class CommandProcessor {
                 System.out.println("CommandProcessor/processNavigation user Typed: [ go " + focus + " ], Error");
         }
     }
+
 
     private void processDead(String focus) {
         switch (focus) {
