@@ -43,9 +43,7 @@ public class Game {
     public static JFrame helpWindow;
     public static Enemy boss;
     private static GamePanel gamePanel;
-    //    public static GameStoryPane gameStoryPanel;
     private static LogicEngine processor;
-    //    private static WelcomePanel welcomePanel;
     private static AnimationTimer animationTimer;
     private static HashMap<String, Location> locations;
     private static HashMap<String, Enemy> enemies;
@@ -56,11 +54,6 @@ public class Game {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-//                try {
-//                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-//                    ex.printStackTrace();
-//                }
                 creatWindow();
                 GameAudio.playAudio("welcomeScreen");
                 initWelcomePanel();
@@ -108,9 +101,6 @@ public class Game {
         window.repaint();
 
     }
-//    private static WelcomePanel welcomePanel;
-
-    //This should be called by the client to start a new game.
 
     public static HashMap<String, Location> getLocations() {
         return locations;
@@ -124,13 +114,6 @@ public class Game {
         return items;
     }
 
-//    private String getJsonStream(String filePath) throws IOException {
-//        byte[] data;
-//        InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(filePath));
-//        data = in.readAllBytes();
-//        return new String(data);
-//    }
-
     public static GamePanel getGamePanel() {
         return gamePanel;
     }
@@ -138,7 +121,6 @@ public class Game {
     public static LogicEngine getProcessor() {
         return processor;
     }
-
 
     private static void creatWindow() {
 

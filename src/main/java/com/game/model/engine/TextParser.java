@@ -105,7 +105,7 @@ public class TextParser {
             result.add(0, "DEAD");
             result.add(1, input.toUpperCase());
         } else {
-            Game.caterpillar.setLastAction("You are Dead, you can only type restart/quit");
+            Game.caterpillar.setLastAction("You are Dead, you can only type [ restart ] or [ quit ]");
             throw new DeadPlayerInputException();
 
         }

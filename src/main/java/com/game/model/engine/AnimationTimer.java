@@ -1,6 +1,7 @@
 package com.game.model.engine;
 
 import com.game.controller.Game;
+import com.game.util.GameAudio;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -39,14 +40,13 @@ public class AnimationTimer {
                 Game.getGamePanel().updateLabels();
 
             }
-
             int birdHarass = 3;
-
             private void setHarassAction() {
-                if (Game.caterpillar.getCurrentLocation().isBossPresent() && !Game.caterpillar.isDead()) {
+                if (Game.caterpillar.getCurrentLocation().isBossPresent() && !Game.caterpillar.isDead() && !Game.boss.isDead()) {
                     Game.caterpillar.setHealth(Game.caterpillar.getHealth() - birdHarass);
+                    GameAudio.playAudio("harrass");
                     Game.caterpillar.setLastAction("Bird took your " + birdHarass + " point health, you have " + Game.caterpillar.getHealth() + " point health left, better RUN NOW!!!");
-                    Game.caterpillar.checkDeath();
+//                    Game.caterpillar.checkDeath();
 
                 } else {
                     bossHarassTimer.stop();

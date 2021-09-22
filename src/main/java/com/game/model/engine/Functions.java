@@ -151,7 +151,6 @@ public class Functions {
         }
     }
 
-
     private static void setBoss(boolean isSet) {
         if (isSet) {
             if (!Game.caterpillar.getCurrentLocation().isBossPresent()) {
