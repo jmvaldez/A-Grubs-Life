@@ -11,11 +11,10 @@ public class Item {
     private int exp;
     private int rarity;
     private int qty;
-    private boolean isActive;
     private ImageIcon itemImageIcon;
 
 
-    public Item(String name, int health, int exp, int rarity){
+    public Item(String name, int health, int exp, int rarity) {
         this.name = name;
         this.health = health;
         this.exp = exp;
@@ -45,14 +44,6 @@ public class Item {
 
     public int getRarity() {
         return rarity;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     public ImageIcon getItemImageIcon() {

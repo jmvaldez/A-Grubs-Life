@@ -12,14 +12,6 @@
       "south": "Genesis",
       "east": "DEAD_END",
       "west": "DEAD_END",
-      "items": [
-        {
-          "Leaf": {
-            "health": 10,
-            "count": 3
-          }
-        }
-      ],
       "description": "Its pretty dark in here. Looks like an endless abyss leading nowhere. There are a ton of leaves on the ground."
     },
     "Hole": {
@@ -27,14 +19,6 @@
       "south": "DEAD_END",
       "east": "Genesis",
       "west": "DEAD_END",
-      "items": [
-        {
-          "Leaf": {
-            "health": 10,
-            "count": 3
-          }
-        }
-      ],
       "description": "A decrepit hole.. nothing much to do here except to try not to fall in."
     },
     "Lake": {
@@ -42,14 +26,6 @@
       "south": "DEAD_END",
       "east": "DEAD_END",
       "west": "DEAD_END",
-      "items": [
-        {
-          "Leaf": {
-            "health": 10,
-            "count": 3
-          }
-        }
-      ],
       "description": "A huge lake with murky looking water. I probably shouldn't drink it. It appears that the lake is rising quickly. "
     },
     "Windmill": {
@@ -57,14 +33,6 @@
       "south": "DEAD_END",
       "east": "Flowers",
       "west": "Genesis",
-      "items": [
-        {
-          "Leaf": {
-            "health": 10,
-            "count": 3
-          }
-        }
-      ],
       "description": "You are in the spiders den... don't get caught in the web."
     },
     "Hill": {
@@ -72,14 +40,6 @@
       "south": "Windmill",
       "east": "DEAD_END",
       "west": "DEAD_END",
-      "items": [
-        {
-          "Leaf": {
-            "health": 10,
-            "count": 3
-          }
-        }
-      ],
       "description": "I don't think this is an ordinary hill... watch out for ants."
     },
     "Flowers": {
@@ -87,14 +47,6 @@
       "south": "DEAD_END",
       "east": "Tree",
       "west": "Windmill",
-      "items": [
-        {
-          "Leaf": {
-            "health": 10,
-            "count": 3
-          }
-        }
-      ],
       "description": "The smell of flowers are making me hungry. I should be cautious of bees though."
     },
     "Tree": {
@@ -102,14 +54,6 @@
       "south": "DEAD_END",
       "east": "DEAD_END",
       "west": "Flowers",
-      "items": [
-        {
-          "Leaf": {
-            "health": 10,
-            "count": 3
-          }
-        }
-      ],
       "description": "A big tree... seems suitable for settling down if it weren't for that squirrel."
     }
   }

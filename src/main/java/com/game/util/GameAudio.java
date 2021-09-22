@@ -1,10 +1,15 @@
-package com.game.view;
+package com.game.util;
 
-import javax.sound.sampled.*;
-import java.io.IOException;
-
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class GameAudio {
+    public static void playAudio(String name) {
+        SetAudio(name + ".wav");
+    }
+
     public static void PlayWelcomeAudio() {
         SetAudio("Welcome.wav");
 
@@ -115,8 +120,9 @@ public class GameAudio {
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             gainControl.setValue(-10.0f);
             clip.start();
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Audio Import Error");
         }
+        ;
     }
 }

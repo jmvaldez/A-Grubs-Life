@@ -1,0 +1,20 @@
+{
+  "GameStory": {
+    "story1": {
+      "name": "story1",
+      "story": "<html>Once upon a time, there was a Caterpillar Family. <br>They lived on a oak tree in the Amazon rainforest...</html>"
+    },
+    "story2": {
+      "name": "story2",
+      "story": "<html>One day, a hungry American Robin bird attacked <br> this Caterpillar family.Only one baby Caterpillar <br> named Hermie could escape from the attack.</html>"
+    },
+    "story3": {
+      "name": "story3",
+      "story": "<html>Little Caterpillar Hermie planned to get revenge <br> from the Robin bird that attacked his family.</html>"
+    },
+    "story4": {
+      "name": "story4",
+      "story": "<html>Can you help Little Caterpillar Hermie to get revenge<br>  from his enemy before he turns in to a beautiful Butterfly???</html>"
+    }
+  }
+}

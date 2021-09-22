@@ -1,10 +1,10 @@
 package com.game.exception;
 
-public class InputLengthException extends RuntimeException{
+public class LivePlayerInputException extends RuntimeException {
     private String errorMessage;
 
 
-    public String getErrorMessage(){
+    public String getErrorMessage() {
         return "input words length Exception";
     }
 }

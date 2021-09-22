@@ -5,52 +5,140 @@ package com.game.controller;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.game.model.engine.AnimationTimer;
+import com.game.model.engine.Functions;
 import com.game.model.engine.JsonReader;
 import com.game.model.engine.LogicEngine;
 import com.game.model.materials.Caterpillar;
 import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.model.materials.Location;
-import com.game.view.ViewWindow;
-import com.game.view.GameAudio;
+import com.game.util.GameAudio;
+import com.game.view.GamePanel;
+import com.game.view.GameStoryPanel;
+import com.game.view.WelcomePanel;
+import com.game.view.WinnerPanel;
 
-
-import java.io.*;
-import java.util.*;
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Game {
 
-    public static Caterpillar caterpillar;
+    public static final int MAX_ENEMY_AND_ITEM_QTY_SETT_IN_ANIMATION_PANEL = 3;
+    public static final int LOCATION_ITEM_MIN_QTY = 1;
+    public static final int LOCATION_ITEM_MAX_QTY = 3;
+    public static final int LOCATION_ENEMY_MIN_QTY = 1;
+    public static final int LOCATION_ENEMY_MAX_QTY = 3;
+    public static final int ITEM_MIN_QTY = 1;
+    public static final int ITEM_MAX_QTY = 2;
+    public static final String IMAGE_PATH = "/image/";
 
+
+    public static Caterpillar caterpillar;
+    public static JFrame window;
+    public static JFrame helpWindow;
+    public static Enemy boss;
+    private static GamePanel gamePanel;
     private static LogicEngine processor;
-    private static ViewWindow viewWindow;
+    private static AnimationTimer animationTimer;
     private static HashMap<String, Location> locations;
     private static HashMap<String, Enemy> enemies;
     private static HashMap<String, Item> items;
 
 
+    public static void start() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                creatWindow();
+                GameAudio.playAudio("welcomeScreen");
+                initWelcomePanel();
+            }
+        });
+    }
 
+    public static void initWelcomePanel() {
+        WelcomePanel welcomePanel = new WelcomePanel();
+        window.add(welcomePanel);
+        welcomePanel.requestFocusInWindow();
+    }
 
-    //This should be called by the client to start a new game.
-
-    public void start() {
-        enemies = populateEnemies();
-        items = populateItems();
-        locations = populateLocations();
-
-        caterpillar = new Caterpillar(100, 0, 5);
-        caterpillar.setCurrentLocation("Genesis");
-        processor = new LogicEngine();
-        viewWindow = new ViewWindow();
-        viewWindow.initSidePanel();
-        GameAudio.PlayWelcomeAudio();
+    public static void initGameStoryPanel() {
+        window.getContentPane().removeAll();
+        GameStoryPanel gameStoryPanel = new GameStoryPanel();
+        window.add(gameStoryPanel);
+        gameStoryPanel.requestFocusInWindow();
+        gameStoryPanel.setUpGameStoryPanel();
 
     }
 
-    // Returns a map of locations based on external Json file
-    private HashMap<String, Location> populateLocations() {
+    public static void initWinnerPanel() {
+        window.getContentPane().removeAll();
+        WinnerPanel winnerPanel = new WinnerPanel();
+        window.add(winnerPanel);
+        winnerPanel.requestFocusInWindow();
+        winnerPanel.setWinnerPanel();
 
-        HashMap<String, Location> locations = new HashMap<>();
+    }
+
+    public static void initGame() {
+        Game.helpWindow = new JFrame("HELPER");
+        window.getContentPane().removeAll();
+        populateEnemies();
+        populateItems();
+        populateLocations();
+        populateBoss();
+        caterpillar = new Caterpillar();
+        Functions.setCurrentLocationElement("Genesis");
+        processor = new LogicEngine();
+        gamePanel = new GamePanel();
+        animationTimer = new AnimationTimer();
+        gamePanel.setUpGamePanel();
+        window.repaint();
+
+    }
+
+    public static HashMap<String, Location> getLocations() {
+        return locations;
+    }
+
+    public static HashMap<String, Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public static HashMap<String, Item> getItems() {
+        return items;
+    }
+
+    public static GamePanel getGamePanel() {
+        return gamePanel;
+    }
+
+    public static LogicEngine getProcessor() {
+        return processor;
+    }
+
+    private static void creatWindow() {
+
+        window = new JFrame("A Grub's Life.");
+        window.setLayout(new BorderLayout());
+        window.setPreferredSize(new Dimension(1024, 768));
+        window.setVisible(true);
+        window.setResizable(false);
+        window.setFocusable(true);
+//        this.window.setLocationRelativeTo(null);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.pack();
+    }
+
+    // Returns a map of locations based on external Json file
+    private static void populateLocations() {
+
+        locations = new HashMap<>();
 
         try {
 
@@ -76,27 +164,16 @@ public class Game {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
-        return locations;
     }
 
-//    private String getJsonStream(String filePath) throws IOException {
-//        byte[] data;
-//        InputStream in = Objects.requireNonNull(getClass().getResourceAsStream(filePath));
-//        data = in.readAllBytes();
-//        return new String(data);
-//    }
-
-    private HashMap<String, Enemy> populateEnemies() {
-        HashMap<String, Enemy> enemies = new HashMap<>();
-
+    private static void populateBoss() {
         try {
             String enemiesStream = JsonReader.getJsonStream("/json/Enemies.json");
 
             // passing in the jsonLocationFile as a string to be parsed into a JsonNode
             JsonNode node = JsonReader.parse(enemiesStream);
 
-            Iterator<Map.Entry<String, JsonNode>> nodes = node.get("Enemies").fields();
+            Iterator<Map.Entry<String, JsonNode>> nodes = node.get("Boss").fields();
 
             while (nodes.hasNext()) {
                 Map.Entry<String, JsonNode> entry = nodes.next();
@@ -106,22 +183,15 @@ public class Game {
                 int enemyStrength = entry.getValue().get("strength").asInt();
                 int enemyExp = entry.getValue().get("exp").asInt();
 
-                Enemy enemy = new Enemy(enemyName, enemyMaxHealth, enemyStrength);
-                enemies.put(enemyName, enemy);
-
-
+                boss = new Enemy(enemyName, enemyMaxHealth, enemyStrength, enemyExp);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
-        return enemies;
-
-
     }
 
-    private HashMap<String, Item> populateItems() {
-        HashMap<String, Item> items = new HashMap<>();
+    private static void populateItems() {
+        items = new HashMap<>();
 
         try {
 
@@ -147,29 +217,36 @@ public class Game {
             System.out.println(e.getMessage());
         }
 
-        return items;
-
-
     }
 
-    public static HashMap<String, Location> getLocations() {
-        return locations;
-    }
+    private static void populateEnemies() {
+        enemies = new HashMap<>();
 
-    public static HashMap<String, Enemy> getEnemies() {
-        return enemies;
-    }
+        try {
+            String enemiesStream = JsonReader.getJsonStream("/json/Enemies.json");
 
-    public static HashMap<String, Item> getItems() {
-        return items;
-    }
+            // passing in the jsonLocationFile as a string to be parsed into a JsonNode
+            JsonNode node = JsonReader.parse(enemiesStream);
 
-    public static ViewWindow getViewWindow() {
-        return viewWindow;
-    }
+            Iterator<Map.Entry<String, JsonNode>> nodes = node.get("Enemies").fields();
 
-    public static LogicEngine getProcessor() {
-        return processor;
+            while (nodes.hasNext()) {
+                Map.Entry<String, JsonNode> entry = nodes.next();
+
+                String enemyName = entry.getKey();
+                int enemyMaxHealth = entry.getValue().get("health").asInt();
+                int enemyStrength = entry.getValue().get("strength").asInt();
+                int enemyExp = entry.getValue().get("exp").asInt();
+
+                Enemy enemy = new Enemy(enemyName, enemyMaxHealth, enemyStrength, enemyExp);
+                enemies.put(enemyName, enemy);
+
+
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 }

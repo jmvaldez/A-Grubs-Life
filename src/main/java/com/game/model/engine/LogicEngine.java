@@ -2,8 +2,8 @@ package com.game.model.engine;
 
 import com.game.controller.Game;
 import com.game.exception.DeadPlayerInputException;
-import com.game.exception.InputLengthException;
-import com.game.view.GameAudio;
+import com.game.exception.LivePlayerInputException;
+import com.game.util.GameAudio;
 
 import java.util.ArrayList;
 
@@ -25,18 +25,21 @@ public class LogicEngine {
                 parsedInput = textParser.parserLiveInput(userInput);
             }
             commandProcessor.executeCommand(parsedInput);
-        } catch (InputLengthException e) {
-            System.out.println("Exception: [LogicEngine/processCommand/textParser/parseInput], Message: " + e.getMessage());
-            GameAudio.PlayICANTAudio();
-        } catch (DeadPlayerInputException e){
-            System.out.println("Exception: [LogicEngine/processCommand/textParser/parseInput], Message: " + e.getMessage());
-            GameAudio.PlayICANTAudio();
-        }
+            Functions.lotteryBossPresent();
 
-        catch (Exception e) {
-            System.out.println("Exception: [LogicEngine/processCommand], Message: " + e.getMessage());
-            GameAudio.PlayICANTAudio();
 
+        } catch (LivePlayerInputException | DeadPlayerInputException e) {
+            GameAudio.PlayICANTAudio();
+            System.out.println(
+                    "Exception: [LogicEngine/processCommand/textParser/parseInput], Message: " + e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            GameAudio.PlayICANTAudio();
+            System.out.println(
+                    "Exception: [LogicEngine/processCommand /textParser/parseInput], Message: " + e.getMessage());
+        } catch (Exception e) {
+            GameAudio.PlayICANTAudio();
+            System.out.println(
+                    "Exception: UNKNOWN from LogicEngine/processCommand, Message: " + e.getMessage());
         }
     }
 
