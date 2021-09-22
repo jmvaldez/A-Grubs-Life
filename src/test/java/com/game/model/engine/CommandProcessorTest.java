@@ -5,19 +5,26 @@ import com.game.model.materials.Enemy;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
 
 public class CommandProcessorTest {
 
+    CommandProcessor testingCommandProcessor = new CommandProcessor();
 
     @Before
-    public void setup(){
-        Caterpillar testingCat = new Caterpillar();
-        Enemy testingEnemyBoss = new Enemy("boss", 100, 100, 100);
-
+    public void setup() {
+//        Game.start();
+//        Game.initGame();
     }
 
     @Test
-    public void executeCommand() {
+    public void testExecuteCommandCommand() {
+//        testingCommandProcessor.executeCommand(new ArrayList<String>(Arrays.asList("attack", "bird")));
+//
+//        assertEquals(20, Game.caterpillar.getHealth());
+//        assertEquals(95, Game.boss.getHealth());
     }
 }

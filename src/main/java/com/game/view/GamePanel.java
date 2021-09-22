@@ -14,9 +14,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 public class GamePanel extends JPanel {
@@ -198,10 +197,7 @@ public class GamePanel extends JPanel {
         caterpillarImageLabel.setBounds(210, 190, 100, 100);
         actionImageLabel.setBounds(130, 130, 300, 130);
         actionAnimationLabel.setBounds(130, 30, 300, 280);
-        bossImageLabel.setBounds(10, 10 , 200 , 160);
-
-
-
+        bossImageLabel.setBounds(10, 10, 200, 160);
 
 
         animationPanel.add(actionAnimationLabel);
@@ -226,7 +222,6 @@ public class GamePanel extends JPanel {
 //            int enemyLabelYpos = 80 - 30 * ((i + 1) / 3);
             int enemyLabelXpos = 460 - i*100;
             int enemyLabelYpos = 110 - i*30;
-
 
 
             itemLabelList[i] = new JLabel();
@@ -671,7 +666,6 @@ public class GamePanel extends JPanel {
 //        panel1.setPreferredSize(new Dimension(424, 70));
 
 
-
 //        Game.window.add(panel1, BorderLayout.BEFORE_FIRST_LINE);
 
 
@@ -695,7 +689,6 @@ public class GamePanel extends JPanel {
             public void stateChanged(ChangeEvent e) {
                 int volume = slider.getValue();
                 //  status.setText(""+volume);
-                System.out.println(mu);
                 FloatControl newVolume = (FloatControl) mu.clip.getControl(FloatControl.Type.MASTER_GAIN);
                 newVolume.setValue(-10.0f);
                 newVolume.setValue((float) volume);

@@ -36,6 +36,9 @@ public class Enemy {
 
     public void setHealth(int health) {
         this.health = Math.max(health, 0);
+        if (this.health == 0){
+            setDead();
+        }
     }
 
 

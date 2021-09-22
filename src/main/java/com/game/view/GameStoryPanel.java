@@ -37,7 +37,7 @@ public class GameStoryPanel extends JPanel implements KeyListener {
         this.add(next);
 
         image.setBounds(250, 150, 540, 325);
-        text.setBounds(250, 480, 600, 120);
+        text.setBounds(220, 480, 600, 120);
         text.setForeground(Color.white);
         text.setFont(new Font("SANS_SERIF", Font.PLAIN, 25));
         next.setBounds(700, 650, 600, 50);
