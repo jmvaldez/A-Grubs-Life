@@ -45,8 +45,9 @@ public class AnimationTimer {
             private void setHarassAction() {
                 if (Game.caterpillar.getCurrentLocation().isBossPresent() && !Game.caterpillar.isDead()) {
                     Game.caterpillar.setHealth(Game.caterpillar.getHealth() - birdHarass);
+                    GameAudio.playAudio("harrass");
                     Game.caterpillar.setLastAction("Bird took your " + birdHarass + " point health, you have " + Game.caterpillar.getHealth() + " point health left, better RUN NOW!!!");
-                    Game.caterpillar.checkDeath();
+//                    Game.caterpillar.checkDeath();
 
                 } else {
                     bossHarassTimer.stop();

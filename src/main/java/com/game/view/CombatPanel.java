@@ -36,7 +36,7 @@ public class CombatPanel extends JPanel implements ActionListener {
 
 
     }
-
+//TODO:
     private void setImagePanel() {
         imagePanel.setLayout(null);
         imagePanel.setBounds(250, 150, 540, 325);

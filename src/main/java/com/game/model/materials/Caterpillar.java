@@ -106,6 +106,7 @@ public class Caterpillar {
 
         if (health <= 0) {
             this.health = 0;
+            this.checkDeath();
         } else {
             this.health = Math.min(health, levelMaxHealth);
         }

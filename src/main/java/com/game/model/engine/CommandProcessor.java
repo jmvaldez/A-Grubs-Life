@@ -6,6 +6,7 @@ import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 import com.game.util.GameAudio;
+import com.game.util.Odds;
 import com.game.view.HelpWindow;
 
 import javax.swing.*;
@@ -66,6 +67,7 @@ public class CommandProcessor {
                 break;
             case "GET":
                 HelpWindow.creatHelpWindow();
+                GameAudio.playAudio("help");
                 break;
 
         }
@@ -85,13 +87,13 @@ public class CommandProcessor {
                     .get();
             enemyAttackCalc(enemy);
             //check player death for enemy attack
-            Game.caterpillar.checkDeath();
+//            Game.caterpillar.checkDeath();
 
         } else {
             Game.caterpillar.setLastAction("No enemies in this area.");
         }
     }
-
+//DONE: change audio to ambush sound not Attack
     /*
      * enemyAttackCalc() does the damage calculation if the enemy succeeded in attacking first
      * if chance for action is true then we subtract player health based on enemy strength plus a surprise hit bonus
@@ -100,7 +102,7 @@ public class CommandProcessor {
     private void enemyAttackCalc(Map.Entry<String, Enemy> enemy) {
         if (Functions.chanceForAction(1, 10, 5)) {
             int surpriseHitBonus = 5;
-            GameAudio.PlayAttackAudio();
+            GameAudio.playAudio("Attack");
             Game.caterpillar.setHealth(Game.caterpillar.getHealth() - (enemy.getValue().getStrength() + surpriseHitBonus));
             String enemyAttackBuilder = "You were spotted by the " +
                     enemy.getValue().getName() +
@@ -121,7 +123,7 @@ public class CommandProcessor {
                 attackAnimationTimer.start();
             }
         };
-        new java.util.Timer().schedule(startAttackAnimation,500);
+        new java.util.Timer().schedule(startAttackAnimation,200);
 
     }
 
@@ -194,7 +196,7 @@ public class CommandProcessor {
         }
 
         Game.caterpillar.checkWin();
-        Game.caterpillar.checkDeath();
+//        Game.caterpillar.checkDeath();
 
     }
 
@@ -207,6 +209,11 @@ public class CommandProcessor {
 
         if (currentItem.getQty() <= 0) {
             Game.caterpillar.getCurrentLocation().getItems().remove(currentItem.getName());
+        }
+        if(Functions.getOddsOfTrue(Odds.LOW)){
+            GameAudio.playAudio("hurryUp");
+            Game.getGamePanel().actionAnimationLabel.setIcon(Functions.readImage("hurryUp"));
+            AnimationTimer.startActionImageTimer(2500);
         }
     }
 
@@ -256,6 +263,9 @@ public class CommandProcessor {
         switch (focus) {
             case "LEVEL":
                 Game.caterpillar.levelUp();
+                Game.getGamePanel().actionAnimationLabel.setIcon(Functions.readImage("rangerLeadTheWay"));
+                GameAudio.playAudio("ranger");
+                AnimationTimer.startActionImageTimer(3500);
                 Game.caterpillar.setLastAction("Who is your Dady");
                 break;
             case "HEALTH":
@@ -264,6 +274,9 @@ public class CommandProcessor {
                 break;
             case "STRENGTH":
                 Game.caterpillar.setStrength(Game.caterpillar.getStrength() + 10);
+                GameAudio.playAudio("strength");
+                Game.getGamePanel().actionAnimationLabel.setIcon(Functions.readImage("strength"));
+                AnimationTimer.startActionImageTimer(4000);
                 Game.caterpillar.setLastAction("Who is your Grandpa");
                 break;
             case "AMAZON":

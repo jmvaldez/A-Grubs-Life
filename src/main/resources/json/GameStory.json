@@ -2,7 +2,7 @@
   "GameStory": {
     "story1": {
       "name": "story1",
-      "story": "Good Day"
+      "story": "<html>Once upon a time, there was a Caterpillar Family. <br>They lived on a oak tree in the Amazon rainforest...</html>"
     },
     "story2": {
       "name": "story2",

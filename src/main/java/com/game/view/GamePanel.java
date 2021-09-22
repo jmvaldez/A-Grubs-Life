@@ -207,7 +207,7 @@ public class GamePanel extends JPanel {
         animationPanel.add(actionAnimationLabel);
         animationPanel.add(actionImageLabel);
         animationPanel.add(healthIncreaImageLabel);
-
+        animationPanel.add(caterpillarImageLabel);
 
         for (int enemyHPImagePixel = 0; enemyHPImagePixel < 10; enemyHPImagePixel ++){
             bossHPLabelList[enemyHPImagePixel] = new JLabel();
@@ -249,7 +249,7 @@ public class GamePanel extends JPanel {
             animationPanel.add(enemyHPLabelList[i]);
 
         }
-        animationPanel.add(caterpillarImageLabel);
+
         animationPanel.add(backgroundLabel);
 
         Game.window.add(descriptionPanel, BorderLayout.CENTER);
@@ -662,7 +662,7 @@ public class GamePanel extends JPanel {
     }
 
     private void SliderSetup(){
-        // Set the panel to add buttons
+//        Set the panel to add buttons
 //        panel1 = new JPanel();
 //        panel1.setBackground(new Color(0,0,0));
 //        TitledBorder SliderBoarder = new TitledBorder("Volume Control");
@@ -695,6 +695,7 @@ public class GamePanel extends JPanel {
             public void stateChanged(ChangeEvent e) {
                 int volume = slider.getValue();
                 //  status.setText(""+volume);
+                System.out.println(mu);
                 FloatControl newVolume = (FloatControl) mu.clip.getControl(FloatControl.Type.MASTER_GAIN);
                 newVolume.setValue(-10.0f);
                 newVolume.setValue((float) volume);
