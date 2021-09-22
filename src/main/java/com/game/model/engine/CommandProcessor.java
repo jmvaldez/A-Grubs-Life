@@ -65,7 +65,7 @@ public class CommandProcessor {
                 GameAudio.playAudio("Cheat");
                 break;
             case "GET":
-                HelpWindow.creatHelpWindow();
+                HelpWindow.createHelpWindow();
                 break;
 
         }
