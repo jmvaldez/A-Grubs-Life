@@ -40,9 +40,7 @@ public class AnimationTimer {
                 Game.getGamePanel().updateLabels();
 
             }
-
             int birdHarass = 3;
-
             private void setHarassAction() {
                 if (Game.caterpillar.getCurrentLocation().isBossPresent() && !Game.caterpillar.isDead() && !Game.boss.isDead()) {
                     Game.caterpillar.setHealth(Game.caterpillar.getHealth() - birdHarass);

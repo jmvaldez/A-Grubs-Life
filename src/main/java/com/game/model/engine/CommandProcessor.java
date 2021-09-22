@@ -66,6 +66,7 @@ public class CommandProcessor {
                 GameAudio.playAudio("Cheat");
                 break;
             case "GET":
+                HelpWindow.createHelpWindow();
                 GameAudio.playAudio("help");
                 break;
 
@@ -220,7 +221,6 @@ public class CommandProcessor {
             case "north":
                 Game.caterpillar.setLastAction("You travel north.");
                 Functions.setCurrentLocationElement(Game.caterpillar.getCurrentLocation().getNorth().trim());
-
                 break;
 
             case "south":
@@ -245,6 +245,7 @@ public class CommandProcessor {
                 System.out.println("CommandProcessor/processNavigation user Typed: [ go " + focus + " ], Error");
         }
     }
+
 
     private void processDead(String focus) {
         switch (focus) {
