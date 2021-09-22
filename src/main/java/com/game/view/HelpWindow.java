@@ -16,7 +16,7 @@ public class HelpWindow {
         Game.helpWindow.setResizable(false);
         Game.helpWindow.setFocusable(true);
 //        this.window.setLocationRelativeTo(null);
-        Game.helpWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Game.helpWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Game.helpWindow.pack();
 
         Game.helpWindow.setBackground(Color.black);
