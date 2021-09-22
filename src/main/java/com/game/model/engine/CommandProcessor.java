@@ -6,6 +6,7 @@ import com.game.model.materials.Enemy;
 import com.game.model.materials.Item;
 import com.game.model.materials.Location;
 import com.game.util.GameAudio;
+import com.game.util.Odds;
 import com.game.view.HelpWindow;
 
 import javax.swing.*;
@@ -65,7 +66,6 @@ public class CommandProcessor {
                 GameAudio.playAudio("Cheat");
                 break;
             case "GET":
-                HelpWindow.creatHelpWindow();
                 GameAudio.playAudio("help");
                 break;
 
